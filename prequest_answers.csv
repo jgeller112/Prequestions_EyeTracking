@@ -1,0 +1,11 @@
+Question,Points,Answer,Condition,questnum
+What percent of the global budget does the Gates Foundation devote toward the eradication of polio,1,17%,Polio,1
+Is there a cure for polio?,1,no,Polio,2
+In which countries is polio still a major concern?,4,"Nigeria, India, Pakistan, and Afghanistan",Polio,3
+What measures are included in the modern treatment of polio?,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",Polio,4
+What are the symptoms of tuberculosis?,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",TB,5
+What percentage of new infections will turn into active cases of tuberculosis?,1,10%,TB,6
+What is the treatment for tuberculosis?,3,a long-term course of two antibiotics to kill the bacteria.,TB,7
+Can people with latent tuberculosis spread the disease?,1,no,TB,8
+How is tuberculosis spread through the air?,3,"cough, sneeze, or spit",TB,9
+"Since the development of the polio vaccine, the global number of polio cases per year has dropped from ______ to ______. ",2,many hundreds of thousands to around a thousand,Polio,10
