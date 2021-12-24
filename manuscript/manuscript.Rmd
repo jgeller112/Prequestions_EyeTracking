@@ -1,9 +1,9 @@
 ---
-title             : "The title"
-shorttitle        : "Title"
+title             : "Selective Processing of Prequestioned Information: An Eye-Tracking Study"
+shorttitle        : "Prequestions and Eye-tracking"
 
 author: 
-  - name          : "First Author"
+  - name          : "Jason Geller"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
     address       : "Postal address"
@@ -12,16 +12,16 @@ author:
       - Conceptualization
       - Writing - Original Draft Preparation
       - Writing - Review & Editing
-  - name          : "Ernst-August Doelle"
-    affiliation   : "1,2"
+  - name          : "Shane Carpenter"
+    affiliation   : "2"
     role:
       - Writing - Review & Editing
 
 affiliation:
   - id            : "1"
-    institution   : "Wilhelm-Wundt-University"
+    institution   : "Rutgers Center for Cognitive Science"
   - id            : "2"
-    institution   : "Konstanz Business School"
+    institution   : "Iowa State University"
 
 authornote: |
   Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
