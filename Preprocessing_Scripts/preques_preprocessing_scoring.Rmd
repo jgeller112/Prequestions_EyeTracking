@@ -287,18 +287,12 @@ proportion for each question type (Polio and TB)
 
 
 ```{r}
-
 #<-rbind(scored_output_ctl$DF_Scored, scored_output_po$DF_Scored, scored_output_tb$DF_Scored)
 scored <- read_csv(here::here("Scored_Data", "pilot_scored_data", "all_scored_jg.csv"))
                    
-setwd(here::here("Summary_Data"))                  
-
 scored_agg<- scored %>%
    dplyr::mutate(group=ifelse(expName=="preQ", "Polio", ifelse(expName=="preQ_control", "control", "TB"))) %>% 
-  dplyr::group_by(Sub.ID, group, Condition) %>%
-  dplyr::summarise(mean_acc=sum(earned_points)/12) %>%
-  tidyr::pivot_wider(names_from = "Condition", values_from = "mean_acc") %>%
-  write.csv(., file="preq.csv")
+  dplyr::group_by(Sub.ID, group, Condition, Points)
 
 knitr::kable(scored_agg)
 
@@ -306,5 +300,42 @@ knitr::kable(scored_agg)
 
 # Visualize
 
+```{r}
+
+library(modelbased)
+
+scored <- read_csv(here::here("Scored_Data", "pilot_scored_data", "all_scored_jg.csv"))
+                   
+
+scored <- scored %>% 
+  dplyr::select(Sub.ID, expName, questnum, Condition, Points, earned_points) %>%    
+  dplyr::filter(expName!="preQ_TB") %>%
+  dplyr::mutate(earned_points=ifelse(earned_points==4.5, 4, earned_points), group=ifelse(expName=='preQ', "Prequestion Group", "Control Group"), condition=ifelse(Condition=="Polio", "Prequestioned", "Non-prequestioned")) %>%
+  dplyr::mutate(prop=earned_points/Points)
+
+model1 <- glmer(earned_points/Points~ group*condition+ (1|Sub.ID),  weights=Points, family=binomial, data=scored) 
+
+```
 
 
+```{r}
+# 3. Plot
+
+d=ggplot(scored, aes(x = group, y = prop)) + facet_grid(~ condition) + 
+
+  # Add pointrange and line from means
+  #geom_line(data = means, aes(y = Mean, group = 1), size = 1) +
+  geom_pointrange(
+    data = contrasts,
+    aes(y = Probability, ymin = CI_low, ymax = CI_high),
+    size = 1,
+    color = "black"
+  ) +
+  # Improve colors
+  scale_fill_material() +
+  theme_modern()
+
+d
+
+
+```

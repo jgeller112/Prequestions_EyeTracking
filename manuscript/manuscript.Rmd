@@ -1,13 +1,13 @@
 ---
-title             : "Selective Processing of Prequestioned Information: An Eye-Tracking Study"
+title             : "Selective Processing of Prequestioned Information: A Registed Eye-Tracking Report"
 shorttitle        : "Prequestions and Eye-tracking"
 
 author: 
   - name          : "Jason Geller"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
-    address       : "Postal address"
-    email         : "my@email.com"
+    address       : "Rutgers University Center for Cognitive Science (RuCCS), 152 Frelinghuysen Road, Busch Campus, piscataway, New Jersey 08854"
+    email         : "jason.geller@ruccs.rutgers.edu"
     role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
       - Conceptualization
       - Writing - Original Draft Preparation
@@ -15,6 +15,8 @@ author:
   - name          : "Shane Carpenter"
     affiliation   : "2"
     role:
+      - Conceptualization
+       - Writing - Original Draft Preparation
       - Writing - Review & Editing
 
 affiliation:
@@ -29,21 +31,8 @@ authornote: |
   Enter author note here.
 
 abstract: |
-  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  Students that are given prequestions(questions given before a learning episode) show better memory for relevant material related to the prequestions than non-prequestioned information—called the pretrevial effect. The main aim of the present study is to examine one possible explanation for this benefit—namely, prequestions serve to orient students to important information while less attention is placed on non-prequestioned information. We want to evaluate this selective processing hypothesis by collecting data on eye movement behavior while participants read a short passage. We predict that if prequestions serve to orient attention towards prequestioned information particpants will spend more time studying sentences containing prequestioned information than non-prequestionedd informationed as evinced by total gaze duration, re-reading duration, and number of regressions back sentences containing prequestioned information. 
   
-  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
-  
-  One sentence clearly stating the **general problem** being addressed by  this particular study.
-  
-  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
-  
-  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
-  
-  One or two sentences to put the results into a more **general context**.
-  
-  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
-  
-  <!-- https://tinyurl.com/ybremelq -->
   
 keywords          : "keywords"
 wordcount         : "X"
@@ -75,23 +64,141 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
 
+To date, only one study (to our knowlegde) has used eye-tracking to examine how students deploy their attention during reading. Lewis and Mensink (2012) had students read a text about humanitarian efforts of the Gates Foundation. One group received prequestions before reading (e.g., “What causes Tuberculosis to spread through the air?”), and the other group simply read the passage without seeing any prequestions beforehand. While reading, the eye movements of each student were
+recorded using a head-mounted eye-tracking device. Students’ eye movements revealed a specific pattern in which students who received prequestions (compared to students who did not) focused their attention more on the prequestioned information in the reading. That is, if students received prequestions before reading, they spent a longer amount of time re-reading parts of sentences that were directly relevant to those prequestions (e.g., “Tuberculosis is spread through the air when people
+who have the disease cough, sneeze, or spit”), and they also spent a longer amount of time looking back to these relevant sentences after they had moved on to the subsequent parts of the reading passage. However, for sentences in the reading that were not directly relevant to the prequestions, no differences in re-reading time occurred for students who received prequestions compared to students ho did not. On an essay test in which students were asked to recall everything they could remember from the reading passage, the group that received prequestions recalled about twice as much of the prequestioned information as the control group, but they did not recall more of the non-prequestioned  information. Thus, the specific benefits of prequestions occurred (but not the general benefits), and these specific benefits appear to be linked with where students focused their attention during reading.
 
-# Methods
+
+# Current Study
+
+
+## Hypotheses
+
+In a prequestion study, three key comparisons are typically made. First, what is the overall score on the post-test for the Prequestion Group compared to the Control Group? This gives us an idea of the overall benefit of prequestions for enhancing learning. Second, what is the Prequestion Group’s score on the
+post-test specifically for prequestioned information, compared to the Control Group’s overall post-test score on the entire set of questions? This gives us a closer look at the benefits of prequestions by focusing on learning of the information from the lesson that was specifically addressed in the prequestions. If prequestions enhance learning of information that was specifically addressed in those prequestions, this can be referred to as the “specific benefit” of prequestions. Finally, what is the
+Prequestion Group’s score on the post-test for non-prequestioned information, compared to the Control Group’s overall post-test score on the entire set of questions? This gives us an idea of whether the benefits of prequestions generalize to information from the lesson that was not addressed in the prequestions. As such, this can be referred to as the “general benefit” of prequestions. As described below, the research on prequestions sometimes shows specific benefits, sometimes general benefits,
+and sometimes both
+
+Eye measures: FIXATION Ratios and Durations:  
+
+Total Duration - The total duration of all fixations in a target region.  
+
+# regressions to sentences 
+
+ Re-reading Duration - The difference between Regression Path Duration and Gaze Duration. 
+
+Longer time spent rereading prequestions material 
+
+# Method
+
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
 ## Participants
 
-## Material
+## Power Analysis
+
+We based our sample size on a simulation-based power analysis using the  `mixedpower` package in R (@kumle2021). The simulation power analysis was based on pilot data we collected via SONA using the PsychoPy experiment platform (@Pierce2018) and the Pavlovia server (www.pavlovia.org) from November until the end of the Fall semester. The script to run this power analysis is located on our OSF page here: . The results of this analysis suggested we would need to collect 80 participants (40 in each group) to have 80% power to detect a specific effect of prequestions. Given this, our goal was to run 80 participants. It is important to note that this is also twice the sample size @meskinicl2012 ran in there experiment 2, which this study is closely based on.
+
+```{r}
+# install mixedpower
+if (!require("devtools")) {
+    install.packages("devtools", dependencies = TRUE)}
+devtools::install_github("DejanDraschkow/mixedpower") # mixedpower is hosted on GitHub
+
+# load library
+library(mixedpower)
+```
+
+```{r, eval=FALSE}
+library(tidyverse)
+library(lme4)
+library(glmmTMB)
+library(gamlss)
+library(emmeans)
+
+scored <- read_csv(here::here("Scored_Data", "pilot_scored_data", "all_scored_jg.csv"))
+                   
+
+head(scored)
+
+scored_polio <- scored %>% 
+  dplyr::filter(expName!="preQ_TB") %>%
+  dplyr::select(Sub.ID, expName, questnum, Condition, earned_points) %>%
+  dplyr::filter(Condition=="Polio") %>%
+  dplyr::mutate(totalscore=6)
+
+
+model1 <- glmer(earned_points/totalscore~ expName + (1|Sub.ID)+ (1|questnum),  family="binomial", weights=totalscore, data=scored_polio)
+
+summary(model1)
+report(model1)
+emmeans(model1, "expName")
+
+pairs(emmeans(model1, "expName"))
+
+```
+
+```{r, eval=FALSE}
+
+library(mixedpower)
+# ------------------------------------------ #
+# RUN SIMULATION
+power_FLP <- mixedpower(model = model1, data = scored_polio,
+                        fixed_effects = c("expName"), 
+                        simvar = "Sub.ID", steps = c(50,60,70,80,100),
+                        critical_value = 2, n_sim = 1000)
+```
+
+```{r, eval=FALSE}
+# ------------------------------------------ #
+# PLOT RESULTS
+multiplotPower(power_FLP)
+```
+## Materials
+
+Participants will read a 690 word, multi-topic text from @meskinicl2012 that discussed the Gates Foundation’s role in eradicating Polio and TB taken in the developing world (see this link for the text: ). The text consisted of 39 sentences, and was presented over five computer screens ranging in length from 8 to 11 lines. Sentence topics were divided into two categories (Polio and TB sentences). We selected five polio sentences and five TB sentences from the text. The polio sentences served as the prequestion condition while the TB sentences served as the control condition. Ten short-answer questions were written for each selected sentence. over the text (see here: ). The total number of points participants could receive is 12 points. Questions could either be percentage-based, yes/no, or multi-part. 
 
 ## Procedure
 
-## Data analysis
-We used `r cite_r("r-references.bib")` for all our analyses.
+At the start of the experiment, each participant will be randomly assigned to one of two instructional groups (the Prequestion Group or the Control Group). Prior to the text being shown, the Prequestion Group will answer five questions presented in a random order. Participants will be informed that although they may not know the correct answers to these questions, they should give their best guess. Responses will be typed into a box on the computer screen while the question will be presented directly above it. Participants will have unlimited time to enter their responses and will be instructed to press a triangle at the bottom of the screen when they are finished. Feedback will not be provided after the prequestions. After answering the five prequestions, but before reading the text, an experimenter will calibrate an Eyelink 1000 desktop-mounted eyetracker developed by SR Research Ltd., based in Ottawa, Ontario, Canada using a 9-point calibration. The eye-tracker will be set to sample at 1000 Hz.
+
+The Control Group will follow the same procedure, without answering prequestions.
+
+Following the text, both groups were given a distractor task known as the president recognition task (@Roediger and ??) that will last approximately 10 minutes. After the distractor task, participants in  will be given a final test containing all ten questions over the text. For participants in the Prequestion Group, five of the
+questions will be the same prequestions seen before, while five of the questions will had not seen before. Thus, for each participant in the Prequestion Group, a unique set of questions on the final test will tqp prequestioned and non-prequestioned information. For participants in the Control Group, the same 10 questions will serve as non-prequestioned information. For each participant, the order of the 12 questions on the final test wil lbe randomized. Participants will have unlimited time to enter their responses to each question using the same answering format as with the prequestions, and feedback will not be provided. 
+
+Following the completion of the final test, participants
+will answer a question concerning whether they had any detailed
+knowledge of the material covered in the text prior to participating in the experiment. Upon completing this question,
+participants will be thanked and debriefed. The entire procedure
+will last less than 20 min.
+
+## Norming Study
+
+To ensure that our materials elicited a prequestioned effect we ran a pilot study target sentences were perceived as relevant,
+we conducted a norming study that used the SONA participant pool together with PsychoPy and Pavlovia. We collected data from 300 participants online. 
 
 
-# Results
+## Statistical Design
 
-# Discussion
+All models will be analyzed using a 2 (Prequestion: Prequestion vs. Control) x 2 (Sentence Type: Polio vs. TB) mixed design. Instruction Type was presented between-subjects, and Sentence Type was repeated within-subjects. Both Group and Sentence Type will be sum coded (0.5, -0.5) which provides coefficents that can be interpreted similar to a standard ANOVA model. 
+
+# Proportion Correct
+
+The DV is number of points earned for answering each question. Because we are modeling proportions (points earned on each question/total points) we fit a binomial mixed model to predict proportion correct on polio questions as a function of group type (prequstioned vs. control). We then used this pilot data to calculate power for our main comparison of interest (Prequestion > Control). 
+
+A binomial mixed model (estimated using ML and Nelder-Mead optimizer) will be used. (formula: earned_points ~ expName). The model included subejct and question as random effects. 
+
+# Gaze Duration
+
+# Re-reading Duration
+
+A linear mixed model
+
+
+## Recall Scoring
+
+Each short-answer question was worth a different point total. Each question will be scored as fully correct, partially correct, or incorrect. Two independent raters will score the responses. Answers along with point totals can be found here:. 
 
 
 \newpage
