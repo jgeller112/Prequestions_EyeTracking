@@ -66,6 +66,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 To date, only one study (to our knowlegde) has used eye-tracking to examine how students deploy their attention during reading. Lewis and Mensink (2012) had students read a text about humanitarian efforts of the Gates Foundation. One group received prequestions before reading (e.g., “What causes Tuberculosis to spread through the air?”), and the other group simply read the passage without seeing any prequestions beforehand. While reading, the eye movements of each student were
 recorded using a head-mounted eye-tracking device. Students’ eye movements revealed a specific pattern in which students who received prequestions (compared to students who did not) focused their attention more on the prequestioned information in the reading. That is, if students received prequestions before reading, they spent a longer amount of time re-reading parts of sentences that were directly relevant to those prequestions (e.g., “Tuberculosis is spread through the air when people
+
 who have the disease cough, sneeze, or spit”), and they also spent a longer amount of time looking back to these relevant sentences after they had moved on to the subsequent parts of the reading passage. However, for sentences in the reading that were not directly relevant to the prequestions, no differences in re-reading time occurred for students who received prequestions compared to students ho did not. On an essay test in which students were asked to recall everything they could remember from the reading passage, the group that received prequestions recalled about twice as much of the prequestioned information as the control group, but they did not recall more of the non-prequestioned  information. Thus, the specific benefits of prequestions occurred (but not the general benefits), and these specific benefits appear to be linked with where students focused their attention during reading.
 
 
@@ -185,16 +186,15 @@ All models will be analyzed using a 2 (Prequestion: Prequestion vs. Control) x 2
 
 # Proportion Correct
 
-The DV is number of points earned for answering each question. Because we are modeling proportions (points earned on each question/total points) we fit a binomial mixed model to predict proportion correct on polio questions as a function of group type (prequstioned vs. control). We then used this pilot data to calculate power for our main comparison of interest (Prequestion > Control). 
+The DV is number of proportion correct for each question. Because we are modeling proportions (points earned on each question/ question total) we fit a binomial mixed model to predict proportion correct on polio questions as a function of group type (prequestioned vs. control). We then used this pilot data to calculate power for our main comparison of interest (Prequestion > Control). 
 
-A binomial mixed model (estimated using ML and Nelder-Mead optimizer) will be used. (formula: earned_points ~ expName). The model included subejct and question as random effects. 
+A binomial mixed model (estimated using ML and Nelder-Mead optimizer) will be used. (formula: earned_points ~ expName). The model included subject and question as random effects. 
 
 # Gaze Duration
 
 # Re-reading Duration
 
 A linear mixed model
-
 
 ## Recall Scoring
 
