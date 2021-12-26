@@ -242,34 +242,6 @@ knitr::kable(count(df_merge_po, participant, Question))
 
 ```
 
-```{r}
-
-library(lrd)
-
-df_merge_po$textbox_2.text[is.na(df_merge_po$textbox_2.text)] <- "" # does not work if NAs exists
-
-df_po <- as.data.frame(df_merge_po) # needs to be data frame
-
-df_po$trial_id<-rep(1:870) # needs to have unique rows for some reason 
-# run lrd 
-df_po$sentences <- df_po$Answer 
-
-df_po <- select(df_po, -Answer)
-
-
-scored_output_po <- prop_correct_sentence(data = df_po,
- responses = "textbox_2.text",
- key = "sentences", # answer cant be column bc lrd uses it
- key.trial = "trial_id",
- id = "participant",
- id.trial = "trial_id",
- cutoff = 3,
- flag = TRUE,
- group.by = "Condition",
- token.split = " ")
-
-```
-
 # Scored Data
 
 Here we do a few thins: 
@@ -278,27 +250,8 @@ Here we do a few thins:
 
 2. Read in in the scored data file contained in the  "Scored_Data" folder
 
-3. Sum up the earned points
-
-4. Divide by 12 (the total number of points)
-
-5. Pivot wider so for each group (Control, Polio Prequestions, TB Prequestions), we get a
-proportion for each question type (Polio and TB)
 
 
-```{r}
-#<-rbind(scored_output_ctl$DF_Scored, scored_output_po$DF_Scored, scored_output_tb$DF_Scored)
-scored <- read_csv(here::here("Scored_Data", "pilot_scored_data", "all_scored_jg.csv"))
-                   
-scored_agg<- scored %>%
-   dplyr::mutate(group=ifelse(expName=="preQ", "Polio", ifelse(expName=="preQ_control", "control", "TB"))) %>% 
-  dplyr::group_by(Sub.ID, group, Condition, Points)
-
-knitr::kable(scored_agg)
-
-```
-
-# Visualize
 
 ```{r}
 
@@ -311,15 +264,21 @@ scored <- scored %>%
   dplyr::select(Sub.ID, expName, questnum, Condition, Points, earned_points) %>%    
   dplyr::filter(expName!="preQ_TB") %>%
   dplyr::mutate(earned_points=ifelse(earned_points==4.5, 4, earned_points), group=ifelse(expName=='preQ', "Prequestion Group", "Control Group"), condition=ifelse(Condition=="Polio", "Prequestioned", "Non-prequestioned")) %>%
-  dplyr::mutate(prop=earned_points/Points)
+  dplyr::mutate(prop=earned_points/Points, total=12) %>%
+  drop_na()
 
-model1 <- glmer(earned_points/Points~ group*condition+ (1|Sub.ID),  weights=Points, family=binomial, data=scored) 
+scored=transform(scored, unit=1:nrow(scored)) # for overdisperion
+
+model1 <- glmer(earned_points/Points~ group*condition+ (1|Sub.ID),  weights=Points, family=binomial, contrasts = list(group="contr.sum", condition="contr.sum"),  data=scored) 
+
 
 ```
 
 
 ```{r}
 # 3. Plot
+contrasts=estimate_means(model1)
+
 
 d=ggplot(scored, aes(x = group, y = prop)) + facet_grid(~ condition) + 
 
