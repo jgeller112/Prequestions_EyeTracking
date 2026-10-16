@@ -1,0 +1,109 @@
+---
+title: "Prequestion Analyses"
+subtitle: "Prequestions and Attention: Condition (Control / Polio / TB prequestions) × Sentence Topic (Polio / TB)"
+author: "Jason Geller"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
+    embed-resources: true
+    df-print: paged
+execute:
+  warning: false
+  message: false
+  cache: false
+# R code runs from the project root (one level up), so paths such as data/... work
+knitr:
+  opts_knit:
+    root.dir: ".."
+---
+
+## Overview
+
+Performance on the prequestions, which participants in the Polio and TB conditions
+answered before reading (five questions on their topic, 12 points). Responses were
+scored by `grade_prequestions.R` (rules in `scoring_rubric.R`). Sample and exclusions as
+in `R/data.R`.
+
+```{r}
+#| label: setup
+# Shared setup and data (R/setup.R, R/data.R); run from the project root
+if (!exists("dat")) {
+  source("R/setup.R")
+  source("R/data.R")
+}
+```
+
+## Prequestion scores
+
+```{r}
+#| label: preq-perf
+# Prequestion performance (data/derived/preq_scored_participants.csv, from grade_prequestions.R)
+# for the analysed participants
+preq_perf <- read_csv("data/derived/preq_scored_participants.csv", show_col_types = FALSE) |>
+  filter(et_id %in% levels(dat$participant)) |>
+  transmute(participant = et_id, condition = recode(et_group, Po = "Polio"), topic,
+            pre = points / max_points, attempted = n_answered / n_questions)
+stopifnot(n_distinct(preq_perf$participant) ==
+            sum(n_by_cond$n[n_by_cond$condition != "Control"]))
+preq_by_cond <- preq_perf |>
+  group_by(condition) |>
+  summarise(n = n(), pre_m = mean(pre), pre_sd = sd(pre), att_m = mean(attempted),
+            .groups = "drop")
+
+kable(preq_by_cond, digits = 3,
+      caption = "Prequestion scores (proportion of the 12 points; attempted = proportion of prequestions answered)")
+```
+
+## Prequestion accuracy by condition
+
+```{r}
+#| label: preq-model
+# Prequestion accuracy, TB vs. Polio condition: binomial mixed model of points earned on
+# each prequestion (out of the question's maximum), analysed participants only, with
+# random intercepts for participants and questions (each condition answered its own five
+# questions, which differ in difficulty). This is the maximal random-effects structure:
+# condition varies between participants and between questions, so no random slopes are
+# possible. Means and the difference are on the response scale (percentage points),
+# averaging model predictions over all participants and all ten questions
+# (estimate = "average", as elsewhere).
+preq_items <- read_csv("data/derived/preq_scored_items.csv", show_col_types = FALSE) |>
+  filter(et_id %in% levels(dat$participant)) |>
+  transmute(participant = factor(et_id),
+            condition = factor(recode(et_group, Po = "Polio"), levels = c("Polio", "TB")),
+            question = factor(questnum), points, max_points)
+preq_glmm <- glmer(cbind(points, max_points - points) ~ condition + (1 | participant) +
+                     (1 | question), data = preq_items, family = binomial,
+                   control = glmerControl(optimizer = "bobyqa"))
+preq_cond_means <- as.data.frame(estimate_means(preq_glmm, by = "condition",
+                                                backend = "marginaleffects", estimate = "average"))
+preq_cond_diff <- as.data.frame(estimate_contrasts(preq_glmm, contrast = "condition",
+                                                   backend = "marginaleffects", estimate = "average"))
+stopifnot(as.character(preq_cond_diff$Level1) == "TB")
+
+# text helpers (used by the manuscript)
+pq_pct <- \(x) paste0(fmt_num(100 * x, 1), "%")
+PQ_diff <- with(preq_cond_diff, sprintf("%s percentage points, 95%% CI [%s, %s], *z* = %s, %s",
+                                        fmt_num(100 * Difference, 1), fmt_num(100 * CI_low, 1),
+                                        fmt_num(100 * CI_high, 1), fmt_num(z, 2),
+                                        sub("^p", "*p*", apa_p(p))))
+PQ_mean <- \(cnd) pq_pct(filter(preq_cond_means, condition == cnd)$Probability)
+PQ <- function(cnd, col) pq_pct(filter(preq_by_cond, condition == cnd)[[col]])
+
+preq_cond_means |>
+  transmute(Condition = condition, `Estimated score` = pq_pct(Probability),
+            `95% CI` = fmt_ci(100 * CI_low, 100 * CI_high, 1)) |>
+  kable(caption = "Prequestion score by condition (binomial GLMM, participant and question random intercepts)")
+```
+
+TB − Polio: `r PQ_diff`.
+
+## Session info
+
+```{r}
+#| label: session
+sessionInfo()
+```

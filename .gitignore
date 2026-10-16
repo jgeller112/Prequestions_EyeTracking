@@ -1,3 +1,11 @@
-.Rproj.user
+# targets bookkeeping (rebuilt by targets::tar_make())
+_targets/
+# Quarto / knitr intermediates
+.quarto/
+*_files/
 .Rhistory
 .RData
+.Rproj.user/
+# OS and editor clutter
+.DS_Store
+~$*

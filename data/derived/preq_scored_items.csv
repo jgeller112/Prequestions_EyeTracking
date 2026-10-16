@@ -1,0 +1,531 @@
+file,psychopy_id,psychopy_group,response,questnum,topic,max_points,answer,points,credited,blank,id_norm,et_id,et_group
+144_preQ_2025-04-09_13h25.43.685.csv,(144,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P144,P144,TB
+144_preQ_2025-04-09_13h25.43.685.csv,(144,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P144,P144,TB
+144_preQ_2025-04-09_13h25.43.685.csv,(144,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P144,P144,TB
+144_preQ_2025-04-09_13h25.43.685.csv,(144,tb,NA,6,TB,1,10%,0,,TRUE,P144,P144,TB
+144_preQ_2025-04-09_13h25.43.685.csv,(144,tb,NA,8,TB,1,no,0,,TRUE,P144,P144,TB
+P01_preQ_2024-11-13_11h58.42.153.csv,P01,po,"200,000 20,000",10,Polio,2,many hundreds of thousands to around a thousand,1,from_hundreds_of_thousands,FALSE,P1,P01,Po
+P01_preQ_2024-11-13_11h58.42.153.csv,P01,po,vaccine response rate,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P1,P01,Po
+P01_preQ_2024-11-13_11h58.42.153.csv,P01,po,south africa,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P1,P01,Po
+P01_preQ_2024-11-13_11h58.42.153.csv,P01,po,73%,1,Polio,1,17%,0,,FALSE,P1,P01,Po
+P01_preQ_2024-11-13_11h58.42.153.csv,P01,po,yes,2,Polio,1,no,0,,FALSE,P1,P01,Po
+P02_preQ_2024-11-13_12h39.19.124.csv,P02,tb,No,8,TB,1,no,1,no,FALSE,P2,P02,TB
+P02_preQ_2024-11-13_12h39.19.124.csv,P02,tb,I have no idea,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P2,P02,TB
+P02_preQ_2024-11-13_12h39.19.124.csv,P02,tb,34%,6,TB,1,10%,0,,FALSE,P2,P02,TB
+P02_preQ_2024-11-13_12h39.19.124.csv,P02,tb,I do not know,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P2,P02,TB
+P02_preQ_2024-11-13_12h39.19.124.csv,P02,tb,"Coughing, These sort of hardened capsules of bacteria in lungs",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P2,P02,TB
+P04_preQ_2024-11-13_13h32.46.568.csv,P04,po,i don't know,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P4,P04,Po
+P04_preQ_2024-11-13_13h32.46.568.csv,P04,po,i don't know,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P4,P04,Po
+P04_preQ_2024-11-13_13h32.46.568.csv,P04,po,yes,2,Polio,1,no,0,,FALSE,P4,P04,Po
+P04_preQ_2024-11-13_13h32.46.568.csv,P04,po,30,1,Polio,1,17%,0,,FALSE,P4,P04,Po
+P04_preQ_2024-11-13_13h32.46.568.csv,P04,po,i don't know,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P4,P04,Po
+P05_preQ_2024-11-13_14h03.33.453.csv,P05,tb,I don't know,6,TB,1,10%,0,,TRUE,P5,P05,TB
+P05_preQ_2024-11-13_14h03.33.453.csv,P05,tb,I don't know,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P5,P05,TB
+P05_preQ_2024-11-13_14h03.33.453.csv,P05,tb,I don't know,8,TB,1,no,0,,TRUE,P5,P05,TB
+P05_preQ_2024-11-13_14h03.33.453.csv,P05,tb,I don't know,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P5,P05,TB
+P05_preQ_2024-11-13_14h03.33.453.csv,P05,tb,I don't know,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P5,P05,TB
+P10_preQ_2024-11-15_11h03.30.569.csv,P10,po,I don't know,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P10,P10,Po
+P10_preQ_2024-11-15_11h03.30.569.csv,P10,po,vaccines,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P10,P10,Po
+P10_preQ_2024-11-15_11h03.30.569.csv,P10,po,"1 million, 100,000",10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P10,P10,Po
+P10_preQ_2024-11-15_11h03.30.569.csv,P10,po,"yes, a vaccine",2,Polio,1,no,0,,FALSE,P10,P10,Po
+P10_preQ_2024-11-15_11h03.30.569.csv,P10,po,5%,1,Polio,1,17%,0,,FALSE,P10,P10,Po
+P100_preQ_2025-03-14_14h19.58.023.csv,P100,po,yes,2,Polio,1,no,0,,FALSE,P100,P100,Po
+P100_preQ_2025-03-14_14h19.58.023.csv,P100,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P100,P100,Po
+P100_preQ_2025-03-14_14h19.58.023.csv,P100,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P100,P100,Po
+P100_preQ_2025-03-14_14h19.58.023.csv,P100,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P100,P100,Po
+P100_preQ_2025-03-14_14h19.58.023.csv,P100,po,NA,1,Polio,1,17%,0,,TRUE,P100,P100,Po
+P101_preQ_2025-03-14_15h00.47.242.csv,P101,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P101,P101,TB
+P101_preQ_2025-03-14_15h00.47.242.csv,P101,tb,20%,6,TB,1,10%,0,,FALSE,P101,P101,TB
+P101_preQ_2025-03-14_15h00.47.242.csv,P101,tb,No,8,TB,1,no,1,no,FALSE,P101,P101,TB
+P101_preQ_2025-03-14_15h00.47.242.csv,P101,tb,Coughing blood,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P101,P101,TB
+P101_preQ_2025-03-14_15h00.47.242.csv,P101,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P101,P101,TB
+P104_preQ_2025-03-19_12h35.20.795.csv,P104,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P104,P104po,Po
+P104_preQ_2025-03-19_12h35.20.795.csv,P104,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P104,P104po,Po
+P104_preQ_2025-03-19_12h35.20.795.csv,P104,po,10,1,Polio,1,17%,0,,FALSE,P104,P104po,Po
+P104_preQ_2025-03-19_12h35.20.795.csv,P104,po,NA,2,Polio,1,no,0,,TRUE,P104,P104po,Po
+P104_preQ_2025-03-19_12h35.20.795.csv,P104,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P104,P104po,Po
+P105_preQ_2025-03-19_13h13.10.592.csv,P105,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P105,P105,TB
+P105_preQ_2025-03-19_13h13.10.592.csv,P105,tb,no,8,TB,1,no,1,no,FALSE,P105,P105,TB
+P105_preQ_2025-03-19_13h13.10.592.csv,P105,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P105,P105,TB
+P105_preQ_2025-03-19_13h13.10.592.csv,P105,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P105,P105,TB
+P105_preQ_2025-03-19_13h13.10.592.csv,P105,tb,NA,6,TB,1,10%,0,,TRUE,P105,P105,TB
+P107_preQ_2025-03-19_15h02.13.241.csv,P107,po,Blood,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P107,P107,Po
+P107_preQ_2025-03-19_15h02.13.241.csv,P107,po,2,1,Polio,1,17%,0,,FALSE,P107,P107,Po
+P107_preQ_2025-03-19_15h02.13.241.csv,P107,po,yes,2,Polio,1,no,0,,FALSE,P107,P107,Po
+P107_preQ_2025-03-19_15h02.13.241.csv,P107,po,none,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P107,P107,Po
+P107_preQ_2025-03-19_15h02.13.241.csv,P107,po,"10000, 100",10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P107,P107,Po
+P109_preQ_2025-03-20_12h05.48.015.csv,P109,po,NA,1,Polio,1,17%,0,,TRUE,P109,P109,Po
+P109_preQ_2025-03-20_12h05.48.015.csv,P109,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P109,P109,Po
+P109_preQ_2025-03-20_12h05.48.015.csv,P109,po,there is a vaccine,2,Polio,1,no,0,,FALSE,P109,P109,Po
+P109_preQ_2025-03-20_12h05.48.015.csv,P109,po,vaccination,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P109,P109,Po
+P109_preQ_2025-03-20_12h05.48.015.csv,P109,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P109,P109,Po
+P11_preQ_2024-11-15_11h36.09.300.csv,P11,tb,"Headache, sores, bodily pain",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,FALSE,P11,P11,TB
+P11_preQ_2024-11-15_11h36.09.300.csv,P11,tb,Yes,8,TB,1,no,0,,FALSE,P11,P11,TB
+P11_preQ_2024-11-15_11h36.09.300.csv,P11,tb,Vaccine,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P11,P11,TB
+P11_preQ_2024-11-15_11h36.09.300.csv,P11,tb,Don't know,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P11,P11,TB
+P11_preQ_2024-11-15_11h36.09.300.csv,P11,tb,0.01%,6,TB,1,10%,0,,FALSE,P11,P11,TB
+P111_preQ_2025-03-21_13h07.47.750.csv,P111,tb,coughing,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P111,P111,TB
+P111_preQ_2025-03-21_13h07.47.750.csv,P111,tb,molecules,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P111,P111,TB
+P111_preQ_2025-03-21_13h07.47.750.csv,P111,tb,yes,8,TB,1,no,0,,FALSE,P111,P111,TB
+P111_preQ_2025-03-21_13h07.47.750.csv,P111,tb,30%,6,TB,1,10%,0,,FALSE,P111,P111,TB
+P111_preQ_2025-03-21_13h07.47.750.csv,P111,tb,medication,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P111,P111,TB
+P113_preQ_2025-03-21_14h05.47.154.csv,P113,po,i dont know,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P113,P113,Po
+P113_preQ_2025-03-21_14h05.47.154.csv,P113,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P113,P113,Po
+P113_preQ_2025-03-21_14h05.47.154.csv,P113,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P113,P113,Po
+P113_preQ_2025-03-21_14h05.47.154.csv,P113,po,no,2,Polio,1,no,1,no,FALSE,P113,P113,Po
+P113_preQ_2025-03-21_14h05.47.154.csv,P113,po,NA,1,Polio,1,17%,0,,TRUE,P113,P113,Po
+P114_preQ_2025-03-21_15h01.29.126.csv,P114,tb,Antibiotics/antibacterial,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,1,antibiotics,FALSE,P114,P114,TB
+P114_preQ_2025-03-21_15h01.29.126.csv,P114,tb,I do not know,8,TB,1,no,0,,TRUE,P114,P114,TB
+P114_preQ_2025-03-21_15h01.29.126.csv,P114,tb,I do not know,6,TB,1,10%,0,,TRUE,P114,P114,TB
+P114_preQ_2025-03-21_15h01.29.126.csv,P114,tb,Bacterial pathogens,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P114,P114,TB
+P114_preQ_2025-03-21_15h01.29.126.csv,P114,tb,"Flu-like symptoms, can cross blood-brain barrier",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,FALSE,P114,P114,TB
+P116_preQ_2025-03-26_13h02.22.608.csv,P116,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P116,P116,Po
+P116_preQ_2025-03-26_13h02.22.608.csv,P116,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P116,P116,Po
+P116_preQ_2025-03-26_13h02.22.608.csv,P116,po,NA,1,Polio,1,17%,0,,TRUE,P116,P116,Po
+P116_preQ_2025-03-26_13h02.22.608.csv,P116,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P116,P116,Po
+P116_preQ_2025-03-26_13h02.22.608.csv,P116,po,yes,2,Polio,1,no,0,,FALSE,P116,P116,Po
+P117_preQ_2025-03-26_13h37.55.583.csv,P117,tb,vomitting fever hallucination,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,fever,FALSE,P117,P117,TB
+P117_preQ_2025-03-26_13h37.55.583.csv,P117,tb,"coughing, small spaces (spreads faster)",9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P117,P117,TB
+P117_preQ_2025-03-26_13h37.55.583.csv,P117,tb,im guessing no as latent sounds like a less severe form,8,TB,1,no,1,no,FALSE,P117,P117,TB
+P117_preQ_2025-03-26_13h37.55.583.csv,P117,tb,in 2025 probably a smaller percentage because of the advanced technology so 2.7%,6,TB,1,10%,0,,FALSE,P117,P117,TB
+P117_preQ_2025-03-26_13h37.55.583.csv,P117,tb,drugs,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P117,P117,TB
+P119_preQ_2025-03-26_14h40.36.565.csv,P119,po,"isolation,",4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P119,P119,Po
+P119_preQ_2025-03-26_14h40.36.565.csv,P119,po,"1 million to 500,000",10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P119,P119,Po
+P119_preQ_2025-03-26_14h40.36.565.csv,P119,po,yes,2,Polio,1,no,0,,FALSE,P119,P119,Po
+P119_preQ_2025-03-26_14h40.36.565.csv,P119,po,third world countries,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P119,P119,Po
+P119_preQ_2025-03-26_14h40.36.565.csv,P119,po,NA,1,Polio,1,17%,0,,TRUE,P119,P119,Po
+P120_preQ_2025-03-26_15h05.06.970.csv,P120,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P120,P120,TB
+P120_preQ_2025-03-26_15h05.06.970.csv,P120,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P120,P120,TB
+P120_preQ_2025-03-26_15h05.06.970.csv,P120,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P120,P120,TB
+P120_preQ_2025-03-26_15h05.06.970.csv,P120,tb,NA,6,TB,1,10%,0,,TRUE,P120,P120,TB
+P120_preQ_2025-03-26_15h05.06.970.csv,P120,tb,NA,8,TB,1,no,0,,TRUE,P120,P120,TB
+P122_preQ_2025-03-26_16h02.51.174.csv,P122,po,no,2,Polio,1,no,1,no,FALSE,P122,P122,Po
+P122_preQ_2025-03-26_16h02.51.174.csv,P122,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P122,P122,Po
+P122_preQ_2025-03-26_16h02.51.174.csv,P122,po,nigeria,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",1,nigeria,FALSE,P122,P122,Po
+P122_preQ_2025-03-26_16h02.51.174.csv,P122,po,NA,1,Polio,1,17%,0,,TRUE,P122,P122,Po
+P122_preQ_2025-03-26_16h02.51.174.csv,P122,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P122,P122,Po
+P123_preQ_2025-03-28_12h36.52.866.csv,P123,tb,No,8,TB,1,no,1,no,FALSE,P123,P123,TB
+P123_preQ_2025-03-28_12h36.52.866.csv,P123,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P123,P123,TB
+P123_preQ_2025-03-28_12h36.52.866.csv,P123,tb,None,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P123,P123,TB
+P123_preQ_2025-03-28_12h36.52.866.csv,P123,tb,NA,6,TB,1,10%,0,,TRUE,P123,P123,TB
+P123_preQ_2025-03-28_12h36.52.866.csv,P123,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P123,P123,TB
+P125_preQ_2025-03-28_14h10.46.689.csv,P125,po,Congo,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P125,P125,Po
+P125_preQ_2025-03-28_14h10.46.689.csv,P125,po,Vaccination,2,Polio,1,no,0,,FALSE,P125,P125,Po
+P125_preQ_2025-03-28_14h10.46.689.csv,P125,po,NA,1,Polio,1,17%,0,,TRUE,P125,P125,Po
+P125_preQ_2025-03-28_14h10.46.689.csv,P125,po,Vaccination at a young age,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P125,P125,Po
+P125_preQ_2025-03-28_14h10.46.689.csv,P125,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P125,P125,Po
+P128_preQ_2025-03-28_16h06.21.311.csv,P128,tb,fatigue,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,FALSE,P128,P128,TB
+P128_preQ_2025-03-28_16h06.21.311.csv,P128,tb,NA,6,TB,1,10%,0,,TRUE,P128,P128,TB
+P128_preQ_2025-03-28_16h06.21.311.csv,P128,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P128,P128,TB
+P128_preQ_2025-03-28_16h06.21.311.csv,P128,tb,bacteria,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P128,P128,TB
+P128_preQ_2025-03-28_16h06.21.311.csv,P128,tb,NA,8,TB,1,no,0,,TRUE,P128,P128,TB
+P129_preQ_2025-03-28_17h00.02.303.csv,P129,po,no,2,Polio,1,no,1,no,FALSE,P129,P129,Po
+P129_preQ_2025-03-28_17h00.02.303.csv,P129,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P129,P129,Po
+P129_preQ_2025-03-28_17h00.02.303.csv,P129,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P129,P129,Po
+P129_preQ_2025-03-28_17h00.02.303.csv,P129,po,NA,1,Polio,1,17%,0,,TRUE,P129,P129,Po
+P129_preQ_2025-03-28_17h00.02.303.csv,P129,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P129,P129,Po
+P13_preQ_2024-11-15_12h33.56.066.csv,P13,po,NA,1,Polio,1,17%,0,,TRUE,P13,P13,Po
+P13_preQ_2024-11-15_12h33.56.066.csv,P13,po,Yes,2,Polio,1,no,0,,FALSE,P13,P13,Po
+P13_preQ_2024-11-15_12h33.56.066.csv,P13,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P13,P13,Po
+P13_preQ_2024-11-15_12h33.56.066.csv,P13,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P13,P13,Po
+P13_preQ_2024-11-15_12h33.56.066.csv,P13,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P13,P13,Po
+P130_preQ_2025-04-02_13h03.51.206.csv,P130,tb,NA,8,TB,1,no,0,,TRUE,P130,P130,TB
+P130_preQ_2025-04-02_13h03.51.206.csv,P130,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P130,P130,TB
+P130_preQ_2025-04-02_13h03.51.206.csv,P130,tb,NA,6,TB,1,10%,0,,TRUE,P130,P130,TB
+P130_preQ_2025-04-02_13h03.51.206.csv,P130,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P130,P130,TB
+P130_preQ_2025-04-02_13h03.51.206.csv,P130,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P130,P130,TB
+P132_preQ_2025-04-02_14h35.18.479.csv,P132,po,NA,1,Polio,1,17%,0,,TRUE,P132,P132a,Po
+P132_preQ_2025-04-02_14h35.18.479.csv,P132,po,yes,2,Polio,1,no,0,,FALSE,P132,P132a,Po
+P132_preQ_2025-04-02_14h35.18.479.csv,P132,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P132,P132a,Po
+P132_preQ_2025-04-02_14h35.18.479.csv,P132,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P132,P132a,Po
+P132_preQ_2025-04-02_14h35.18.479.csv,P132,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P132,P132a,Po
+P133_preQ_2025-04-02_15h03.46.155.csv,P133,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P133,P133,TB
+P133_preQ_2025-04-02_15h03.46.155.csv,P133,tb,NA,6,TB,1,10%,0,,TRUE,P133,P133,TB
+P133_preQ_2025-04-02_15h03.46.155.csv,P133,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P133,P133,TB
+P133_preQ_2025-04-02_15h03.46.155.csv,P133,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P133,P133,TB
+P133_preQ_2025-04-02_15h03.46.155.csv,P133,tb,NA,8,TB,1,no,0,,TRUE,P133,P133,TB
+P135_preQ_2025-04-03_12h04.10.741.csv,P135,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P135,P135,Po
+P135_preQ_2025-04-03_12h04.10.741.csv,P135,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P135,P135,Po
+P135_preQ_2025-04-03_12h04.10.741.csv,P135,po,african,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P135,P135,Po
+P135_preQ_2025-04-03_12h04.10.741.csv,P135,po,NA,1,Polio,1,17%,0,,TRUE,P135,P135,Po
+P135_preQ_2025-04-03_12h04.10.741.csv,P135,po,yes,2,Polio,1,no,0,,FALSE,P135,P135,Po
+P136_preQ_2025-04-03_12h35.33.834.csv,P136,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P136,P136,TB
+P136_preQ_2025-04-03_12h35.33.834.csv,P136,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P136,P136,TB
+P136_preQ_2025-04-03_12h35.33.834.csv,P136,tb,NA,8,TB,1,no,0,,TRUE,P136,P136,TB
+P136_preQ_2025-04-03_12h35.33.834.csv,P136,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P136,P136,TB
+P136_preQ_2025-04-03_12h35.33.834.csv,P136,tb,NA,6,TB,1,10%,0,,TRUE,P136,P136,TB
+P139_preQ_2025-04-04_14h00.22.913.csv,P139,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P139,P139,Po
+P139_preQ_2025-04-04_14h00.22.913.csv,P139,po,NA,1,Polio,1,17%,0,,TRUE,P139,P139,Po
+P139_preQ_2025-04-04_14h00.22.913.csv,P139,po,Third world countries in Africa?,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P139,P139,Po
+P139_preQ_2025-04-04_14h00.22.913.csv,P139,po,Yes,2,Polio,1,no,0,,FALSE,P139,P139,Po
+P139_preQ_2025-04-04_14h00.22.913.csv,P139,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P139,P139,Po
+P14_preQ_2024-11-15_13h00.34.261.csv,P14,tb,idk,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P14,P14,TB
+P14_preQ_2024-11-15_13h00.34.261.csv,P14,tb,i dont know,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P14,P14,TB
+P14_preQ_2024-11-15_13h00.34.261.csv,P14,tb,i dont know,8,TB,1,no,0,,TRUE,P14,P14,TB
+P14_preQ_2024-11-15_13h00.34.261.csv,P14,tb,i dont know,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P14,P14,TB
+P14_preQ_2024-11-15_13h00.34.261.csv,P14,tb,i dont know,6,TB,1,10%,0,,TRUE,P14,P14,TB
+P140_preQ_2025-04-04_15h05.48.802.csv,P140,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P140,P140,TB
+P140_preQ_2025-04-04_15h05.48.802.csv,P140,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P140,P140,TB
+P140_preQ_2025-04-04_15h05.48.802.csv,P140,tb,NA,6,TB,1,10%,0,,TRUE,P140,P140,TB
+P140_preQ_2025-04-04_15h05.48.802.csv,P140,tb,NA,8,TB,1,no,0,,TRUE,P140,P140,TB
+P140_preQ_2025-04-04_15h05.48.802.csv,P140,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P140,P140,TB
+P142_preQ_2025-04-09_13h05.28.063.csv,P142,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P142,P142,Po
+P142_preQ_2025-04-09_13h05.28.063.csv,P142,po,germany,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P142,P142,Po
+P142_preQ_2025-04-09_13h05.28.063.csv,P142,po,2%,1,Polio,1,17%,0,,FALSE,P142,P142,Po
+P142_preQ_2025-04-09_13h05.28.063.csv,P142,po,200 to 15,10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P142,P142,Po
+P142_preQ_2025-04-09_13h05.28.063.csv,P142,po,no,2,Polio,1,no,1,no,FALSE,P142,P142,Po
+P146_preQ_2025-04-09_14h36.27.845.csv,P146,po,NA,1,Polio,1,17%,0,,TRUE,P146,P146,Po
+P146_preQ_2025-04-09_14h36.27.845.csv,P146,po,70,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P146,P146,Po
+P146_preQ_2025-04-09_14h36.27.845.csv,P146,po,yes,2,Polio,1,no,0,,FALSE,P146,P146,Po
+P146_preQ_2025-04-09_14h36.27.845.csv,P146,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P146,P146,Po
+P146_preQ_2025-04-09_14h36.27.845.csv,P146,po,a shot,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P146,P146,Po
+P147_preQ_2025-04-09_15h11.33.421.csv,P147,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P147,P147,TB
+P147_preQ_2025-04-09_15h11.33.421.csv,P147,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P147,P147,TB
+P147_preQ_2025-04-09_15h11.33.421.csv,P147,tb,NA,8,TB,1,no,0,,TRUE,P147,P147,TB
+P147_preQ_2025-04-09_15h11.33.421.csv,P147,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P147,P147,TB
+P147_preQ_2025-04-09_15h11.33.421.csv,P147,tb,NA,6,TB,1,10%,0,,TRUE,P147,P147,TB
+P150_preQ_2025-04-11_13h08.32.853.csv,P150,po,vaccines,2,Polio,1,no,0,,FALSE,P150,P150,Po
+P150_preQ_2025-04-11_13h08.32.853.csv,P150,po,8,1,Polio,1,17%,0,,FALSE,P150,P150,Po
+P150_preQ_2025-04-11_13h08.32.853.csv,P150,po,4000000; 1500,10,Polio,2,many hundreds of thousands to around a thousand,1,to_about_a_thousand,FALSE,P150,P150,Po
+P150_preQ_2025-04-11_13h08.32.853.csv,P150,po,Some african countries,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P150,P150,Po
+P150_preQ_2025-04-11_13h08.32.853.csv,P150,po,Iron lung,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P150,P150,Po
+P151_preQ_2025-04-11_13h35.40.188.csv,P151,tb,NA,6,TB,1,10%,0,,TRUE,P151,P151,TB
+P151_preQ_2025-04-11_13h35.40.188.csv,P151,tb,through droplets of saliva or respiration,9,TB,3,"cough, sneeze, or spit",1,spit,FALSE,P151,P151,TB
+P151_preQ_2025-04-11_13h35.40.188.csv,P151,tb,coughing,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P151,P151,TB
+P151_preQ_2025-04-11_13h35.40.188.csv,P151,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P151,P151,TB
+P151_preQ_2025-04-11_13h35.40.188.csv,P151,tb,NA,8,TB,1,no,0,,TRUE,P151,P151,TB
+P154_preQ_2025-04-16_14h07.29.238.csv,P154,tb,i don't know,8,TB,1,no,0,,TRUE,P154,P154,TB
+P154_preQ_2025-04-16_14h07.29.238.csv,P154,tb,i don't know,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P154,P154,TB
+P154_preQ_2025-04-16_14h07.29.238.csv,P154,tb,droplets/particles?,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P154,P154,TB
+P154_preQ_2025-04-16_14h07.29.238.csv,P154,tb,i don't know,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P154,P154,TB
+P154_preQ_2025-04-16_14h07.29.238.csv,P154,tb,i don't know,6,TB,1,10%,0,,TRUE,P154,P154,TB
+P158_preQ_2025-04-22_14h41.40.149.csv,P158,tb,"coughing, shortness of breath, excess mucus, etc",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P158,P158,TB
+P158_preQ_2025-04-22_14h41.40.149.csv,P158,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P158,P158,TB
+P158_preQ_2025-04-22_14h41.40.149.csv,P158,tb,Special antibiotics that target the pathogen,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,1,antibiotics,FALSE,P158,P158,TB
+P158_preQ_2025-04-22_14h41.40.149.csv,P158,tb,NA,6,TB,1,10%,0,,TRUE,P158,P158,TB
+P158_preQ_2025-04-22_14h41.40.149.csv,P158,tb,NA,8,TB,1,no,0,,TRUE,P158,P158,TB
+P159_preQ_2025-04-22_15h29.45.082.csv,P159,tb,"Coughing, Sneezing",9,TB,3,"cough, sneeze, or spit",2,"cough, sneeze",FALSE,P159,P159,TB
+P159_preQ_2025-04-22_15h29.45.082.csv,P159,tb,N/A,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P159,P159,TB
+P159_preQ_2025-04-22_15h29.45.082.csv,P159,tb,Yes,8,TB,1,no,0,,FALSE,P159,P159,TB
+P159_preQ_2025-04-22_15h29.45.082.csv,P159,tb,I don't know,6,TB,1,10%,0,,TRUE,P159,P159,TB
+P159_preQ_2025-04-22_15h29.45.082.csv,P159,tb,"Mucus, Coughing",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P159,P159,TB
+P16_preQ_2024-11-15_14h01.07.503.csv,P16,po,isolation,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P16,P16,Po
+P16_preQ_2024-11-15_14h01.07.503.csv,P16,po,no,2,Polio,1,no,1,no,FALSE,P16,P16,Po
+P16_preQ_2024-11-15_14h01.07.503.csv,P16,po,1500 500,10,Polio,2,many hundreds of thousands to around a thousand,1,to_about_a_thousand,FALSE,P16,P16,Po
+P16_preQ_2024-11-15_14h01.07.503.csv,P16,po,Germany,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P16,P16,Po
+P16_preQ_2024-11-15_14h01.07.503.csv,P16,po,10,1,Polio,1,17%,0,,FALSE,P16,P16,Po
+P160_preQ_2025-04-23_13h06.16.226.csv,P160,tb,NA,6,TB,1,10%,0,,TRUE,P160,P160,TB
+P160_preQ_2025-04-23_13h06.16.226.csv,P160,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P160,P160,TB
+P160_preQ_2025-04-23_13h06.16.226.csv,P160,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P160,P160,TB
+P160_preQ_2025-04-23_13h06.16.226.csv,P160,tb,NA,8,TB,1,no,0,,TRUE,P160,P160,TB
+P160_preQ_2025-04-23_13h06.16.226.csv,P160,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P160,P160,TB
+P161_preQ_2025-04-23_13h32.34.924.csv,P161,tb,Medications,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P161,P161,TB
+P161_preQ_2025-04-23_13h32.34.924.csv,P161,tb,Yes,8,TB,1,no,0,,FALSE,P161,P161,TB
+P161_preQ_2025-04-23_13h32.34.924.csv,P161,tb,25%,6,TB,1,10%,0,,FALSE,P161,P161,TB
+P161_preQ_2025-04-23_13h32.34.924.csv,P161,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P161,P161,TB
+P161_preQ_2025-04-23_13h32.34.924.csv,P161,tb,Sneezing,9,TB,3,"cough, sneeze, or spit",1,sneeze,FALSE,P161,P161,TB
+P162_preQ_2025-04-23_14h06.13.767.csv,P162,po,No,2,Polio,1,no,1,no,FALSE,P162,P162,Po
+P162_preQ_2025-04-23_14h06.13.767.csv,P162,po,Vaccination at young age,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P162,P162,Po
+P162_preQ_2025-04-23_14h06.13.767.csv,P162,po,500000:10000,10,Polio,2,many hundreds of thousands to around a thousand,1,from_hundreds_of_thousands,FALSE,P162,P162,Po
+P162_preQ_2025-04-23_14h06.13.767.csv,P162,po,Northern Africa,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P162,P162,Po
+P162_preQ_2025-04-23_14h06.13.767.csv,P162,po,12%,1,Polio,1,17%,0,,FALSE,P162,P162,Po
+P163_preQ_2025-04-23_14h39.58.586.csv,P163,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P163,P163,TB
+P163_preQ_2025-04-23_14h39.58.586.csv,P163,tb,coughing/touching,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P163,P163,TB
+P163_preQ_2025-04-23_14h39.58.586.csv,P163,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P163,P163,TB
+P163_preQ_2025-04-23_14h39.58.586.csv,P163,tb,NA,8,TB,1,no,0,,TRUE,P163,P163,TB
+P163_preQ_2025-04-23_14h39.58.586.csv,P163,tb,NA,6,TB,1,10%,0,,TRUE,P163,P163,TB
+P164_preQ_2025-04-24_12h48.18.024.csv,P164,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P164,P164,Po
+P164_preQ_2025-04-24_12h48.18.024.csv,P164,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P164,P164,Po
+P164_preQ_2025-04-24_12h48.18.024.csv,P164,po,NA,2,Polio,1,no,0,,TRUE,P164,P164,Po
+P164_preQ_2025-04-24_12h48.18.024.csv,P164,po,NA,1,Polio,1,17%,0,,TRUE,P164,P164,Po
+P164_preQ_2025-04-24_12h48.18.024.csv,P164,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P164,P164,Po
+P165_preQ_2025-04-24_13h08.41.853.csv,P165,tb,yes,8,TB,1,no,0,,FALSE,P165,P165,TB
+P165_preQ_2025-04-24_13h08.41.853.csv,P165,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P165,P165,TB
+P165_preQ_2025-04-24_13h08.41.853.csv,P165,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P165,P165,TB
+P165_preQ_2025-04-24_13h08.41.853.csv,P165,tb,"fever, headache",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,fever,FALSE,P165,P165,TB
+P165_preQ_2025-04-24_13h08.41.853.csv,P165,tb,1,6,TB,1,10%,0,,FALSE,P165,P165,TB
+P166_preQ_2025-04-24_13h33.55.522.csv,P166,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P166,P166,Po
+P166_preQ_2025-04-24_13h33.55.522.csv,P166,po,Africa,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P166,P166,Po
+P166_preQ_2025-04-24_13h33.55.522.csv,P166,po,no,2,Polio,1,no,1,no,FALSE,P166,P166,Po
+P166_preQ_2025-04-24_13h33.55.522.csv,P166,po,NA,1,Polio,1,17%,0,,TRUE,P166,P166,Po
+P166_preQ_2025-04-24_13h33.55.522.csv,P166,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P166,P166,Po
+P17_preQ_2024-11-15_14h31.22.886.csv,P17,tb,"cough, aches",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P17,P17,TB
+P17_preQ_2024-11-15_14h31.22.886.csv,P17,tb,yes,8,TB,1,no,0,,FALSE,P17,P17,TB
+P17_preQ_2024-11-15_14h31.22.886.csv,P17,tb,yes,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P17,P17,TB
+P17_preQ_2024-11-15_14h31.22.886.csv,P17,tb,medication?,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P17,P17,TB
+P17_preQ_2024-11-15_14h31.22.886.csv,P17,tb,idk,6,TB,1,10%,0,,TRUE,P17,P17,TB
+P170_preQ_2025-04-28_12h45.47.299.csv,P170,tb,"coughing, shortness of breath",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P170,P170,TB
+P170_preQ_2025-04-28_12h45.47.299.csv,P170,tb,NA,8,TB,1,no,0,,TRUE,P170,P170,TB
+P170_preQ_2025-04-28_12h45.47.299.csv,P170,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P170,P170,TB
+P170_preQ_2025-04-28_12h45.47.299.csv,P170,tb,NA,6,TB,1,10%,0,,TRUE,P170,P170,TB
+P170_preQ_2025-04-28_12h45.47.299.csv,P170,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P170,P170,TB
+P171_preQ_2025-04-28_13h07.29.589.csv,P171,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P171,P171,Po
+P171_preQ_2025-04-28_13h07.29.589.csv,P171,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P171,P171,Po
+P171_preQ_2025-04-28_13h07.29.589.csv,P171,po,NA,1,Polio,1,17%,0,,TRUE,P171,P171,Po
+P171_preQ_2025-04-28_13h07.29.589.csv,P171,po,NA,2,Polio,1,no,0,,TRUE,P171,P171,Po
+P171_preQ_2025-04-28_13h07.29.589.csv,P171,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P171,P171,Po
+P173_preQ_2025-04-29_12h34.30.377.csv,P173,po,NA,1,Polio,1,17%,0,,TRUE,P173,P173,Po
+P173_preQ_2025-04-29_12h34.30.377.csv,P173,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P173,P173,Po
+P173_preQ_2025-04-29_12h34.30.377.csv,P173,po,NA,2,Polio,1,no,0,,TRUE,P173,P173,Po
+P173_preQ_2025-04-29_12h34.30.377.csv,P173,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P173,P173,Po
+P173_preQ_2025-04-29_12h34.30.377.csv,P173,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P173,P173,Po
+P174_preQ_2025-04-29_12h56.30.459.csv,P174,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P174,P174,TB
+P174_preQ_2025-04-29_12h56.30.459.csv,P174,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P174,P174,TB
+P174_preQ_2025-04-29_12h56.30.459.csv,P174,tb,No,8,TB,1,no,1,no,FALSE,P174,P174,TB
+P174_preQ_2025-04-29_12h56.30.459.csv,P174,tb,NA,6,TB,1,10%,0,,TRUE,P174,P174,TB
+P174_preQ_2025-04-29_12h56.30.459.csv,P174,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P174,P174,TB
+P176_preQ_2025-04-29_14h02.07.628.csv,P176,tb,vaccine,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P176,P176,TB
+P176_preQ_2025-04-29_14h02.07.628.csv,P176,tb,no,8,TB,1,no,1,no,FALSE,P176,P176,TB
+P176_preQ_2025-04-29_14h02.07.628.csv,P176,tb,yes,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P176,P176,TB
+P176_preQ_2025-04-29_14h02.07.628.csv,P176,tb,coughing,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P176,P176,TB
+P176_preQ_2025-04-29_14h02.07.628.csv,P176,tb,NA,6,TB,1,10%,0,,TRUE,P176,P176,TB
+P1902_preQ_2024-11-18_14h35.59.568.csv,P1902,po,there is a vaccine,2,Polio,1,no,0,,FALSE,P1902,P19012,Po
+P1902_preQ_2024-11-18_14h35.59.568.csv,P1902,po,i do not know,1,Polio,1,17%,0,,TRUE,P1902,P19012,Po
+P1902_preQ_2024-11-18_14h35.59.568.csv,P1902,po,i dont know,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P1902,P19012,Po
+P1902_preQ_2024-11-18_14h35.59.568.csv,P1902,po,i dont know,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P1902,P19012,Po
+P1902_preQ_2024-11-18_14h35.59.568.csv,P1902,po,i think some countries in south america and africa,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P1902,P19012,Po
+P20_preQ_2024-11-18_14h59.42.733.csv,P20,tb,NA,6,TB,1,10%,0,,TRUE,P20,P20,TB
+P20_preQ_2024-11-18_14h59.42.733.csv,P20,tb,coughing,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P20,P20,TB
+P20_preQ_2024-11-18_14h59.42.733.csv,P20,tb,coughing,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P20,P20,TB
+P20_preQ_2024-11-18_14h59.42.733.csv,P20,tb,NA,8,TB,1,no,0,,TRUE,P20,P20,TB
+P20_preQ_2024-11-18_14h59.42.733.csv,P20,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P20,P20,TB
+P22_preQ_2024-11-19_14h42.32.865.csv,P22,po,NA,1,Polio,1,17%,0,,TRUE,P22,P22,Po
+P22_preQ_2024-11-19_14h42.32.865.csv,P22,po,Russia,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P22,P22,Po
+P22_preQ_2024-11-19_14h42.32.865.csv,P22,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P22,P22,Po
+P22_preQ_2024-11-19_14h42.32.865.csv,P22,po,No,2,Polio,1,no,1,no,FALSE,P22,P22,Po
+P22_preQ_2024-11-19_14h42.32.865.csv,P22,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P22,P22,Po
+P23_preQ_2024-11-19_14h56.12.318.csv,P23,tb,"coughing, fever, and more that i dont know",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",2,"cough, fever",FALSE,P23,P23,TB
+P23_preQ_2024-11-19_14h56.12.318.csv,P23,tb,i dont know,6,TB,1,10%,0,,TRUE,P23,P23,TB
+P23_preQ_2024-11-19_14h56.12.318.csv,P23,tb,through droplet transmission like coughing,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P23,P23,TB
+P23_preQ_2024-11-19_14h56.12.318.csv,P23,tb,no,8,TB,1,no,1,no,FALSE,P23,P23,TB
+P23_preQ_2024-11-19_14h56.12.318.csv,P23,tb,i don't know,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P23,P23,TB
+P25_preQ_2024-11-19_15h59.59.413.csv,P25,po,10000,10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P25,P25,Po
+P25_preQ_2024-11-19_15h59.59.413.csv,P25,po,vaccine,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P25,P25,Po
+P25_preQ_2024-11-19_15h59.59.413.csv,P25,po,10%,1,Polio,1,17%,0,,FALSE,P25,P25,Po
+P25_preQ_2024-11-19_15h59.59.413.csv,P25,po,Different European countries,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P25,P25,Po
+P25_preQ_2024-11-19_15h59.59.413.csv,P25,po,no,2,Polio,1,no,1,no,FALSE,P25,P25,Po
+P26_preQ_2024-11-20_14h01.25.823.csv,P26,tb,i dont know,8,TB,1,no,0,,TRUE,P26,P26,TB
+P26_preQ_2024-11-20_14h01.25.823.csv,P26,tb,idk,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P26,P26,TB
+P26_preQ_2024-11-20_14h01.25.823.csv,P26,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P26,P26,TB
+P26_preQ_2024-11-20_14h01.25.823.csv,P26,tb,NA,6,TB,1,10%,0,,TRUE,P26,P26,TB
+P26_preQ_2024-11-20_14h01.25.823.csv,P26,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P26,P26,TB
+P28_preQ_2024-11-20_14h46.53.934.csv,P28,po,I dont know,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P28,P28PO,Po
+P28_preQ_2024-11-20_14h46.53.934.csv,P28,po,NA,1,Polio,1,17%,0,,TRUE,P28,P28PO,Po
+P28_preQ_2024-11-20_14h46.53.934.csv,P28,po,No,2,Polio,1,no,1,no,FALSE,P28,P28PO,Po
+P28_preQ_2024-11-20_14h46.53.934.csv,P28,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P28,P28PO,Po
+P28_preQ_2024-11-20_14h46.53.934.csv,P28,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P28,P28PO,Po
+P31_preQ_2024-11-21_11h34.30.751.csv,P31,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P31,P31,TB
+P31_preQ_2024-11-21_11h34.30.751.csv,P31,tb,NA,6,TB,1,10%,0,,TRUE,P31,P31,TB
+P31_preQ_2024-11-21_11h34.30.751.csv,P31,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P31,P31,TB
+P31_preQ_2024-11-21_11h34.30.751.csv,P31,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P31,P31,TB
+P31_preQ_2024-11-21_11h34.30.751.csv,P31,tb,NA,8,TB,1,no,0,,TRUE,P31,P31,TB
+P35_preQ_2024-11-25_14h32.06.896.csv,P35,tb,cough,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P35,P35,TB
+P35_preQ_2024-11-25_14h32.06.896.csv,P35,tb,maybe,8,TB,1,no,0,,FALSE,P35,P35,TB
+P35_preQ_2024-11-25_14h32.06.896.csv,P35,tb,"cough, sore throat",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P35,P35,TB
+P35_preQ_2024-11-25_14h32.06.896.csv,P35,tb,antibiotics,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,1,antibiotics,FALSE,P35,P35,TB
+P35_preQ_2024-11-25_14h32.06.896.csv,P35,tb,i don't know,6,TB,1,10%,0,,TRUE,P35,P35,TB
+P37_preQ_2024-11-26_11h40.43.083.csv,P37,po,i dont know,1,Polio,1,17%,0,,TRUE,P37,P37,Po
+P37_preQ_2024-11-26_11h40.43.083.csv,P37,po,maybe vaccine,2,Polio,1,no,0,,FALSE,P37,P37,Po
+P37_preQ_2024-11-26_11h40.43.083.csv,P37,po,i dont know,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P37,P37,Po
+P37_preQ_2024-11-26_11h40.43.083.csv,P37,po,vaccine / antibiotics?,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",1,antibiotics,FALSE,P37,P37,Po
+P37_preQ_2024-11-26_11h40.43.083.csv,P37,po,i dont know,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P37,P37,Po
+P38_preQ_2024-11-26_12h04.01.350.csv,P38,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P38,P38,TB
+P38_preQ_2024-11-26_12h04.01.350.csv,P38,tb,"fever,coughing,wheezing,chills",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",2,"cough, fever",FALSE,P38,P38,TB
+P38_preQ_2024-11-26_12h04.01.350.csv,P38,tb,i dont know,6,TB,1,10%,0,,TRUE,P38,P38,TB
+P38_preQ_2024-11-26_12h04.01.350.csv,P38,tb,antibiotics,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,1,antibiotics,FALSE,P38,P38,TB
+P38_preQ_2024-11-26_12h04.01.350.csv,P38,tb,yes,8,TB,1,no,0,,FALSE,P38,P38,TB
+P40_preQ_2024-12-02_11h36.37.067.csv,P40,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P40,P40,Po
+P40_preQ_2024-12-02_11h36.37.067.csv,P40,po,5%,1,Polio,1,17%,0,,FALSE,P40,P40,Po
+P40_preQ_2024-12-02_11h36.37.067.csv,P40,po,Sub-Saharan Africa,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P40,P40,Po
+P40_preQ_2024-12-02_11h36.37.067.csv,P40,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P40,P40,Po
+P40_preQ_2024-12-02_11h36.37.067.csv,P40,po,no,2,Polio,1,no,1,no,FALSE,P40,P40,Po
+P41_preQ_2024-12-02_12h43.41.039.csv,P41,tb,35,6,TB,1,10%,0,,FALSE,P41,P41,TB
+P41_preQ_2024-12-02_12h43.41.039.csv,P41,tb,through miniature molecules of spit which contain the TB bacteria,9,TB,3,"cough, sneeze, or spit",1,spit,FALSE,P41,P41,TB
+P41_preQ_2024-12-02_12h43.41.039.csv,P41,tb,"coughing, trouble breathing, sore throat",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P41,P41,TB
+P41_preQ_2024-12-02_12h43.41.039.csv,P41,tb,Antibiotics,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,1,antibiotics,FALSE,P41,P41,TB
+P41_preQ_2024-12-02_12h43.41.039.csv,P41,tb,yes,8,TB,1,no,0,,FALSE,P41,P41,TB
+P43_preQ_2024-12-03_15h39.18.389.csv,P43,po,NA,1,Polio,1,17%,0,,TRUE,P43,P43,Po
+P43_preQ_2024-12-03_15h39.18.389.csv,P43,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P43,P43,Po
+P43_preQ_2024-12-03_15h39.18.389.csv,P43,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P43,P43,Po
+P43_preQ_2024-12-03_15h39.18.389.csv,P43,po,vaccine,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P43,P43,Po
+P43_preQ_2024-12-03_15h39.18.389.csv,P43,po,NA,2,Polio,1,no,0,,TRUE,P43,P43,Po
+P44_preQ_2024-12-03_16h05.06.991.csv,P44,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P44,P44,TB
+P44_preQ_2024-12-03_16h05.06.991.csv,P44,tb,NA,6,TB,1,10%,0,,TRUE,P44,P44,TB
+P44_preQ_2024-12-03_16h05.06.991.csv,P44,tb,NA,8,TB,1,no,0,,TRUE,P44,P44,TB
+P44_preQ_2024-12-03_16h05.06.991.csv,P44,tb,coughing,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P44,P44,TB
+P44_preQ_2024-12-03_16h05.06.991.csv,P44,tb,cough and fever,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",2,"cough, fever",FALSE,P44,P44,TB
+P46_preQ_2024-12-04_15h36.24.646.csv,P46,po,i dont know,1,Polio,1,17%,0,,TRUE,P46,P46,Po
+P46_preQ_2024-12-04_15h36.24.646.csv,P46,po,vaccines,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P46,P46,Po
+P46_preQ_2024-12-04_15h36.24.646.csv,P46,po,i dont know,2,Polio,1,no,0,,TRUE,P46,P46,Po
+P46_preQ_2024-12-04_15h36.24.646.csv,P46,po,i dont know,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P46,P46,Po
+P46_preQ_2024-12-04_15h36.24.646.csv,P46,po,i dont know,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P46,P46,Po
+P47_preQ_2024-12-04_16h01.40.100.csv,P47,tb,NA,6,TB,1,10%,0,,TRUE,P47,P47,TB
+P47_preQ_2024-12-04_16h01.40.100.csv,P47,tb,NA,8,TB,1,no,0,,TRUE,P47,P47,TB
+P47_preQ_2024-12-04_16h01.40.100.csv,P47,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P47,P47,TB
+P47_preQ_2024-12-04_16h01.40.100.csv,P47,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P47,P47,TB
+P47_preQ_2024-12-04_16h01.40.100.csv,P47,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P47,P47,TB
+P49_preQ_2024-12-05_15h39.37.243.csv,P49,po,NA,1,Polio,1,17%,0,,TRUE,P49,P49,Po
+P49_preQ_2024-12-05_15h39.37.243.csv,P49,po,No,2,Polio,1,no,1,no,FALSE,P49,P49,Po
+P49_preQ_2024-12-05_15h39.37.243.csv,P49,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P49,P49,Po
+P49_preQ_2024-12-05_15h39.37.243.csv,P49,po,Third world countries,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P49,P49,Po
+P49_preQ_2024-12-05_15h39.37.243.csv,P49,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P49,P49,Po
+P50_preQ_2024-12-05_16h07.36.172.csv,P50,tb,coughing,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P50,P50,TB
+P50_preQ_2024-12-05_16h07.36.172.csv,P50,tb,NA,6,TB,1,10%,0,,TRUE,P50,P50,TB
+P50_preQ_2024-12-05_16h07.36.172.csv,P50,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P50,P50,TB
+P50_preQ_2024-12-05_16h07.36.172.csv,P50,tb,Yes,8,TB,1,no,0,,FALSE,P50,P50,TB
+P50_preQ_2024-12-05_16h07.36.172.csv,P50,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P50,P50,TB
+P52_preQ_2024-12-10_11h08.43.760.csv,P52,po,"no, theres a vaccine",2,Polio,1,no,1,no,FALSE,P52,P52,Po
+P52_preQ_2024-12-10_11h08.43.760.csv,P52,po,NA,1,Polio,1,17%,0,,TRUE,P52,P52,Po
+P52_preQ_2024-12-10_11h08.43.760.csv,P52,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P52,P52,Po
+P52_preQ_2024-12-10_11h08.43.760.csv,P52,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P52,P52,Po
+P52_preQ_2024-12-10_11h08.43.760.csv,P52,po,a shot and getting children vaccinated,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P52,P52,Po
+P53_preQ_2024-12-10_11h39.07.037.csv,P53,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P53,P53,TB
+P53_preQ_2024-12-10_11h39.07.037.csv,P53,tb,No,8,TB,1,no,1,no,FALSE,P53,P53,TB
+P53_preQ_2024-12-10_11h39.07.037.csv,P53,tb,30%,6,TB,1,10%,0,,FALSE,P53,P53,TB
+P53_preQ_2024-12-10_11h39.07.037.csv,P53,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P53,P53,TB
+P53_preQ_2024-12-10_11h39.07.037.csv,P53,tb,"cough, fever, headache, body ache, chills",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",2,"cough, fever",FALSE,P53,P53,TB
+P55_preQ_2024-12-12_10h58.15.017.csv,P55,po,NA,1,Polio,1,17%,0,,TRUE,P55,P55,Po
+P55_preQ_2024-12-12_10h58.15.017.csv,P55,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P55,P55,Po
+P55_preQ_2024-12-12_10h58.15.017.csv,P55,po,no,2,Polio,1,no,1,no,FALSE,P55,P55,Po
+P55_preQ_2024-12-12_10h58.15.017.csv,P55,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P55,P55,Po
+P55_preQ_2024-12-12_10h58.15.017.csv,P55,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P55,P55,Po
+P56_preQ_2025-01-22_13h11.14.624.csv,P56,tb,vaccine,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P56,P56,TB
+P56_preQ_2025-01-22_13h11.14.624.csv,P56,tb,rash,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,FALSE,P56,P56,TB
+P56_preQ_2025-01-22_13h11.14.624.csv,P56,tb,yes,8,TB,1,no,0,,FALSE,P56,P56,TB
+P56_preQ_2025-01-22_13h11.14.624.csv,P56,tb,10,6,TB,1,10%,1,ten,FALSE,P56,P56,TB
+P56_preQ_2025-01-22_13h11.14.624.csv,P56,tb,breathing,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P56,P56,TB
+P57_preQ_2025-01-22_15h51.50.454.csv,P57,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P57,P57,Po
+P57_preQ_2025-01-22_15h51.50.454.csv,P57,po,800003000,10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P57,P57,Po
+P57_preQ_2025-01-22_15h51.50.454.csv,P57,po,25,1,Polio,1,17%,0,,FALSE,P57,P57,Po
+P57_preQ_2025-01-22_15h51.50.454.csv,P57,po,vaccine,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P57,P57,Po
+P57_preQ_2025-01-22_15h51.50.454.csv,P57,po,yes,2,Polio,1,no,0,,FALSE,P57,P57,Po
+P59_preQ_2025-01-23_16h15.02.764.csv,P59,tb,medicine,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P59,P59,TB
+P59_preQ_2025-01-23_16h15.02.764.csv,P59,tb,particles when coughing or sneezing,9,TB,3,"cough, sneeze, or spit",2,"cough, sneeze",FALSE,P59,P59,TB
+P59_preQ_2025-01-23_16h15.02.764.csv,P59,tb,yes,8,TB,1,no,0,,FALSE,P59,P59,TB
+P59_preQ_2025-01-23_16h15.02.764.csv,P59,tb,5,6,TB,1,10%,0,,FALSE,P59,P59,TB
+P59_preQ_2025-01-23_16h15.02.764.csv,P59,tb,"fever, coughing blood",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",2,"cough, fever",FALSE,P59,P59,TB
+P61_preQ_2025-01-24_15h03.43.253.csv,P61,po,yes,2,Polio,1,no,0,,FALSE,P61,P61,Po
+P61_preQ_2025-01-24_15h03.43.253.csv,P61,po,vaccination,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P61,P61,Po
+P61_preQ_2025-01-24_15h03.43.253.csv,P61,po,NA,1,Polio,1,17%,0,,TRUE,P61,P61,Po
+P61_preQ_2025-01-24_15h03.43.253.csv,P61,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P61,P61,Po
+P61_preQ_2025-01-24_15h03.43.253.csv,P61,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P61,P61,Po
+P62_preQ_2025-01-24_15h37.53.660.csv,P62,tb,droplets,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P62,P62,TB
+P62_preQ_2025-01-24_15h37.53.660.csv,P62,tb,NA,6,TB,1,10%,0,,TRUE,P62,P62,TB
+P62_preQ_2025-01-24_15h37.53.660.csv,P62,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P62,P62,TB
+P62_preQ_2025-01-24_15h37.53.660.csv,P62,tb,coughing blood,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P62,P62,TB
+P62_preQ_2025-01-24_15h37.53.660.csv,P62,tb,yes,8,TB,1,no,0,,FALSE,P62,P62,TB
+P64_preQ_2025-01-29_15h00.53.790.csv,P64,po,950 0,10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P64,P64,Po
+P64_preQ_2025-01-29_15h00.53.790.csv,P64,po,3000000,1,Polio,1,17%,0,,FALSE,P64,P64,Po
+P64_preQ_2025-01-29_15h00.53.790.csv,P64,po,vaccination,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P64,P64,Po
+P64_preQ_2025-01-29_15h00.53.790.csv,P64,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P64,P64,Po
+P64_preQ_2025-01-29_15h00.53.790.csv,P64,po,no,2,Polio,1,no,1,no,FALSE,P64,P64,Po
+P65_preQ_2025-01-29_16h04.13.320.csv,P65,tb,antibiotics,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,1,antibiotics,FALSE,P65,P65,TB
+P65_preQ_2025-01-29_16h04.13.320.csv,P65,tb,"wheezing, coughing, shortness of breath, weakness",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P65,P65,TB
+P65_preQ_2025-01-29_16h04.13.320.csv,P65,tb,13%,6,TB,1,10%,0,,FALSE,P65,P65,TB
+P65_preQ_2025-01-29_16h04.13.320.csv,P65,tb,no,8,TB,1,no,1,no,FALSE,P65,P65,TB
+P65_preQ_2025-01-29_16h04.13.320.csv,P65,tb,pathogens through coughing,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P65,P65,TB
+P67_preQ_2025-01-30_14h36.19.836.csv,P67,po,NA,1,Polio,1,17%,0,,TRUE,P67,P67,Po
+P67_preQ_2025-01-30_14h36.19.836.csv,P67,po,NA,2,Polio,1,no,0,,TRUE,P67,P67,Po
+P67_preQ_2025-01-30_14h36.19.836.csv,P67,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P67,P67,Po
+P67_preQ_2025-01-30_14h36.19.836.csv,P67,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P67,P67,Po
+P67_preQ_2025-01-30_14h36.19.836.csv,P67,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P67,P67,Po
+P68_preQ_2025-01-30_15h09.17.794.csv,P68,tb,NA,8,TB,1,no,0,,TRUE,P68,P68,TB
+P68_preQ_2025-01-30_15h09.17.794.csv,P68,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P68,P68,TB
+P68_preQ_2025-01-30_15h09.17.794.csv,P68,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P68,P68,TB
+P68_preQ_2025-01-30_15h09.17.794.csv,P68,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P68,P68,TB
+P68_preQ_2025-01-30_15h09.17.794.csv,P68,tb,NA,6,TB,1,10%,0,,TRUE,P68,P68,TB
+P70_preQ_2025-01-30_15h57.44.138.csv,P70,po,Vaccine,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P70,P70,Po
+P70_preQ_2025-01-30_15h57.44.138.csv,P70,po,No,2,Polio,1,no,1,no,FALSE,P70,P70,Po
+P70_preQ_2025-01-30_15h57.44.138.csv,P70,po,NA,1,Polio,1,17%,0,,TRUE,P70,P70,Po
+P70_preQ_2025-01-30_15h57.44.138.csv,P70,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P70,P70,Po
+P70_preQ_2025-01-30_15h57.44.138.csv,P70,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P70,P70,Po
+P72_preQ_2025-01-31_14h34.07.397.csv,P72,po,3500 to 100,10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P72,P72,Po
+P72_preQ_2025-01-31_14h34.07.397.csv,P72,po,there's a vaccine,2,Polio,1,no,0,,FALSE,P72,P72,Po
+P72_preQ_2025-01-31_14h34.07.397.csv,P72,po,NA,1,Polio,1,17%,0,,TRUE,P72,P72,Po
+P72_preQ_2025-01-31_14h34.07.397.csv,P72,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P72,P72,Po
+P72_preQ_2025-01-31_14h34.07.397.csv,P72,po,third world countries/countries not in WHO,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P72,P72,Po
+P73_preQ_2025-02-05_12h32.07.725.csv,P73,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P73,P73,TB
+P73_preQ_2025-02-05_12h32.07.725.csv,P73,tb,60,6,TB,1,10%,0,,FALSE,P73,P73,TB
+P73_preQ_2025-02-05_12h32.07.725.csv,P73,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P73,P73,TB
+P73_preQ_2025-02-05_12h32.07.725.csv,P73,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P73,P73,TB
+P73_preQ_2025-02-05_12h32.07.725.csv,P73,tb,no,8,TB,1,no,1,no,FALSE,P73,P73,TB
+P75_preQ_2025-02-07_12h05.06.664.csv,P75,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P75,P75,Po
+P75_preQ_2025-02-07_12h05.06.664.csv,P75,po,yes,2,Polio,1,no,0,,FALSE,P75,P75,Po
+P75_preQ_2025-02-07_12h05.06.664.csv,P75,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P75,P75,Po
+P75_preQ_2025-02-07_12h05.06.664.csv,P75,po,NA,1,Polio,1,17%,0,,TRUE,P75,P75,Po
+P75_preQ_2025-02-07_12h05.06.664.csv,P75,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P75,P75,Po
+P76_preQ_2025-02-07_13h07.41.260.csv,P76,tb,coughing blood,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P76,P76,TB
+P76_preQ_2025-02-07_13h07.41.260.csv,P76,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P76,P76,TB
+P76_preQ_2025-02-07_13h07.41.260.csv,P76,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P76,P76,TB
+P76_preQ_2025-02-07_13h07.41.260.csv,P76,tb,NA,8,TB,1,no,0,,TRUE,P76,P76,TB
+P76_preQ_2025-02-07_13h07.41.260.csv,P76,tb,NA,6,TB,1,10%,0,,TRUE,P76,P76,TB
+P78_preQ_2025-02-07_15h14.25.906.csv,P78,po,Yes,2,Polio,1,no,0,,FALSE,P78,P78,Po
+P78_preQ_2025-02-07_15h14.25.906.csv,P78,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P78,P78,Po
+P78_preQ_2025-02-07_15h14.25.906.csv,P78,po,NA,1,Polio,1,17%,0,,TRUE,P78,P78,Po
+P78_preQ_2025-02-07_15h14.25.906.csv,P78,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P78,P78,Po
+P78_preQ_2025-02-07_15h14.25.906.csv,P78,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P78,P78,Po
+P79_preQ_2025-02-07_15h37.19.460.csv,P79,tb,coughing and sneezing,9,TB,3,"cough, sneeze, or spit",2,"cough, sneeze",FALSE,P79,P79,TB
+P79_preQ_2025-02-07_15h37.19.460.csv,P79,tb,coughing,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P79,P79,TB
+P79_preQ_2025-02-07_15h37.19.460.csv,P79,tb,<10%,6,TB,1,10%,0,,FALSE,P79,P79,TB
+P79_preQ_2025-02-07_15h37.19.460.csv,P79,tb,Yes,8,TB,1,no,0,,FALSE,P79,P79,TB
+P79_preQ_2025-02-07_15h37.19.460.csv,P79,tb,Early vaccination,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P79,P79,TB
+P81_preQ_2025-02-17_12h32.19.923.csv,P81,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P81,P81,Po
+P81_preQ_2025-02-17_12h32.19.923.csv,P81,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P81,P81,Po
+P81_preQ_2025-02-17_12h32.19.923.csv,P81,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P81,P81,Po
+P81_preQ_2025-02-17_12h32.19.923.csv,P81,po,NA,1,Polio,1,17%,0,,TRUE,P81,P81,Po
+P81_preQ_2025-02-17_12h32.19.923.csv,P81,po,NA,2,Polio,1,no,0,,TRUE,P81,P81,Po
+P82_preQ_2025-02-20_12h39.56.078.csv,P82,tb,Antibiotics,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,1,antibiotics,FALSE,P82,P82,TB
+P82_preQ_2025-02-20_12h39.56.078.csv,P82,tb,coughing,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P82,P82,TB
+P82_preQ_2025-02-20_12h39.56.078.csv,P82,tb,coughing up blood,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P82,P82,TB
+P82_preQ_2025-02-20_12h39.56.078.csv,P82,tb,yes,8,TB,1,no,0,,FALSE,P82,P82,TB
+P82_preQ_2025-02-20_12h39.56.078.csv,P82,tb,19%,6,TB,1,10%,0,,FALSE,P82,P82,TB
+P84_preQ_2025-02-21_11h59.24.713.csv,P84,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P84,P84,Po
+P84_preQ_2025-02-21_11h59.24.713.csv,P84,po,yes,2,Polio,1,no,0,,FALSE,P84,P84,Po
+P84_preQ_2025-02-21_11h59.24.713.csv,P84,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P84,P84,Po
+P84_preQ_2025-02-21_11h59.24.713.csv,P84,po,vaccine,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P84,P84,Po
+P84_preQ_2025-02-21_11h59.24.713.csv,P84,po,NA,1,Polio,1,17%,0,,TRUE,P84,P84,Po
+P85_preQ_2025-02-21_13h02.45.313.csv,P85,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P85,P85,TB
+P85_preQ_2025-02-21_13h02.45.313.csv,P85,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P85,P85,TB
+P85_preQ_2025-02-21_13h02.45.313.csv,P85,tb,NA,8,TB,1,no,0,,TRUE,P85,P85,TB
+P85_preQ_2025-02-21_13h02.45.313.csv,P85,tb,NA,6,TB,1,10%,0,,TRUE,P85,P85,TB
+P85_preQ_2025-02-21_13h02.45.313.csv,P85,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P85,P85,TB
+P87_preQ_2025-02-21_16h08.26.131.csv,P87,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P87,P87a,Po
+P87_preQ_2025-02-21_16h08.26.131.csv,P87,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P87,P87a,Po
+P87_preQ_2025-02-21_16h08.26.131.csv,P87,po,NA,2,Polio,1,no,0,,TRUE,P87,P87a,Po
+P87_preQ_2025-02-21_16h08.26.131.csv,P87,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P87,P87a,Po
+P87_preQ_2025-02-21_16h08.26.131.csv,P87,po,NA,1,Polio,1,17%,0,,TRUE,P87,P87a,Po
+P88_preQ_2025-02-26_12h01.42.507.csv,P88,tb,NA,8,TB,1,no,0,,TRUE,P88,P88,TB
+P88_preQ_2025-02-26_12h01.42.507.csv,P88,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P88,P88,TB
+P88_preQ_2025-02-26_12h01.42.507.csv,P88,tb,NA,6,TB,1,10%,0,,TRUE,P88,P88,TB
+P88_preQ_2025-02-26_12h01.42.507.csv,P88,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P88,P88,TB
+P88_preQ_2025-02-26_12h01.42.507.csv,P88,tb,NA,9,TB,3,"cough, sneeze, or spit",0,,TRUE,P88,P88,TB
+P90_preQ_2025-02-26_15h05.37.315.csv,P90,po,congo,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P90,P90,Po
+P90_preQ_2025-02-26_15h05.37.315.csv,P90,po,no,2,Polio,1,no,1,no,FALSE,P90,P90,Po
+P90_preQ_2025-02-26_15h05.37.315.csv,P90,po,7%,1,Polio,1,17%,0,,FALSE,P90,P90,Po
+P90_preQ_2025-02-26_15h05.37.315.csv,P90,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P90,P90,Po
+P90_preQ_2025-02-26_15h05.37.315.csv,P90,po,vaccination,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P90,P90,Po
+P92_preQ_2025-02-27_12h09.17.770.csv,P92,tb,through proximity,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P92,P91,TB
+P92_preQ_2025-02-27_12h09.17.770.csv,P92,tb,"lung problems, cough",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P92,P91,TB
+P92_preQ_2025-02-27_12h09.17.770.csv,P92,tb,yes,8,TB,1,no,0,,FALSE,P92,P91,TB
+P92_preQ_2025-02-27_12h09.17.770.csv,P92,tb,34%,6,TB,1,10%,0,,FALSE,P92,P91,TB
+P92_preQ_2025-02-27_12h09.17.770.csv,P92,tb,extensive treatment for longer period of time,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,1,long_term,FALSE,P92,P91,TB
+P94_preQ_2025-03-11_12h05.48.529.csv,P94,po,no,2,Polio,1,no,1,no,FALSE,P94,P94,Po
+P94_preQ_2025-03-11_12h05.48.529.csv,P94,po,no idea,1,Polio,1,17%,0,,TRUE,P94,P94,Po
+P94_preQ_2025-03-11_12h05.48.529.csv,P94,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P94,P94,Po
+P94_preQ_2025-03-11_12h05.48.529.csv,P94,po,not sure,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P94,P94,Po
+P94_preQ_2025-03-11_12h05.48.529.csv,P94,po,NA,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P94,P94,Po
+P95_preQ_2025-03-11_13h04.46.589.csv,P95,tb,by breath,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P95,P95,TB
+P95_preQ_2025-03-11_13h04.46.589.csv,P95,tb,NA,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,TRUE,P95,P95,TB
+P95_preQ_2025-03-11_13h04.46.589.csv,P95,tb,NA,6,TB,1,10%,0,,TRUE,P95,P95,TB
+P95_preQ_2025-03-11_13h04.46.589.csv,P95,tb,NA,8,TB,1,no,0,,TRUE,P95,P95,TB
+P95_preQ_2025-03-11_13h04.46.589.csv,P95,tb,NA,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",0,,TRUE,P95,P95,TB
+P97_preQ_2025-03-12_13h11.56.418.csv,P97,po,"Yes, the vaccine",2,Polio,1,no,0,,FALSE,P97,P97,Po
+P97_preQ_2025-03-12_13h11.56.418.csv,P97,po,NA,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P97,P97,Po
+P97_preQ_2025-03-12_13h11.56.418.csv,P97,po,NA,1,Polio,1,17%,0,,TRUE,P97,P97,Po
+P97_preQ_2025-03-12_13h11.56.418.csv,P97,po,NA,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P97,P97,Po
+P97_preQ_2025-03-12_13h11.56.418.csv,P97,po,"1000000, 20000",10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P97,P97,Po
+P98_preQ_2025-03-14_12h12.17.801.csv,P98,tb,no,8,TB,1,no,1,no,FALSE,P98,P98,TB
+P98_preQ_2025-03-14_12h12.17.801.csv,P98,tb,coughing,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P98,P98,TB
+P98_preQ_2025-03-14_12h12.17.801.csv,P98,tb,through germs that can be emitted from one person and then intaken by another,9,TB,3,"cough, sneeze, or spit",0,,FALSE,P98,P98,TB
+P98_preQ_2025-03-14_12h12.17.801.csv,P98,tb,there is a vaccine available,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P98,P98,TB
+P98_preQ_2025-03-14_12h12.17.801.csv,P98,tb,40,6,TB,1,10%,0,,FALSE,P98,P98,TB

@@ -1,0 +1,39 @@
+page	sentence_index	type	n_words	text
+1	1	Control	15	The Bill & Melinda Gates Foundation has quickly become a major influence upon global health.
+1	2	Control	25	The approximately $800 million that the foundation gives every year for global health initiatives approaches the annual budget of the United Nations World Health Organization.
+1	3	Control	15	The Gates Foundation has been particularly active in promoting the development and administration of vaccines.
+1	4	PO	15	The foundation currently provides 17% of the global budget for the attempted eradication of polio.
+1	5	Control	14	The Gates Foundation has also been a strong supporter of new tuberculosis vaccine development.
+1	6	Control	12	These efforts demonstrate the role that philanthropy can play in eliminating disease.
+1	7	Control	10	Diseases like polio and tuberculosis have affected man since prehistory.
+1	8	Control	17	Polio, sometimes called infantile paralysis, is an acute viral infectious disease that spreads easily through human-to-human contact.
+1	9	Control	28	Although around 90% of polio infections cause no symptoms at all, in a small minority of cases the virus enters the central nervous system and causes acute paralysis.
+1	10	Control	14	Tuberculosis (TB) is an often deadly infectious disease caused by mycobacteria, mainly Mycobacterium tuberculosis.
+2	1	TB	18	The classic symptoms of TB are a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss.
+2	2	Control	12	In endemic areas, wild polioviruses can infect virtually the entire human population.
+2	3	TB	16	Tuberculosis is spread through the air when people who have the disease cough, sneeze, or spit.
+2	4	Control	13	One third of the world’s current population have been infected with M tuberculosis.
+2	5	TB	21	New infections occur at a rate of one per second, but only 10% of these cases will develop into active TB.
+2	6	Control	21	The Gates Foundation and other non-governmental organizations recognize that vaccination holds the key to preventing the rapid transmission of infectious diseases.
+2	7	Control	27	Once a vast majority of people are vaccinated, it is much more difficult for an outbreak of a disease to occur or for the disease to spread.
+2	8	Control	6	This effect is called “herd immunity”.
+2	9	PO	24	Widespread vaccination led to the eradication of polio in the Americas and Europe, but polio is still endemic to Nigeria, India, Pakistan, and Afghanistan.
+2	10	Control	23	The “herd immunity” provided by vaccination is less costly and more effective at stopping the spread of disease than conventional measures like quarantine.
+2	11	TB	11	Only people with active, not latent, TB can transmit the disease.
+3	1	Control	20	The chain of transmission for TB can be broken by isolating patients with active disease and starting effective antibiotic treatment.
+3	2	Control	12	Historically, quarantine has been less successful in preventing the spread of polio.
+3	3	Control	19	The Gates Foundation’s focus on vaccination is also critical since many diseases cannot be successfully treated by conventional antibiotics.
+3	4	TB	15	Treatment for active TB requires a long-term course of two antibiotics to kill the bacteria.
+3	5	Control	10	Antibiotic resistance is a growing problem in (extensively) multi-drug-resistant tuberculosis.
+3	6	PO	4	Polio has no cure.
+3	7	Control	15	The focus of modern treatment has been on providing relief of symptoms and preventing complications.
+3	8	PO	19	Supportive measures include antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet.
+3	9	Control	14	When effective vaccines are available, non-governmental organizations should focus on increasing rates of vaccination.
+3	10	PO	35	Thanks to the polio vaccines developed by Jonas Salk in 1952 and Albert Sabin in 1962, the global number of polio cases per year has dropped from many hundreds of thousands to around a thousand.
+4	1	Control	18	Many countries use the Bacillus Calmette–Guérin (BCG) vaccine as part of their TB control programs, especially for infants.
+4	2	Control	7	Unfortunately, BCG does not reliably protect adults.
+4	3	Control	34	For this reason, the Gates Foundation recently announced a $200 million grant to the Aeras Global TB Vaccine Foundation for clinical trials on up to six different TB vaccine candidates currently in the pipeline.
+4	4	Control	24	Since the oral polio vaccine is both highly effective and cheap (about $0.10), polio eradication efforts focus on basic health infrastructure and vaccine distribution.
+4	5	Control	29	The scale of the Gates Foundation and the way it seeks to apply business techniques to giving allows it to play a powerful role in the global health movement.
+4	6	Control	39	This new approach to philanthropy has been dubbed “philanthrocapitalism.” “Philanthrocapitalism,” or venture philanthropy, takes concepts and techniques from venture capital finance and high technology business management and applies them to problems like the spread of disease in developing countries.
+4	7	Control	19	Hopefully, funding from organizations like the Gates Foundation will lead to the eradication of diseases like polio and TB.

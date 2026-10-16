@@ -1,0 +1,2277 @@
+---
+title: "Eye-Movement Analyses"
+subtitle: "Prequestions and Attention: Condition (Control / Polio / TB prequestions) × Sentence Topic (Polio / TB)"
+author: "Jason Geller"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
+    embed-resources: true
+    df-print: paged
+execute:
+  warning: false
+  message: false
+  cache: false
+# R code runs from the project root (one level up), so paths such as data/... work
+knitr:
+  opts_knit:
+    root.dir: ".."
+params:
+  # "derived" = measures computed from the fixation data by derive_et_measures.R (main
+  # analysis); "tobii" = Tobii Pro Lab's own sentence metrics
+  measures: "derived"
+---
+
+## Overview
+
+This report contains the preregistered eye-tracking and final test analyses from the OSF
+preregistration
+([osf.io/8env4](https://osf.io/8env4/overview)), *Prequestions and Attention: An
+Eye-tracking Study*.
+
+**Design.** Mixed design.
+
+- **Between subjects, `Condition`:** Control (no prequestions), Polio prequestions, TB
+  prequestions.
+- **Within subjects, `Topic`:** sentences containing Polio-prequestioned information vs.
+  TB-prequestioned information. Sentences unrelated to either set of prequestions are not
+  analysed.
+
+**Prediction.** Readers given Polio prequestions should process Polio sentences more than
+TB sentences, readers given TB prequestions should show the reverse, and Control readers
+should show no difference.
+
+**DVs** (one per sentence and participant), grouped into global and local measures:
+
+*Global (late) measures* reflect all processing of the sentence, including returns to it:
+
+1. **Total gaze duration:** the summed duration of all fixations on the sentence.
+2. **Re-reading (second-pass) time:** time on the sentence outside the first pass, i.e.
+   returns to it after first-pass reading (total gaze − first-pass duration; with the
+   derived measures also excluding the brief landing glances before reading reached the
+   sentence). This operationalises the preregistered re-reading measure (see the
+   deviation note below).
+
+*Local (early) measures* reflect processing on first encounter with the sentence:
+
+3. **First-pass duration:** the summed duration of fixations from first entering the
+   sentence until first leaving it (only for sentences read during first-pass reading).
+4. **First-pass regression** (0/1): after reading the sentence for the first time, did
+   the reader leave it **backwards** (to an earlier sentence; = 1) or **forwards** (on to
+   the next sentence; = 0)? Only the direction in which the eyes first leave the
+   sentence counts; looking back *within* the sentence does not. Defined only for
+   sentences read during first-pass reading, and not for the first sentence on a page
+   (there is no earlier text to go back to).
+
+An additional, non-preregistered global measure, **second-pass regressions** (returns
+to the sentence from later text), is analysed in its own section.
+
+**Source of the measures.** This version of the report uses the
+**`r if (params$measures == "derived") "measures derived from the fixation data" else "measures exported by Tobii Pro Lab"`**
+(`params$measures = "`r params$measures`"`).
+`r if (params$measures == "derived") "The same report rendered with Tobii's own metrics is the sensitivity analysis (preq_eyetracking_analysis_tobii.html)." else "This is the sensitivity analysis; the main report uses measures derived from the fixation data (preq_eyetracking_analysis.html)."`
+
+::: callout-important
+## Deviation: measures derived from fixation data
+
+Tobii Pro Lab's sentence metrics have two problems in this data set, so the main
+analysis recomputes the measures from the fixation-level export
+(`derive_et_measures.R`, which documents every step):
+
+1. **Page landing.** When a page appears, readers' eyes usually land partway down it and
+   then move to the first line. Tobii treats the sentences above the landing point as
+   already passed and records their first-pass time as 0 (for about 84% of first
+   sentences on a page). The derived measures start reading on each page at the first
+   fixation on its first sentence.
+2. **Vertical drift.** Recorded gaze is often offset by up to about half a line, so Tobii
+   sometimes labels a fixation with the sentence on the neighbouring line. The derived
+   measures assign fixations to text lines using runs of fixations along a line and a
+   per-reader drift correction, limited to the 0.5° calibration accuracy that every
+   included recording met (about 0.45 of a line on this setup: 24-inch monitor, 65 cm,
+   no chin rest). Drift larger than that, which can build up through head movement, is
+   not corrected.
+
+Total gaze duration changes little (it does not depend on where passes begin), while
+first-pass and second-pass time change substantially. All analyses can be reproduced
+with Tobii's metrics by rendering with `-P measures:tobii`.
+:::
+
+**Length standardisation (deviation).** Target sentences differ in length (4–39 words),
+so with `length_norm = TRUE` all measures are expressed per word of the sentence
+(ms/word). Set `length_norm <- FALSE` in Setup to reproduce the
+analyses in raw units.
+
+**Models.** No duration is analysed with a linear mixed model, because reading-time
+distributions are strongly right-skewed. The preregistration specified an ex-Gaussian
+model for skewed durations:
+
+- **Total gaze duration:** the preregistered ex-Gaussian model (gamlss), focusing on μ
+  and also reporting τ.
+- **First-pass duration:** a Gamma GLMM (log link). The ex-Gaussian could not be
+  estimated (σ collapsed to zero in both gamlss and brms): first-pass durations include
+  a large cluster of very brief first passes, so there is no Gaussian component.
+- **Re-reading (second-pass) time:** a hurdle (zero-inflated) Gamma model, because 37%
+  of sentences were never re-read. It is fitted as its two independent parts: a logistic
+  GLMM for *whether* a sentence was re-read and a Gamma GLMM for *how long* it was
+  re-read when it was.
+- **First-pass regression:** the preregistered logistic GLMM.
+
+```r
+gamlss(total ~ condition * topic + re(random = ~ 1 | participant),
+       nu.formula = ~ condition * topic, family = exGAUS)
+glmer(first_pass ~ condition * topic + (1 + topic | participant), family = Gamma(link = "log"))
+glmer(reread_any ~ condition * topic + (1 + topic | participant) + (1 | sentence),
+      family = binomial)
+glmer(reread_time ~ condition * topic + (1 + topic | participant), family = Gamma(link = "log"))
+glmer(regression ~ condition * topic + (1 + topic | participant) + (1 | sentence),
+      family = binomial)
+```
+
+All duration effects are reported on the original scale (ms per word): Gamma-model
+contrasts are differences in model-predicted durations, not log-scale coefficients.
+
+::: callout-important
+## Deviation: operationalisation of re-reading
+
+Tobii Pro Lab's `Re-reading_duration` is *go-past (regression-path) time minus first-pass
+time*. Most of it is fixation time on **other, earlier sentences** after the reader leaves
+the target, so it does not measure re-reading of the target sentence. Re-reading is therefore measured as **second-pass
+time**: all fixations on the target sentence after first-pass reading, including returns
+to it later.
+:::
+
+## Setup
+
+```{r}
+#| label: setup
+# Shared setup and data (run from the project root; see the YAML header)
+if (!exists("dat")) {
+  source("R/setup.R")
+  source("R/data.R")
+}
+```
+
+## Data
+
+```{r}
+#| label: import
+# Data import, exclusions, calibration and the analysis data sets: R/data.R (sourced in
+# the setup chunk). The measures analysed:
+kable(dvs |> select(dv, label, level, unit, family, directional),
+      caption = "Eye-movement measures analysed with GLMMs (total gaze: ex-Gaussian model)")
+```
+
+### Exclusions
+
+Participants without eye-tracking data for all 4 text pages are excluded, because an
+incomplete recording leaves them with an unbalanced set of Polio and TB sentences.
+Participants in a prequestion condition without pretest data are also excluded, because
+their prior knowledge cannot be assessed. Participants without final test data are
+excluded so that every analysed participant has both eye-tracking and memory data.
+
+```{r}
+#| label: exclusions
+# Exclusions are applied in R/data.R; shown here
+kable(excluded_incomplete, col.names = c("Participant", "Condition", "N pages", "Pages recorded"),
+      caption = "Excluded: eye-tracking data for fewer than all 4 pages")
+kable(excluded_no_pretest, col.names = c("Participant", "Condition"),
+      caption = "Excluded: prequestion condition but no pretest data")
+kable(excluded_no_test, col.names = c("Participant", "Condition"),
+      caption = "Excluded: no final test data")
+kable(excluded_calibration, digits = 2,
+      col.names = c("Participant", "Condition", "Accuracy (°)", "Precision (°)"),
+      caption = "Excluded: calibration worse than the preregistered 0.5° criterion")
+kable(n_by_cond, col.names = c("Condition", "N participants"),
+      caption = "Participants per condition after exclusions")
+```
+
+### Calibration
+
+Calibration was validated in Tobii Pro Lab before reading. Accuracy and precision (SD of
+gaze samples), in degrees of visual angle, come from the lab run sheet
+(`data/raw/calibration/et_run_sheet.tsv`; participant names removed, see the README there).
+
+```{r}
+#| label: calibration
+# Calibration of the analysed participants (computed in R/data.R)
+calib_summary |>
+  pivot_longer(everything(), names_to = c("Measure", ".value"), names_sep = "_") |>
+  kable(digits = 2, caption = sprintf(
+    "Calibration validation (degrees), %d of %d analysed participants with data",
+    calib_n, nlevels(dat$participant)))
+kable(calib_by_cond, digits = 2, caption = "Calibration validation by condition (degrees)")
+kable(select(calib_missing, participant, condition),
+      caption = "Analysed participants without calibration data")
+```
+
+::: callout-note
+The preregistration also excludes participants with calibration accuracy or precision
+worse than **0.5°**. Participants worse than this on accuracy or precision are excluded
+(see Exclusions); participants without calibration data in the run sheet are kept,
+because the criterion cannot be checked for them. The preregistered exclusion for high **prior
+knowledge** is not yet applied; add those IDs to `excluded_prereg` above once the
+information is available.
+:::
+
+### Fixations and sentence regions
+
+`r if (params$measures != "derived") "These figures show the sentence regions and fixation processing used for the derived measures (main report); this sensitivity version uses Tobii's own areas of interest."`
+
+Each target sentence is an area of interest (AOI). Because sentences wrap across lines,
+a sentence's AOI is made of one rectangle per line it occupies. @fig-aois shows these
+regions on the four pages, as rebuilt from the page layout by `derive_et_measures.R`.
+@fig-scanpath shows how one reader's fixations on one page are assigned to sentences
+after drift correction.
+
+```{r}
+#| label: fig-aois
+#| fig-cap: "The four text pages with the sentence regions (areas of interest) used for the derived measures. Each sentence is one region, made of one rectangle per text line. Polio target sentences are blue, TB target sentences orange, and other (filler) sentences grey; numbers give each sentence's order on the page."
+#| fig-width: 12
+#| fig-height: 7.4
+regions <- read_tsv("data/derived/sentence_regions.tsv", show_col_types = FALSE) |>
+  mutate(role = factor(case_when(type == "PO" ~ "Polio target", type == "TB" ~ "TB target",
+                                 TRUE ~ "Other sentence"),
+                       levels = c("Polio target", "TB target", "Other sentence")))
+role_cols <- c(`Polio target` = unname(topic_cols["Polio"]),
+               `TB target` = unname(topic_cols["TB"]), `Other sentence` = "grey45")
+
+# label each sentence once, at the start of its first line
+region_labels <- regions |>
+  group_by(page, sentence_index) |>
+  slice_min(line, n = 1) |>
+  ungroup()
+
+# label_size: size of the sentence-number labels (mm)
+page_panel <- function(p, title = sprintf("Page %d", p), label_size = 2.6) {
+  img <- png::readPNG(sprintf("stimuli/pages/page%d_full.png", p))
+  r <- filter(regions, page == p)
+  ggplot(r) +
+    annotation_raster(img, 0, 1, 0, 1) +
+    geom_rect(aes(xmin = x0, xmax = x1, ymin = 1 - y1, ymax = 1 - y0, colour = role,
+                  fill = role), alpha = 0.12, linewidth = 0.35) +
+    geom_label(data = filter(region_labels, page == p),
+               aes(x = x0, y = 1 - (y0 + y1) / 2, label = sentence_index, colour = role),
+               size = label_size, fontface = "bold", label.padding = unit(0.08, "lines"),
+               hjust = 1.1,
+               show.legend = FALSE) +
+    # one legend (fill), shared by all four panels
+    scale_colour_manual(values = role_cols, guide = "none", drop = FALSE) +
+    scale_fill_manual(values = role_cols, name = NULL, drop = FALSE,
+                      guide = guide_legend(override.aes = list(alpha = 0.35,
+                                                               colour = role_cols))) +
+    scale_x_continuous(limits = c(-0.02, 1), expand = c(0, 0)) +
+    scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +
+    coord_fixed(9 / 16) +
+    labs(title = title) +
+    theme_void(base_size = 11) +
+    theme(plot.title = element_text(face = "bold")) +
+    # only page 2 contains all three sentence types, so only its legend is kept
+    (if (p == 2) NULL else guides(fill = "none"))
+}
+
+wrap_plots(map(1:4, page_panel), ncol = 2, guides = "collect") &
+  theme(legend.position = "bottom")
+```
+
+```{r}
+#| label: fig-scanpath
+#| fig-cap: "One reader's fixations on one page (P120, TB prequestion condition, page 2), after drift correction. Points are fixations (size = duration), coloured by the sentence they were assigned to; grey = not on any sentence. Lines join consecutive fixations. Open circles are fixations made before reading started on the page (the landing when the page appears); they count towards total time but not towards first-pass measures. Rectangles outline the target sentences' regions."
+#| fig-width: 11
+#| fig-height: 6.6
+fx_example <- read_tsv("data/derived/fixations.tsv", show_col_types = FALSE) |>
+  filter(participant == "P120", page == 2) |>
+  arrange(event_index) |>
+  mutate(sentence = factor(sentence_corrected))
+stopifnot(nrow(fx_example) > 0)
+
+img2 <- png::readPNG("stimuli/pages/page2_full.png")
+targets2 <- filter(regions, page == 2, type %in% c("PO", "TB"))
+
+ggplot(fx_example, aes(x, 1 - y_corrected)) +
+  annotation_raster(img2, 0, 1, 0, 1) +
+  geom_rect(data = targets2, inherit.aes = FALSE,
+            aes(xmin = x0, xmax = x1, ymin = 1 - y1, ymax = 1 - y0),
+            fill = NA, colour = "grey20", linewidth = 0.3, linetype = "dashed") +
+  geom_path(colour = "grey35", alpha = 0.45, linewidth = 0.3) +
+  geom_point(aes(size = duration, colour = sentence, shape = reading), stroke = 0.8,
+             alpha = 0.85) +
+  scale_shape_manual(values = c(`TRUE` = 16, `FALSE` = 1),
+                     labels = c(`TRUE` = "during reading", `FALSE` = "before reading started"),
+                     name = NULL) +
+  scale_colour_manual(values = sentence_cols,
+                      na.value = "grey55", name = "Sentence", drop = FALSE) +
+  scale_size_area(max_size = 4, name = "Duration (ms)") +
+  scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +
+  coord_fixed(9 / 16) +
+  theme_void(base_size = 11) +
+  theme(legend.position = "right")
+```
+
+## Models
+
+Durations are fitted with Gamma GLMMs (`glmmTMB`, log link) and binary measures with
+`glmer` (binomial, logit link).
+
+**Random-effects selection.** Every GLMM starts from the maximal random-effects
+structure the design allows (Barr et al., 2013): random intercepts for participants and
+sentences, by-participant slopes for every effect that varies within participants
+(Topic; or prequestioned vs. non-prequestioned), and by-sentence slopes for every effect
+that varies within sentences (Condition, because each sentence is read in all three
+conditions; or prequestioned vs. non-prequestioned). The structure is then reduced by
+model comparison (Matuschek et al., 2017):
+
+1. If the maximal model is singular or does not converge
+   (`performance::check_singularity()`, `performance::check_convergence()`), the
+   random-effect correlations are removed.
+2. Backward selection of random slopes: each remaining slope is removed in turn, and the
+   reduced model is compared with the current one by a likelihood-ratio test. The slope
+   whose removal worsens the fit least is dropped if *p* > .20 (the criterion
+   recommended by Matuschek et al., 2017), or if the current model is still singular.
+   This is repeated until every remaining slope improves the fit (*p* ≤ .20).
+
+Condition's two codes (Polio vs. Control, TB vs. Control) are treated as one slope. The
+random intercepts are always kept. All comparisons are listed in the
+[random-effects selection table](#sec-re-selection).
+
+```{r}
+#| label: fit-models
+# ---- Random-effects selection (see text above) ----------------------------------------
+# A random-effects structure is a list: grouping factor -> named list of slopes, where
+# each slope is a character vector of numeric predictor codes (Condition has two).
+# Maximal structure for the Condition x Topic design:
+re_max_ct <- list(participant = list(Topic = "topic_c"),
+                  sentence    = list(Condition = c("cond_polio", "cond_tb")))
+
+fit_prereg <- function(dv, family) {
+  d <- droplevels(dat[!is.na(dat[[dv]]), ])
+  fit_glmm(paste(dv, "~ condition * topic"), d, family, re_max_ct)
+}
+
+models <- dvs |>
+  mutate(model   = map2(dv, family, fit_prereg),
+         re_used = map_chr(model, ~ attr(.x, "re_used")))
+
+models |>
+  transmute(DV = label,
+            `Random effects retained` = re_used,
+            `N obs` = map_int(model, nobs),
+            `R² (marginal)` = map_dbl(model, ~ tryCatch(r2(.x)$R2_marginal, error = \(e) NA_real_)),
+            `R² (conditional)` = map_dbl(model, ~ tryCatch(r2(.x)$R2_conditional, error = \(e) NA_real_))) |>
+  kable(digits = 3, caption = "Fitted models (Nakagawa's R², on the latent scale for the GLMMs)")
+
+```
+
+### Omnibus tests
+
+```{r}
+#| label: omnibus
+anova_tab <- models |>
+  mutate(tab = map2(model, family, omnibus)) |>
+  select(dv, label, tab) |>
+  unnest(tab)
+
+anova_tab |>
+  transmute(DV = label, Effect = Parameter,
+            Test = if_else(test == "F", "F", "Wald χ²"),
+            Statistic = stat,
+            df = if_else(test == "F", sprintf("%d, %.1f", df, df_error), as.character(df)),
+            p = format_p(p, name = NULL, digits = 3)) |>
+  kable(digits = 2, caption = "Type-III omnibus tests")
+```
+
+### Topic effect within each condition
+
+The contrasts are Polio − TB within each condition, estimated with
+`modelbased::estimate_contrasts()`. For the durations, the preregistered predictions are
+directional: a **positive** difference in the Polio condition and a **negative**
+difference in the TB condition. These contrasts are tested **one-sided** in the
+predicted direction. The prediction for Control is *no difference*, so that contrast is
+tested two-sided. The preregistration gives no direction for first-pass regressions, so
+all of its contrasts are two-sided; they are differences in the probability of a
+regression (percentage points, *z* tests). Confidence intervals are the usual two-sided
+95% intervals.
+
+```{r}
+#| label: contrasts
+# One-sided p-values in the preregistered direction (Polio − TB):
+#   Polio condition: > 0; TB condition: < 0; Control: two-sided (null prediction)
+predicted <- c(Control = "two-sided", Polio = "greater", TB = "less")
+
+add_directional <- function(x) {
+  x |>
+    mutate(t = if ("t" %in% names(x)) t else NA_real_,
+           z = if ("z" %in% names(x)) z else NA_real_,
+           stat_name = if_else(is.na(t), "z", "t"),
+           stat = coalesce(t, z),
+           df = if ("df" %in% names(x)) coalesce(df, Inf) else Inf,
+           prediction = if_else(directional, predicted[as.character(condition)], "two-sided"),
+           p_test = case_when(
+             prediction == "greater" ~ pt(stat, df, lower.tail = FALSE),
+             prediction == "less"    ~ pt(stat, df, lower.tail = TRUE),
+             TRUE                    ~ p),
+           p_type = if_else(prediction == "two-sided", "two-sided", "one-sided"))
+}
+
+contrast_tab <- models |>
+  mutate(tab = map(model, \(m) est_contrasts(m, contrast = "topic", by = "condition",
+                                             comparison = "revpairwise") |>
+                     as.data.frame() |>
+                     add_satterthwaite(m, focal = "topic", by = "condition"))) |>
+  select(dv, label, unit, directional, tab) |>
+  unnest(tab) |>
+  # LMMs: t with Satterthwaite df; the logistic GLMM: z on the probability scale
+  # (df = Inf, so pt() = pnorm())
+  add_directional() |>
+  # probabilities -> percentage points
+  mutate(across(c(Difference, SE, CI_low, CI_high), \(x) if_else(unit == "%", 100 * x, x)))
+
+contrast_tab |>
+  transmute(DV = label, Condition = condition,
+            Contrast = paste(Level1, "−", Level2),
+            Difference, SE,
+            `95% CI` = fmt_ci(CI_low, CI_high, 1),
+            Test = stat_name, Statistic = stat,
+            df = if_else(is.infinite(df), "—", as.character(df)),
+            Prediction = case_when(!directional ~ "none (two-sided)",
+                                   prediction == "greater" ~ "Polio > TB",
+                                   prediction == "less" ~ "Polio < TB",
+                                   TRUE ~ "no difference"),
+            p = format_p(p_test, name = NULL, digits = 3),
+            `p type` = p_type) |>
+  kable(digits = 2, caption = "Topic contrasts within each condition (durations in ms/word or ms, first-pass regression in percentage points; p uncorrected; one-sided in the predicted direction where a direction was preregistered)")
+```
+
+```{r}
+#| label: means
+means_tab <- models |>
+  mutate(tab = map(model, ~ est_means(.x, by = c("condition", "topic")) |>
+                     as.data.frame() |>
+                     # modelbased calls the estimate "Probability" for logistic models
+                     rename(any_of(c(Mean = "Probability"))))) |>
+  select(dv, label, unit, tab) |>
+  unnest(tab) |>
+  # probabilities -> percent
+  mutate(across(c(Mean, SE, CI_low, CI_high), \(x) if_else(unit == "%", 100 * x, x)))
+```
+
+### Main effects and interaction contrasts
+
+The omnibus tests show *whether* there is a main effect or interaction. These contrasts
+show *where*, for every measure:
+
+- **Condition main effect:** pairwise differences between conditions, averaged over
+  topic (Polio − Control, TB − Control, TB − Polio).
+- **Topic main effect:** Polio − TB sentences, averaged over the three conditions.
+- **Interaction contrasts:** whether the topic effect (Polio − TB) differs between two
+  conditions, e.g. (Polio − TB in the Polio condition) − (Polio − TB in Control).
+
+All are computed from predictions averaged over the observed sample within each
+Condition × Topic cell (`marginaleffects::avg_predictions()`, matching
+`estimate = "average"` above), so cells are weighted equally and each cell mean
+reflects its participants' random effects. Gamma-model contrasts are in ms per word and
+logistic-model contrasts are differences in probability (percentage points); all use *z*
+tests. All are two-sided. The three
+condition comparisons and the three interaction contrasts are each Holm-adjusted as a
+family; confidence intervals are unadjusted. For the logistic models, the omnibus Wald
+tests are on the log-odds scale while these contrasts are on the probability scale, so
+the two can disagree (an interaction can be reliable in log-odds without any single
+probability contrast surviving the correction).
+
+```{r}
+#| label: followups
+# The six Condition x Topic cells, in this fixed order:
+#   Control-Polio, Control-TB, Polio-Polio, Polio-TB, TB-Polio, TB-TB
+cell_grid <- function(m) {
+  mf <- model.frame(m)
+  expand_grid(condition = factor(levels(mf$condition), levels(mf$condition)),
+              topic = factor(levels(mf$topic), levels(mf$topic)))
+}
+
+# Each contrast is a set of weights over the six cells
+followup_weights <- list(
+  `Condition: Polio − Control`        = c(-.5, -.5, .5, .5, 0, 0),
+  `Condition: TB − Control`           = c(-.5, -.5, 0, 0, .5, .5),
+  `Condition: TB − Polio`             = c(0, 0, -.5, -.5, .5, .5),
+  `Topic: Polio − TB`                 = c(1, -1, 1, -1, 1, -1) / 3,
+  `Interaction: Polio vs. Control`    = c(-1, 1, 1, -1, 0, 0),
+  `Interaction: TB vs. Control`       = c(-1, 1, 0, 0, 1, -1),
+  `Interaction: Polio vs. TB`         = c(0, 0, 1, -1, -1, 1)
+)
+
+followups <- function(m, unit) {
+  g <- cell_grid(m)
+  H <- do.call(cbind, followup_weights)
+  # cell means: predictions for every observation, averaged within each cell
+  cells <- as.data.frame(marginaleffects::avg_predictions(m, by = c("condition", "topic"),
+                                                          type = "response"))
+  stopifnot(identical(as.character(cells$condition), as.character(g$condition)),
+            identical(as.character(cells$topic), as.character(g$topic)))
+  pr <- as.data.frame(marginaleffects::avg_predictions(m, by = c("condition", "topic"),
+                                                       type = "response", hypothesis = H))
+  out <- tibble(effect = names(followup_weights), estimate = pr$estimate,
+                se = pr$std.error, stat = pr$statistic, df = Inf, p = pr$p.value)
+  if (inherits(m, "lmerModLmerTest")) {
+    # Satterthwaite df: rebuild each contrast as weights on the fixed effects
+    fixed_terms <- delete.response(terms(reformulas::nobars(formula(m))))
+    X <- model.matrix(fixed_terms, g, contrasts.arg = attr(model.matrix(m), "contrasts"))
+    # Satterthwaite df of the corresponding fixed-effects contrast (approximation)
+    ct <- lmerTest::contest(m, t(H) %*% X, joint = FALSE, ddf = "Satterthwaite")
+    gap <- max(abs(ct$Estimate - out$estimate) / out$se)
+    if (gap > 0.1) warning(sprintf("Averaged and fixed-effects follow-up contrasts differ by up to %.2f SE; Satterthwaite df are approximate.", gap))
+    out <- mutate(out, df = ct$df, p = 2 * pt(-abs(stat), df))
+  }
+  crit <- if_else(is.infinite(out$df), qnorm(0.975), qt(0.975, out$df))
+  out <- out |>
+    mutate(lo = estimate - crit * se, hi = estimate + crit * se,
+           family = str_extract(effect, "^[A-Za-z]+"),
+           test = if_else(is.infinite(df), "z", "t"))
+  if (unit == "%") out <- mutate(out, across(c(estimate, se, lo, hi), \(x) 100 * x))
+  out |>
+    group_by(family) |>
+    mutate(p_adj = p.adjust(p, method = "holm")) |>
+    ungroup()
+}
+
+followup_tab <- models |>
+  mutate(tab = map2(model, unit, followups)) |>
+  select(dv, label, level, unit, tab) |>
+  unnest(tab)
+
+followup_tab |>
+  transmute(Level = level, DV = label, Effect = effect,
+            Estimate = fmt_num(estimate, 1),
+            `95% CI` = fmt_ci(lo, hi, 1),
+            Test = test, Statistic = fmt_num(stat, 2),
+            df = if_else(is.infinite(df), "—", fmt_num(df, 0)),
+            p = format_p(p, name = NULL, digits = 3),
+            `p (Holm)` = format_p(p_adj, name = NULL, digits = 3)) |>
+  kable(caption = "Main-effect and interaction contrasts for each measure (durations in ms/word or ms; first-pass regression in percentage points). Interaction contrasts are differences in the Polio − TB effect between two conditions.")
+```
+
+## Figures
+
+```{r}
+#| label: fig-observed
+#| fig-cap: "Observed data. Thin grey lines connect each participant's Polio and TB sentence means. Large points are condition means ± 95% CI computed across participants."
+#| fig-width: 10
+#| fig-height: 14
+subj_means <- dat |>
+  pivot_longer(all_of(dvs$dv), names_to = "dv", values_to = "value") |>
+  group_by(participant, condition, topic, dv) |>
+  summarise(value = mean(value, na.rm = TRUE), .groups = "drop") |>
+  filter(!is.nan(value)) |>                       # no first pass on any such sentence
+  # first-pass regression: proportion of sentences -> percent
+  mutate(value = if_else(dv %in% dvs$dv[dvs$unit == "%"], 100 * value, value))
+
+plot_observed <- function(dv_name) {
+  meta <- filter(dvs, dv == dv_name)
+  dd <- filter(subj_means, dv == dv_name)
+  summ <- dd |>
+    group_by(condition, topic) |>
+    summarise(m = mean(value), se = sd(value) / sqrt(n()), .groups = "drop")
+  ggplot(dd, aes(topic, value)) +
+    geom_line(aes(group = participant), colour = "grey75", linewidth = 0.3, alpha = 0.6) +
+    geom_point(aes(colour = topic), size = 1.2, alpha = 0.35,
+               position = position_jitter(width = 0.04, height = 0, seed = 1)) +
+    geom_line(data = summ, aes(y = m, group = 1), linewidth = 1, colour = "grey20") +
+    geom_errorbar(data = summ, aes(y = m, ymin = m - 1.96 * se, ymax = m + 1.96 * se),
+                  width = 0.08, linewidth = 0.8, colour = "grey20") +
+    geom_point(data = summ, aes(y = m, fill = topic), shape = 21, size = 3.5,
+               colour = "white", stroke = 1) +
+    scale_colour_manual(values = topic_cols, guide = "none") +
+    scale_fill_manual(values = topic_cols, guide = "none") +
+    facet_wrap(~ condition) +
+    labs(x = NULL, y = meta$unit, title = meta$label)
+}
+
+wrap_plots(map(dvs$dv, plot_observed), ncol = 1) +
+  plot_annotation(caption = "Sentence topic")
+```
+
+```{r}
+#| label: fig-model
+#| fig-cap: "Model-estimated marginal means (± 95% CI) from the mixed models, by Condition × Topic."
+#| fig-width: 11
+#| fig-height: 7.5
+means_tab |>
+  mutate(label = factor(paste0(label, " (", unit, ")"),
+                        levels = paste0(dvs$label, " (", dvs$unit, ")"))) |>
+  ggplot(aes(condition, Mean, colour = topic)) +
+  geom_pointrange(aes(ymin = CI_low, ymax = CI_high),
+                  position = position_dodge(width = 0.4), size = 0.5, linewidth = 0.8) +
+  scale_colour_manual(values = topic_cols, name = "Sentence topic") +
+  facet_wrap(~ label, scales = "free_y", ncol = 2) +
+  labs(x = "Prequestion condition", y = "Estimated marginal mean") +
+  theme(legend.position = "top")
+```
+
+## Results
+
+```{r}
+#| label: writeup-helpers
+# Omnibus test for one DV and term:
+#   LMM:  "*F*(2, 140.6) = 3.87, *p* = .021"
+#   GLMM: "χ²(2) = 15.28, *p* < .001"
+F_txt <- function(dv_name, term) {
+  r <- filter(anova_tab, dv == dv_name, Parameter == term)
+  p_txt <- sub("^p", "*p*", apa_p(r$p))
+  if (r$test == "F") {
+    sprintf("*F*(%d, %.1f) = %s, %s", r$df, r$df_error, apa_num(r$stat), p_txt)
+  } else {
+    sprintf("χ²(%d) = %s, %s", r$df, apa_num(r$stat), p_txt)
+  }
+}
+sig <- function(dv_name, term) filter(anova_tab, dv == dv_name, Parameter == term)$p < .05
+
+# Within-condition topic contrast, e.g. "*b* = 696 ms, 95% CI [208, 1185], *t*(1403) = 2.79, *p* = .005"
+C_txt <- function(dv_name, cond) {
+  r <- filter(contrast_tab, dv == dv_name, condition == cond)
+  d <- switch(r$unit, ms = 0, `ms/word` = 1, `%` = 1, 2)
+  unit_txt <- if (r$unit == "%") "percentage points" else r$unit
+  stat_txt <- if (r$stat_name == "z") sprintf("*z* = %s", apa_num(r$stat)) else
+    sprintf("*t*(%.0f) = %s", r$df, apa_num(r$stat))
+  one <- r$p_type == "one-sided"
+  sprintf("%s = %s %s, %s, %s, %s",
+          if (r$unit == "%") "Δ" else "*b*",
+          apa_num(r$Difference, d), unit_txt,
+          ci_part(r$Difference, r$SE, r$CI_low, r$CI_high, one, r$df, d),
+          stat_txt, p_part(r$p_test, r$stat, r$df, one))
+}
+
+# Follow-up contrasts for one measure, as one sentence (Holm-adjusted p)
+FU_txt <- function(tab) {
+  unit_txt <- if (tab$unit[1] == "%") " pp" else paste0(" ", tab$unit[1])
+  one <- function(eff) {
+    r <- filter(tab, effect == eff)
+    stopifnot(nrow(r) == 1)
+    sprintf("%s%s [%s, %s], %s", fmt_num(r$estimate, 1), unit_txt, fmt_num(r$lo, 1),
+            fmt_num(r$hi, 1), sub("^p", "*p*", apa_p(if (r$family == "Topic") r$p else r$p_adj)))
+  }
+  sprintf(paste0(
+    "Averaged over topic, the conditions differed by %s (Polio − Control), %s (TB − Control)",
+    " and %s (TB − Polio); averaged over conditions, Polio − TB sentences differed by %s.",
+    " The topic effect (Polio − TB) differed between the Polio condition and Control by %s,",
+    " between the TB condition and Control by %s, and between the Polio and TB conditions",
+    " by %s (interaction contrasts; condition and interaction contrasts Holm-adjusted)."),
+    one("Condition: Polio − Control"), one("Condition: TB − Control"),
+    one("Condition: TB − Polio"), one("Topic: Polio − TB"),
+    one("Interaction: Polio vs. Control"), one("Interaction: TB vs. Control"),
+    one("Interaction: Polio vs. TB"))
+}
+FU <- function(dv_name) FU_txt(filter(followup_tab, dv == dv_name))
+
+# Model-estimated mean for one DV x condition x topic, e.g. "48.2%"
+M_txt <- function(dv_name, cond, tp) {
+  r <- filter(means_tab, dv == dv_name, condition == cond, topic == tp)
+  stopifnot(nrow(r) == 1)
+  sprintf("%s%s", fmt_num(r$Mean, 1), if (r$unit == "%") "%" else paste0(" ", r$unit))
+}
+C_sig <- function(dv_name, cond) filter(contrast_tab, dv == dv_name, condition == cond)$p_test < .05
+
+# Sentence describing both main effects, worded according to which are significant
+main_txt <- function(dv_name) {
+  fc <- F_txt(dv_name, "condition"); ft <- F_txt(dv_name, "topic")
+  sc <- sig(dv_name, "condition");   st <- sig(dv_name, "topic")
+  if (!sc && !st) {
+    sprintf("Neither the main effect of Condition, %s, nor the main effect of Topic, %s, was significant.", fc, ft)
+  } else if (sc && st) {
+    sprintf("Both the main effect of Condition, %s, and the main effect of Topic, %s, were significant.", fc, ft)
+  } else {
+    sprintf("The main effect of Condition was %s, %s, and the main effect of Topic was %s, %s.",
+            yn(sc), fc, yn(st), ft)
+  }
+}
+
+# Sentence describing the random-effects structure retained
+re_used <- set_names(models$re_used, models$label)
+re_sentence <- paste0(
+  "Random effects were selected from the maximal structure (by-participant intercepts and Topic slopes; by-sentence intercepts and Condition slopes) by likelihood-ratio tests (see Models). The final structures were: ",
+  paste(sprintf("%s, %s", tolower(names(re_used)), re_used), collapse = "; "), ".")
+```
+
+`r excl_txt(excluded_incomplete, "had eye-tracking data for fewer than all 4 text pages")`
+`r excl_txt(excluded_no_pretest, "were in a prequestion condition but had no pretest data")`
+`r excl_txt(excluded_no_test, "had no final test data")`
+`r excl_txt(excluded_calibration, "had calibration accuracy or precision worse than 0.5°")` The analyses included `r n_total`
+participants (Control: `r n_by_cond$n[1]`, Polio: `r n_by_cond$n[2]`, TB:
+`r n_by_cond$n[3]`). Each read 5 Polio-relevant and 5 TB-relevant sentences.
+`r n_missing` sentence observations had no eye-tracking data and were excluded.
+First-pass duration and first-pass regression are defined only for sentences read during
+first-pass reading, and first-pass regression not for the first sentence on a page,
+where there is no earlier text to regress to
+(`r sum(!is.na(dat$first_pass))` and `r sum(!is.na(dat$fp_regression))` observations).
+First-pass duration and re-reading duration (for re-read sentences) were analysed with
+Gamma GLMMs (log link), and first-pass regression and whether a sentence was re-read with
+logistic GLMMs that also included a random intercept for sentence. Total gaze duration
+was analysed with the preregistered ex-Gaussian model (separate section). All models included Condition (Control, Polio, TB;
+between subjects), Topic (Polio, TB; within subjects), and their interaction as
+effect-coded fixed effects. `r re_sentence` Omnibus effects were tested with type-III
+Wald χ² tests. Topic contrasts (Polio − TB) within each
+condition were estimated with `modelbased`. Following the preregistered directional
+predictions, the duration contrasts in the Polio (Polio > TB) and TB (Polio < TB)
+conditions were tested one-tailed. The Control contrasts, for which no difference was
+predicted, and all first-pass regression contrasts, for which no direction was
+preregistered, were tested two-tailed. First-pass regression contrasts are differences
+in the probability of a regression, in percentage points; Gamma-model contrasts are
+differences in model-predicted duration, in ms per word. For one-tailed tests, confidence
+intervals are 90% intervals (matching a one-tailed test at α = .05) and the two-tailed *p*
+value is given as well; otherwise they are 95% intervals. Means and contrasts were computed by averaging model
+predictions over the observed sample (`modelbased` with the `marginaleffects` backend and
+`estimate = "average"`), which incorporates the random-effect variation. All contrasts
+are *z* tests.
+
+### Global measures
+
+**Total gaze duration** was analysed with the preregistered ex-Gaussian model; see
+[the ex-Gaussian section](#sec-exgauss).
+
+**Re-reading (second-pass) time** was analysed as a hurdle model with two parts.
+*Whether* a sentence was re-read: the Condition × Topic interaction was
+`r yn(sig("reread_any", "condition:topic"))`,
+`r F_txt("reread_any", "condition:topic")`. `r main_txt("reread_any")` The Polio − TB
+difference in the probability of re-reading was `r yn(C_sig("reread_any", "Polio"))` in
+the Polio condition, `r C_txt("reread_any", "Polio")`; `r yn(C_sig("reread_any", "TB"))`
+in the TB condition, `r C_txt("reread_any", "TB")`; and
+`r yn(C_sig("reread_any", "Control"))` in the Control condition,
+`r C_txt("reread_any", "Control")`. `r FU("reread_any")` *How long* re-read sentences
+were re-read: the Condition × Topic interaction was
+`r yn(sig("reread_time", "condition:topic"))`, `r F_txt("reread_time", "condition:topic")`.
+`r main_txt("reread_time")` The Polio − TB difference was
+`r yn(C_sig("reread_time", "Polio"))` in the Polio condition,
+`r C_txt("reread_time", "Polio")`; `r yn(C_sig("reread_time", "TB"))` in the TB
+condition, `r C_txt("reread_time", "TB")`; and `r yn(C_sig("reread_time", "Control"))`
+in the Control condition, `r C_txt("reread_time", "Control")`. `r FU("reread_time")`
+
+### Local measures
+
+**First-pass duration.** The Condition × Topic interaction was
+`r yn(sig("first_pass", "condition:topic"))`,
+`r F_txt("first_pass", "condition:topic")`. `r main_txt("first_pass")` The Polio − TB
+difference was `r yn(C_sig("first_pass", "Polio"))` in the Polio condition,
+`r C_txt("first_pass", "Polio")`; `r yn(C_sig("first_pass", "TB"))` in the TB
+condition, `r C_txt("first_pass", "TB")`; and `r yn(C_sig("first_pass", "Control"))`
+in the Control condition, `r C_txt("first_pass", "Control")`. `r FU("first_pass")`
+
+**First-pass regression.** Readers regressed out of
+`r fmt_num(100 * mean(dat$fp_regression, na.rm = TRUE), 1)`% of the sentences they read
+during first-pass reading. The Condition × Topic interaction was
+`r yn(sig("fp_regression", "condition:topic"))`,
+`r F_txt("fp_regression", "condition:topic")`. `r main_txt("fp_regression")` The
+Polio − TB difference in the probability of a regression was
+`r yn(C_sig("fp_regression", "Polio"))` in the Polio condition,
+`r C_txt("fp_regression", "Polio")` (Polio sentences: `r M_txt("fp_regression", "Polio", "Polio")`;
+TB sentences: `r M_txt("fp_regression", "Polio", "TB")`);
+`r yn(C_sig("fp_regression", "TB"))` in the TB condition,
+`r C_txt("fp_regression", "TB")` (`r M_txt("fp_regression", "TB", "Polio")` vs.
+`r M_txt("fp_regression", "TB", "TB")`); and `r yn(C_sig("fp_regression", "Control"))`
+in the Control condition, `r C_txt("fp_regression", "Control")`. `r FU("fp_regression")`
+Topic is a property of the sentences (5 Polio and 5 TB sentences), and sentences differ
+greatly in how often readers regress out of them (sentence random-intercept SD =
+`r fmt_num(attr(VarCorr(models$model[[which(models$dv == "fp_regression")]])$sentence, "stddev"), 2)`
+on the log-odds scale). With the preregistered sentence random intercept, each
+within-condition topic contrast therefore carries this between-sentence uncertainty,
+which makes its confidence interval wide. The Condition × Topic interaction compares the
+same sentences across conditions and is the informative test of the prediction.
+
+Observed data are shown in @fig-observed and model estimates in @fig-model.
+
+## Total gaze duration: ex-Gaussian model (preregistered) {#sec-exgauss}
+
+::: callout-note
+## Preregistered model for skewed durations
+
+The preregistration specified that heavily skewed durations would be analysed with an
+ex-Gaussian distribution, focusing on μ. Total gaze duration is heavily skewed, so this
+is its main analysis. The model also shows *how* prequestions change gaze duration: by
+shifting typical reading time (μ), or by producing more very long readings (τ).
+:::
+
+Gaze durations are right-skewed. An ex-Gaussian distribution, a Gaussian component plus
+an exponential tail, describes this shape with three parameters:
+
+- **μ:** mean of the Gaussian component, the *typical* reading time;
+- **σ:** spread of the Gaussian component;
+- **τ:** mean of the exponential component, the size of the *slow tail*.
+
+A prequestion effect on μ means prequestioned sentences are read uniformly longer. An
+effect on τ means some prequestioned sentences are read much longer than usual.
+
+The model is a distributional (GAMLSS) mixed model fitted with `gamlss` (`exGAUS`
+family). gamlss parameterises the ex-Gaussian directly by μ, σ and τ (its `nu`
+parameter, log link). μ and τ both depend on Condition × Topic (effect-coded), with
+participant random intercepts on μ (`re()`, fitted by REML through `nlme`). σ is
+constant. The overall mean is μ + τ.
+
+Within each condition, the Polio − TB difference is computed for μ, τ and the mean.
+Standard errors use the delta method on the fixed-effect covariance matrix, giving 95%
+Wald CIs and two-sided *p*-values. gamlss estimates these standard errors conditional on
+the random-effect estimates, so they may be slightly too small. Gaze duration is
+modelled in units of `r if (length_norm) "100 ms/word" else "1 s"` and reported in
+`r dur_unit`.
+
+```{r}
+#| label: exgauss-fit
+library(gamlss)        # attaches nlme (masks only dplyr::collapse here)
+
+ex_scale <- if (length_norm) 100 else 1000
+ex_dat <- dat |>
+  filter(!is.na(total_fix)) |>
+  transmute(gaze = total_fix / ex_scale, condition, topic, participant) |>
+  as.data.frame()                                    # gamlss refuses NA in any column
+
+m_ex <- gamlss(gaze ~ condition * topic + re(random = ~ 1 | participant),
+               sigma.formula = ~ 1, nu.formula = ~ condition * topic,
+               family = exGAUS, data = ex_dat,
+               control = gamlss.control(n.cyc = 200, trace = FALSE))
+stopifnot(m_ex$converged)
+```
+
+```{r}
+#| label: exgauss-contrasts
+grid <- expand_grid(condition = factor(levels(ex_dat$condition), levels(ex_dat$condition)),
+                    topic = factor(levels(ex_dat$topic), levels(ex_dat$topic)))
+X <- model.matrix(~ condition * topic, grid)
+b_mu <- coef(m_ex, "mu")[colnames(X)]
+b_nu <- coef(m_ex, "nu")[colnames(X)]
+
+# Fixed-effect covariance, ordered mu coefficients, sigma intercept, nu coefficients
+V_ex <- suppressWarnings(vcov(m_ex, type = "vcov"))
+k <- ncol(X)
+stopifnot(nrow(V_ex) == 2 * k + 1)
+pad <- \(g_mu, g_nu) c(g_mu, 0, g_nu)                # gradient over (mu, sigma, nu)
+
+mu_cell  <- drop(X %*% b_mu)
+tau_cell <- exp(drop(X %*% b_nu))
+cell <- \(cnd, tp) which(grid$condition == cnd & grid$topic == tp)
+
+ex_tab <- map(levels(ex_dat$condition), \(cnd) {
+  i1 <- cell(cnd, "Polio"); i2 <- cell(cnd, "TB")
+  d_mu  <- X[i1, ] - X[i2, ]
+  d_tau <- tau_cell[i1] * X[i1, ] - tau_cell[i2] * X[i2, ]   # gradient of exp(.) difference
+  est_mu <- sum(d_mu * b_mu); est_tau <- tau_cell[i1] - tau_cell[i2]
+  tibble(parameter = c("Mean", "μ (Gaussian)", "τ (tail)"),
+         est = c(est_mu + est_tau, est_mu, est_tau),
+         se = map_dbl(list(pad(d_mu, d_tau), pad(d_mu, 0 * d_tau), pad(0 * d_mu, d_tau)),
+                      \(g) sqrt(drop(t(g) %*% V_ex %*% g))))  |>
+    mutate(condition = cnd)
+}) |>
+  bind_rows() |>
+  mutate(across(c(est, se), \(x) x * ex_scale),
+         lo = est - qnorm(0.975) * se, hi = est + qnorm(0.975) * se,
+         p = 2 * pnorm(-abs(est / se)),
+         parameter = factor(parameter, levels = c("Mean", "μ (Gaussian)", "τ (tail)")),
+         condition = factor(condition, levels = levels(ex_dat$condition)))
+
+ex_cells <- tibble(grid,
+                   Mean = (mu_cell + tau_cell) * ex_scale,
+                   `μ (Gaussian)` = mu_cell * ex_scale,
+                   `τ (tail)` = tau_cell * ex_scale)
+
+ex_cells |>
+  mutate(across(where(is.numeric), \(x) fmt_num(x, 1))) |>
+  kable(caption = sprintf("Ex-Gaussian parameters by Condition × Topic (%s; fixed effects, average participant).",
+                          dur_unit))
+
+ex_tab |>
+  transmute(Parameter = parameter, Condition = condition,
+            `Polio − TB` = fmt_num(est, 1), SE = fmt_num(se, 1), `95% CI` = fmt_ci(lo, hi, 1),
+            p = format_p(p, name = NULL)) |>
+  kable(caption = sprintf("Polio − TB differences within each condition (%s). Delta-method SEs; two-sided p.",
+                          dur_unit))
+```
+
+```{r}
+#| label: fig-exgauss
+#| fig-cap: "Ex-Gaussian decomposition of the topic effect on total gaze duration. Points are estimated Polio − TB differences within each condition; bars are 95% confidence intervals. The prediction is positive in the Polio condition, negative in the TB condition, and about zero in Control."
+#| fig-width: 9
+#| fig-height: 3.8
+cond_cols3 <- c(Control = "#999999", topic_cols)
+
+ggplot(ex_tab, aes(est, fct_rev(condition), colour = condition)) +
+  geom_vline(xintercept = 0, colour = "grey70") +
+  geom_pointrange(aes(xmin = lo, xmax = hi), linewidth = 0.9, size = 0.5) +
+  scale_colour_manual(values = cond_cols3, guide = "none") +
+  facet_wrap(~ parameter, scales = "free_x") +
+  labs(x = sprintf("Polio − TB difference (%s)", dur_unit), y = NULL)
+```
+
+```{r}
+#| label: exgauss-writeup-helpers
+E_row <- function(par, cnd) {
+  r <- filter(ex_tab, parameter == par, condition == cnd)
+  stopifnot(nrow(r) == 1)
+  r
+}
+E_txt <- function(par, cnd) {
+  r <- E_row(par, cnd)
+  sprintf("%s %s, 95%% CI [%s, %s], %s", fmt_num(r$est, 1), dur_unit,
+          fmt_num(r$lo, 1), fmt_num(r$hi, 1), format_p(r$p))
+}
+```
+
+**Results.** The ex-Gaussian model converged after `r m_ex$iter` cycles. For the
+**overall mean**, the Polio − TB difference was `r E_txt("Mean", "Polio")` in the Polio
+condition, `r E_txt("Mean", "TB")` in the TB condition, and `r E_txt("Mean", "Control")`
+in Control. For the **Gaussian component (μ)**, it was
+`r E_txt("μ (Gaussian)", "Polio")` in the Polio condition,
+`r E_txt("μ (Gaussian)", "TB")` in the TB condition, and
+`r E_txt("μ (Gaussian)", "Control")` in Control. For the **exponential tail (τ)**, it
+was `r E_txt("τ (tail)", "Polio")` in the Polio condition,
+`r E_txt("τ (tail)", "TB")` in the TB condition, and `r E_txt("τ (tail)", "Control")`
+in Control (@fig-exgauss).
+
+## Prequestioned vs. non-prequestioned sentences
+
+::: callout-note
+## Preregistered hypothesis, different model
+
+The preregistration predicts that "prequestioned information will result in longer gaze
+durations and longer re-reading durations back to the prequestioned information compared
+to non-prequestioned information." This section tests that hypothesis directly by pooling
+the two prequestion conditions and comparing prequestioned with non-prequestioned
+sentences.
+
+The **hypothesis** is preregistered. The **model** here (relevance coding with a crossed
+random effect for sentence) differs from the preregistered Condition × Topic model
+above, so it should be reported as a deviation in model specification.
+First-pass duration and first-pass regression are preregistered measures (analysis
+plan). Comparing first-pass and second-pass time shows *when* any extra processing
+happens: on first encounter (first pass) or on returning to the sentence (second pass).
+:::
+
+**Approach.** Only participants in the Polio and TB conditions are included, since Control
+readers had no prequestioned sentences. Each target sentence is coded as
+**Prequestioned** (its topic matches the reader's prequestions) or
+**Non-prequestioned**. Every sentence is prequestioned for one condition and not for the
+other, so the comparison is balanced over sentences. Relevance varies within
+participants and within sentences, so the maximal model for each DV is:
+
+```r
+DV ~ relevance + (1 + relevance | participant) + (1 + relevance | sentence)
+```
+
+The by-sentence slope allows the effect of prequestioning to differ between sentences.
+Durations use Gamma GLMMs (`glmmTMB`); binary measures use `glmer` (binomial, logit
+link). Random effects are selected by the same model-comparison procedure as above.
+Each contrast is Prequestioned − Non-prequestioned. Duration contrasts are tested
+one-sided (Prequestioned > Non-prequestioned), following the preregistered hypothesis.
+No direction was preregistered for first-pass regressions, so that contrast is
+two-sided; it is a difference in the probability of a regression, in percentage points.
+First-pass duration and first-pass regression are only analysed for sentences that were
+read during first-pass reading.
+
+```{r}
+#| label: rel-models
+# dat_rel (Polio and TB conditions, coded prequestioned / non-prequestioned) is built
+# in R/data.R
+
+# Total gaze duration is analysed with the ex-Gaussian model (below).
+rel_dvs <- tribble(
+  ~dv,             ~label,                                    ~level,   ~unit,     ~family,    ~directional,
+  "reread_any",    "Re-reading: probability of re-reading",   "Global", "%",       "binomial", TRUE,
+  "reread_time",   "Re-reading: duration when re-read",       "Global", dur_unit,  "gamma",    TRUE,
+  "first_pass",    "First-pass duration",                     "Local",  dur_unit,  "gamma",    TRUE,
+  "fp_regression", "First-pass regression",                   "Local",  "%",       "binomial", FALSE
+)
+
+# Maximal structure for the prequestioned vs. non-prequestioned design
+re_max_rel <- list(participant = list(Prequestioned = "rel_c"),
+                   sentence    = list(Prequestioned = "rel_c"))
+
+fit_rel <- function(dv, family) {
+  d <- droplevels(dat_rel[!is.na(dat_rel[[dv]]), ])
+  fit_glmm(paste(dv, "~ relevance"), d, family, re_max_rel)
+}
+
+rel_models <- rel_dvs |>
+  mutate(model   = map2(dv, family, fit_rel),
+         re_used = map_chr(model, ~ attr(.x, "re_used")))
+
+rel_tab <- rel_models |>
+  mutate(tab = map(model, \(m) est_contrasts(m, contrast = "relevance",
+                                             comparison = "revpairwise") |>
+                     as.data.frame() |>
+                     add_satterthwaite(m, focal = "relevance"))) |>
+  select(dv, label, unit, family, directional, re_used, model, tab) |>
+  unnest(tab) |>
+  (\(x) mutate(x, t = if ("t" %in% names(x)) t else NA_real_,
+                  z = if ("z" %in% names(x)) z else NA_real_,
+                  df = if ("df" %in% names(x)) df else NA_real_))() |>
+  mutate(stat_name = if_else(is.na(t), "z", "t"),
+         stat = coalesce(t, z),
+         df = coalesce(df, Inf),
+         # one-sided (Prequestioned > Non) where a direction was preregistered (durations,
+         # re-reading); two-sided for first-pass regression
+         p_type = if_else(directional, "one-sided", "two-sided"),
+         p_test = if_else(p_type == "one-sided", pt(stat, df, lower.tail = FALSE), p),
+         n_obs = map_int(model, nobs),
+         # probabilities -> percentage points
+         across(c(Difference, SE, CI_low, CI_high), \(x) if_else(unit == "%", 100 * x, x)))
+
+stopifnot(all(rel_tab$Level1 == "Prequestioned"))
+
+rel_tab |>
+  transmute(DV = label, `Random effects` = re_used, `N obs` = n_obs,
+            Contrast = paste(Level1, "−", Level2), Difference, SE,
+            `95% CI` = fmt_ci(CI_low, CI_high, 1),
+            Test = stat_name, Statistic = stat,
+            df = if_else(is.infinite(df), "—", as.character(df)),
+            p = format_p(p_test, name = NULL, digits = 3), `p type` = p_type) |>
+  kable(digits = 2, caption = "Prequestioned − Non-prequestioned (Polio and TB conditions only)")
+```
+
+```{r}
+#| label: fig-relevance
+#| fig-cap: "Prequestioned vs. non-prequestioned sentences (Polio and TB conditions). Thin grey lines connect each participant's means. Large points are model-estimated means ± 95% CI."
+#| fig-width: 13
+#| fig-height: 4.5
+rel_cols <- c(Prequestioned = "#E69F00", `Non-prequestioned` = "#999999")
+pct_dvs <- rel_dvs$dv[rel_dvs$unit == "%"]   # binary DVs, shown in percent
+
+rel_subj <- dat_rel |>
+  pivot_longer(all_of(rel_dvs$dv), names_to = "dv", values_to = "value") |>
+  group_by(participant, relevance, dv) |>
+  summarise(value = mean(value, na.rm = TRUE), .groups = "drop") |>
+  filter(!is.nan(value)) |>
+  mutate(value = if_else(dv %in% pct_dvs, 100 * value, value))
+
+rel_means <- rel_models |>
+  mutate(tab = map(model, ~ as.data.frame(est_means(.x, by = "relevance")) |>
+                     # modelbased calls the estimate "Probability" for logistic models
+                     rename(any_of(c(Mean = "Probability"))))) |>
+  select(dv, tab) |>
+  unnest(tab) |>
+  mutate(across(c(Mean, CI_low, CI_high), \(x) if_else(dv %in% pct_dvs, 100 * x, x)))
+
+facet_lab <- set_names(paste0(rel_dvs$label, " (", rel_dvs$unit, ")"), rel_dvs$dv)
+fct_dv <- \(x) factor(facet_lab[x], levels = facet_lab)
+
+ggplot(mutate(rel_subj, panel = fct_dv(dv)), aes(relevance, value)) +
+  geom_line(aes(group = participant), colour = "grey80", linewidth = 0.3, alpha = 0.6) +
+  geom_point(aes(colour = relevance), size = 1, alpha = 0.3,
+             position = position_jitter(width = 0.04, height = 0, seed = 1)) +
+  geom_errorbar(data = mutate(rel_means, panel = fct_dv(dv)),
+                aes(y = Mean, ymin = CI_low, ymax = CI_high),
+                width = 0.08, linewidth = 0.8, colour = "grey20") +
+  geom_point(data = mutate(rel_means, panel = fct_dv(dv)),
+             aes(y = Mean, fill = relevance), shape = 21, size = 3.5,
+             colour = "white", stroke = 1) +
+  scale_colour_manual(values = rel_cols, guide = "none") +
+  scale_fill_manual(values = rel_cols, guide = "none") +
+  scale_x_discrete(labels = c(Prequestioned = "Prequestioned",
+                              `Non-prequestioned` = "Non-\nprequestioned")) +
+  facet_wrap(~ panel, scales = "free_y", nrow = 1) +
+  labs(x = NULL, y = NULL)
+```
+
+```{r}
+#| label: rel-writeup-helpers
+R_txt <- function(dv_name) {
+  r <- filter(rel_tab, dv == dv_name)
+  stopifnot(nrow(r) == 1)
+  d <- switch(r$unit, ms = 0, `ms/word` = 1, `%` = 1, 2)
+  unit_txt <- if (r$unit == "%") "percentage points" else r$unit
+  stat_txt <- if (r$stat_name == "z") sprintf("*z* = %s", apa_num(r$stat)) else
+    sprintf("*t*(%.0f) = %s", r$df, apa_num(r$stat))
+  one <- r$p_type == "one-sided"
+  sprintf("%s = %s %s, %s, %s, %s",
+          if (r$unit == "%") "Δ" else "*b*",
+          apa_num(r$Difference, d), unit_txt,
+          ci_part(r$Difference, r$SE, r$CI_low, r$CI_high, one, r$df, d),
+          stat_txt, p_part(r$p_test, r$stat, r$df, one))
+}
+# Model-estimated percentage of first-pass regressions for one relevance level
+RM_txt <- function(dv_name, rel) {
+  r <- filter(rel_means, dv == dv_name, relevance == rel)
+  stopifnot(nrow(r) == 1)
+  paste0(fmt_num(r$Mean, 1), "%")
+}
+R_sig <- function(dv_name) filter(rel_tab, dv == dv_name)$p_test < .05
+n_rel <- n_distinct(dat_rel$participant)
+```
+
+**Results.** The analysis included the `r n_rel` participants in the two prequestion
+conditions.
+
+*Global measures.* Total gaze duration is analysed with the ex-Gaussian model below.
+Prequestioned sentences were re-read with probability
+`r RM_txt("reread_any", "Prequestioned")`, non-prequestioned sentences with probability
+`r RM_txt("reread_any", "Non-prequestioned")`, a `r yn(R_sig("reread_any"))` difference,
+`r R_txt("reread_any")`. When a sentence was re-read, the difference in re-reading
+duration was `r yn(R_sig("reread_time"))`, `r R_txt("reread_time")`.
+
+*Local measures.* The difference was `r yn(R_sig("first_pass"))` for first-pass
+duration, `r R_txt("first_pass")`. The probability of a first-pass regression was
+`r RM_txt("fp_regression", "Prequestioned")` for prequestioned and
+`r RM_txt("fp_regression", "Non-prequestioned")` for non-prequestioned sentences, a
+`r yn(R_sig("fp_regression"))` difference, `r R_txt("fp_regression")`
+(@fig-relevance).
+
+The random-effects structures selected were:
+`r paste(sprintf("%s, %s", tolower(rel_tab$label), rel_tab$re_used), collapse = "; ")`.
+The duration contrasts use Satterthwaite degrees of freedom.
+
+Because total gaze duration = first-pass + second-pass time, comparing the first-pass and
+second-pass contrasts shows *when* any extra processing of prequestioned sentences
+happens. This comparison is descriptive. A significant contrast in one measure and a
+non-significant contrast in the other does not by itself show that the two differ.
+
+
+### Ex-Gaussian model of total gaze duration
+
+::: callout-warning
+## Exploratory
+
+The preregistration specifies an ex-Gaussian model for skewed durations, with the focus
+on μ, fitted in `brms`. These models use `gamlss` instead, to obtain frequentist tests,
+with a simpler random-effects structure (see below), so it deviates from the
+preregistered specification.
+:::
+
+Total gaze duration (`r dur_unit`) is modelled as ex-Gaussian (`gamlss`, `exGAUS`
+family) with relevance predicting μ (Gaussian mean) and τ (exponential tail, log link).
+σ is constant. A participant random intercept on μ (`re()`) absorbs reader
+differences:
+
+```r
+gamlss(total_gaze ~ relevance + re(random = ~ 1 | participant),
+       sigma.formula = ~ 1, nu.formula = ~ relevance, family = exGAUS)
+```
+
+Simplifications, all because the `gamlss` estimation failed numerically otherwise:
+
+- The preregistered structure (relevance also on σ, and participant random effects on
+  all three parameters) could not be fitted.
+- Sentence is not in the model (neither as a random nor as a fixed effect). Each
+  sentence is prequestioned for one condition and not for the other, so the comparison
+  is balanced over sentences, but sentence variability is left in the residual.
+- **First-pass and second-pass time are not modelled.** Second-pass time is 0 (the
+  sentence was read only once) for
+  `r round(100 * mean(dat_rel$second_pass == 0, na.rm = TRUE))`% of sentences, which an
+  ex-Gaussian cannot describe, and the first-pass model did not converge (σ collapses to
+  zero).
+
+Differences are Prequestioned − Non-prequestioned in `r dur_unit`, with delta-method
+standard errors, 95% Wald CIs, and one-sided *p*-values (Prequestioned >
+Non-prequestioned). The overall mean is μ + τ. As in the other `gamlss` models, the
+standard errors are conditional on the random-effect estimates.
+
+```{r}
+#| label: rel-exgauss-fit
+rel_ex_scale <- if (length_norm) 100 else 1000
+rel_ex_dvs <- c(total_fix = "Total gaze duration")
+
+# gamlss's vcov() refits the model, looking its data up by name in the global
+# environment, so each data set is stored there under its own name
+fit_rel_ex <- function(dv) {
+  dname <- paste0("rel_ex_", dv)
+  assign(dname, envir = globalenv(),
+         dat_rel |>
+           filter(!is.na(.data[[dv]])) |>
+           transmute(y = .data[[dv]] / rel_ex_scale, rel_c, participant,
+                     sentence = factor(sentence)) |>
+           as.data.frame())
+  m <- eval(bquote(gamlss(y ~ rel_c + re(random = ~ 1 | participant),
+                          sigma.formula = ~ 1, nu.formula = ~ rel_c,
+                          family = exGAUS, data = .(as.name(dname)),
+                          control = gamlss.control(n.cyc = 200, trace = FALSE))),
+            envir = globalenv())
+  stopifnot(m$converged)
+  m
+}
+
+# Prequestioned - Non-prequestioned for mu, tau and the mean (delta method)
+rel_ex_contrasts <- function(m) {
+  b_mu <- coef(m, "mu"); b_mu <- b_mu[!is.na(b_mu)]
+  b_nu <- coef(m, "nu")
+  V <- suppressWarnings(vcov(m, type = "vcov"))
+  k <- length(b_mu)
+  stopifnot(nrow(V) == k + 1 + length(b_nu))
+  i_mu <- which(names(b_mu) == "rel_c"); i_nu <- k + 1 + seq_along(b_nu)
+  tau <- exp(b_nu[["(Intercept)"]] + c(0.5, -0.5) * b_nu[["rel_c"]])
+  g_tau <- numeric(nrow(V))
+  g_tau[i_nu] <- c(tau[1] - tau[2], 0.5 * (tau[1] + tau[2]))   # d(tau1 - tau2)/d(b_nu)
+  g_mu <- numeric(nrow(V)); g_mu[i_mu] <- 1
+  est <- c(b_mu[["rel_c"]], tau[1] - tau[2])
+  tibble(parameter = c("μ (Gaussian)", "τ (tail)", "Mean"),
+         pre = c(NA, tau[1], NA) * rel_ex_scale, non = c(NA, tau[2], NA) * rel_ex_scale,
+         est = c(est, sum(est)),
+         se = map_dbl(list(g_mu, g_tau, g_mu + g_tau), \(g) sqrt(drop(t(g) %*% V %*% g)))) |>
+    mutate(across(c(est, se), \(x) x * rel_ex_scale),
+           lo = est - qnorm(0.975) * se, hi = est + qnorm(0.975) * se,
+           z = est / se, p = pnorm(z, lower.tail = FALSE))           # one-sided
+}
+
+rel_ex_models <- map(set_names(names(rel_ex_dvs)), fit_rel_ex)
+rel_ex_tab <- imap(rel_ex_models, \(m, v) rel_ex_contrasts(m) |>
+                     mutate(dv = v, label = rel_ex_dvs[[v]], n_obs = nobs(m),
+                            cycles = m$iter)) |>
+  bind_rows() |>
+  mutate(parameter = factor(parameter, levels = c("μ (Gaussian)", "τ (tail)", "Mean")))
+
+rel_ex_tab |>
+  transmute(DV = label, Parameter = parameter, `N obs` = n_obs,
+            Difference = fmt_num(est, 1), SE = fmt_num(se, 1), `95% CI` = fmt_ci(lo, hi, 1),
+            z = fmt_num(z, 2), `p (one-sided)` = format_p(p, name = NULL)) |>
+  kable(caption = sprintf("Ex-Gaussian Prequestioned − Non-prequestioned differences (%s), Polio and TB conditions only.",
+                          dur_unit))
+```
+
+```{r}
+#| label: rel-exgauss-writeup-helpers
+RE_txt <- function(dv_name, par) {
+  r <- filter(rel_ex_tab, dv == dv_name, parameter == par)
+  stopifnot(nrow(r) == 1)
+  sprintf("%s %s, %s, *z* = %s, %s", fmt_num(r$est, 1), dur_unit,
+          ci_part(r$est, r$se, r$lo, r$hi, TRUE, Inf, 1), fmt_num(r$z, 2),
+          p_part(r$p, r$z, Inf, TRUE))
+}
+```
+
+**Results.** The model converged. Prequestioned sentences differed from
+non-prequestioned sentences in the Gaussian component (μ, the preregistered focus) by
+`r RE_txt("total_fix", "μ (Gaussian)")`, and in the exponential tail (τ) by
+`r RE_txt("total_fix", "τ (tail)")`; the overall mean differed by
+`r RE_txt("total_fix", "Mean")`.
+
+## Global measure: second-pass regressions into the sentence (not preregistered)
+
+::: callout-warning
+## Exploratory
+
+This measure is not preregistered. The preregistered first-pass regression measure
+asks whether readers *leave* a sentence backwards during first-pass reading, which
+mainly indexes difficulty integrating the sentence. The question here is the other
+direction: do readers *come back* to prequestioned information from later text after
+moving on (second-pass regressions, also called look-backs)?
+:::
+
+`r if (params$measures != "derived") "**This section requires the measures derived from the fixation data** (Tobii's export has no fixation sequence across sentences), so it is empty in this version of the report."`
+
+**Measure.** A second-pass regression is a return to the sentence **from later text**,
+after first-pass reading had moved past it. Re-entries from earlier text (after
+regressing out of the sentence) are not counted. The DV is whether at least one
+second-pass regression into the sentence occurred (0/1), for sentences read during
+first-pass reading (from `derive_et_measures.R`).
+
+**Models.** Logistic mixed models, with the Condition × Topic design used above and with
+the prequestioned vs. non-prequestioned comparison (Polio and TB conditions). Random
+effects are selected from the maximal structures by the same model-comparison procedure. No direction was preregistered, so all
+contrasts are two-sided. Differences are in percentage points, computed from predictions
+averaged over the observed sample.
+
+```{r}
+#| label: spr-models
+#| eval: !expr params$measures == "derived"
+# Fit the second-pass regression model. `fixed`: fixed-effects part; `re_max`: the
+# maximal random-effects structure of the design (re_max_ct or re_max_rel).
+fit_spr <- function(data, fixed, re_max) {
+  d <- droplevels(data[!is.na(data$regressed_in), ])
+  fit_glmm(paste("regressed_in ~", fixed), d, "binomial", re_max)
+}
+
+# Probabilities -> percent / percentage points
+to_pct <- \(x, cols) mutate(x, across(all_of(cols), \(v) 100 * v))
+
+# Condition x Topic design (all three conditions)
+spr_model <- fit_spr(dat, "condition * topic", re_max_ct)
+spr_omnibus <- as.data.frame(model_parameters(car::Anova(spr_model, type = 3))) |>
+  filter(Parameter != "(Intercept)")
+spr_followups <- followups(spr_model, "%") |> mutate(unit = "%")
+spr_contrasts <- as.data.frame(est_contrasts(spr_model, contrast = "topic", by = "condition",
+                                             comparison = "revpairwise")) |>
+  to_pct(c("Difference", "SE", "CI_low", "CI_high"))
+spr_means <- as.data.frame(est_means(spr_model, by = c("condition", "topic"))) |>
+  rename(any_of(c(Mean = "Probability"))) |>
+  to_pct(c("Mean", "CI_low", "CI_high"))
+
+# Prequestioned vs. non-prequestioned (Polio and TB conditions)
+spr_rel_model <- fit_spr(dat_rel, "relevance", re_max_rel)
+spr_rel <- as.data.frame(est_contrasts(spr_rel_model, contrast = "relevance",
+                                       comparison = "revpairwise")) |>
+  to_pct(c("Difference", "SE", "CI_low", "CI_high"))
+spr_rel_means <- as.data.frame(est_means(spr_rel_model, by = "relevance")) |>
+  rename(any_of(c(Mean = "Probability"))) |>
+  to_pct(c("Mean", "CI_low", "CI_high"))
+stopifnot(spr_rel$Level1 == "Prequestioned")
+
+spr_omnibus |>
+  transmute(Effect = Parameter, `Wald χ²` = Chi2, df,
+            p = format_p(p, name = NULL, digits = 3)) |>
+  kable(digits = 2, caption = sprintf(
+    "Second-pass regression, Condition × Topic: type-III Wald tests (random effects: %s)",
+    attr(spr_model, "re_used")))
+
+bind_rows(
+  spr_contrasts |> transmute(Design = "Condition × Topic",
+                             Comparison = paste0(condition, ": ", Level1, " − ", Level2),
+                             Difference, CI_low, CI_high, z, p),
+  spr_rel |> transmute(Design = "Prequestioned vs. non",
+                       Comparison = paste(Level1, "−", Level2),
+                       Difference, CI_low, CI_high, z, p)
+) |>
+  transmute(Design, Comparison, `Difference (pp)` = fmt_num(Difference, 1),
+            `95% CI` = fmt_ci(CI_low, CI_high, 1), z = fmt_num(z, 2),
+            `p (two-sided)` = format_p(p, name = NULL, digits = 3)) |>
+  kable(caption = "Second-pass regression contrasts (percentage points)")
+
+spr_followups |>
+  transmute(Effect = effect, `Estimate (pp)` = fmt_num(estimate, 1),
+            `95% CI` = fmt_ci(lo, hi, 1), z = fmt_num(stat, 2),
+            p = format_p(p, name = NULL, digits = 3),
+            `p (Holm)` = format_p(p_adj, name = NULL, digits = 3)) |>
+  kable(caption = "Second-pass regression: main-effect and interaction contrasts (percentage points)")
+```
+
+```{r}
+#| label: fig-spr
+#| eval: !expr params$measures == "derived"
+#| fig-cap: "Probability of a second-pass regression into target sentences (a return from later text). Model-estimated means ± 95% CI. Left: by Condition × Topic. Right: prequestioned vs. non-prequestioned sentences (Polio and TB conditions)."
+#| fig-width: 10
+#| fig-height: 4.2
+p_cond <- ggplot(spr_means, aes(condition, Mean, colour = topic)) +
+  geom_pointrange(aes(ymin = CI_low, ymax = CI_high),
+                  position = position_dodge(width = 0.4), size = 0.5, linewidth = 0.8) +
+  scale_colour_manual(values = topic_cols, name = "Sentence topic") +
+  labs(x = "Prequestion condition", y = "Sentences regressed into (%)") +
+  theme(legend.position = "top")
+p_rel <- ggplot(spr_rel_means, aes(relevance, Mean)) +
+  geom_pointrange(aes(ymin = CI_low, ymax = CI_high), colour = "black",
+                  size = 0.5, linewidth = 0.8) +
+  labs(x = NULL, y = "Sentences regressed into (%)")
+p_cond + p_rel + plot_layout(widths = c(1.6, 1))
+```
+
+```{r}
+#| label: spr-writeup
+#| eval: !expr params$measures == "derived"
+#| results: asis
+SPR_txt <- function(r) {
+  sprintf("Δ = %s percentage points, 95%% CI [%s, %s], *z* = %s, %s",
+          fmt_num(r$Difference, 1), fmt_num(r$CI_low, 1), fmt_num(r$CI_high, 1),
+          fmt_num(r$z, 2), sub("^p", "*p*", apa_p(r$p)))
+}
+SPR_omni <- function(term) {
+  r <- filter(spr_omnibus, Parameter == term)
+  sprintf("χ²(%d) = %s, %s", r$df, fmt_num(r$Chi2, 2), sub("^p", "*p*", apa_p(r$p)))
+}
+SPR_rel_mean <- \(rel) paste0(fmt_num(filter(spr_rel_means, relevance == rel)$Mean, 1), "%")
+
+SPR_main <- function(term) {
+  sprintf("the main effect of %s was %s, %s", term,
+          yn(filter(spr_omnibus, Parameter == tolower(term))$p < .05), SPR_omni(tolower(term)))
+}
+cat(sprintf(paste(
+  "**Results.** Readers made a second-pass regression into %s of the target sentences",
+  "they had read during first-pass reading. In the Condition × Topic design, %s, %s,",
+  "and the interaction was %s, %s. The Polio − TB difference was %s in the Polio condition,",
+  "%s in the TB condition, and %s in Control. As for first-pass regression, topic is a",
+  "property of the sentences, so these within-condition contrasts carry the",
+  "between-sentence variability and have wide intervals; the interaction compares the",
+  "same sentences across conditions. Comparing prequestioned with non-prequestioned",
+  "sentences, readers regressed into %s of prequestioned and %s of non-prequestioned",
+  "sentences, %s (@fig-spr). %s"
+),
+paste0(fmt_num(100 * mean(dat$regressed_in, na.rm = TRUE), 1), "%"),
+SPR_main("Condition"), SPR_main("Topic"),
+yn(filter(spr_omnibus, Parameter == "condition:topic")$p < .05),
+SPR_omni("condition:topic"),
+SPR_txt(filter(spr_contrasts, condition == "Polio")),
+SPR_txt(filter(spr_contrasts, condition == "TB")),
+SPR_txt(filter(spr_contrasts, condition == "Control")),
+SPR_rel_mean("Prequestioned"), SPR_rel_mean("Non-prequestioned"),
+SPR_txt(spr_rel),
+FU_txt(spr_followups)))
+```
+
+## First-pass forward reading and re-reading (exploratory) {#sec-fp-split}
+
+**Why.** In eye-tracking studies of text reading (e.g., Kaakinen & Hyönä, 2005), first-pass reading is often split into *forward*
+fixations (on new text) and *re-reading* fixations (on text already read in the
+sentence, before moving on). Lewis and Mensink (2012) found that prequestions increased
+first-pass re-reading of targeted sentences but not forward reading. This section
+splits first-pass reading the same way, to see which part carries the first-pass
+difference. Not preregistered; all tests are two-sided.
+
+**Measures** (`derive_et_measures.R`, Step 6b): a line-by-line copy of popEye's
+`ComputeSentenceMeasures()`, applied to fixations after reading started. Forward = a
+fixation on a word beyond the furthest word reached so far; re-reading = on an earlier
+word (with popEye's rules for return sweeps and sentence starts). popEye's first pass
+differs from first-pass duration above: it continues after a brief look back to an
+earlier sentence as long as no later sentence has been entered. Durations are per word.
+
+**Models.** Forward reading: Gamma GLMM. Re-reading, as a two-part (hurdle) model:
+whether any first-pass re-reading occurred (logistic GLMM), and its duration when it did
+(lognormal GLMM; the lognormal fitted these durations better than a Gamma). Each part is
+fitted in the Condition × Topic design and the prequestioned vs. non-prequestioned
+design, with random effects selected as for the other models.
+
+```{r}
+#| label: fp-split
+#| eval: !expr params$measures == "derived"
+fp_dvs <- tribble(
+  ~dv,              ~label,                                     ~unit,    ~family,
+  "fp_forward",     "First-pass forward reading",               dur_unit, "gamma",
+  "fp_reread_any",  "First-pass re-reading: probability",        "%",      "binomial",
+  "fp_reread_time", "First-pass re-reading: duration when present", dur_unit, "lognormal"
+)
+add_fp <- \(d) d |>
+  mutate(fp_reread_any  = if_else(is.na(fp_reread), NA_integer_, as.integer(fp_reread > 0)),
+         fp_reread_time = if_else(fp_reread > 0, fp_reread, NA_real_),
+         fp_forward     = if_else(fp_forward > 0, fp_forward, NA_real_))
+dat_fp     <- add_fp(dat)
+dat_fp_rel <- add_fp(dat_rel)
+
+fp_share_reread <- mean(dat_fp$fp_reread_any, na.rm = TRUE)
+
+fit_fp <- function(d, fixed_rhs, re_max) {
+  map2(fp_dvs$dv, fp_dvs$family, \(v, f)
+       fit_glmm(paste(v, "~", fixed_rhs), droplevels(d[!is.na(d[[v]]), ]), f, re_max)) |>
+    set_names(fp_dvs$dv)
+}
+fp_ct_models  <- fit_fp(dat_fp, "condition * topic", re_max_ct)
+fp_rel_models <- fit_fp(dat_fp_rel, "relevance", re_max_rel)
+
+# probabilities -> percent (unit is a single value per measure)
+pct_if <- \(x, unit) if (unit == "%") 100 * x else x
+
+# Prequestioned - Non-prequestioned (two-sided)
+fp_rel_tab <- imap_dfr(fp_rel_models, \(m, v) {
+  u <- fp_dvs$unit[fp_dvs$dv == v]
+  as.data.frame(est_contrasts(m, contrast = "relevance", comparison = "revpairwise")) |>
+    transmute(dv = v, Difference = pct_if(Difference, u), CI_low = pct_if(CI_low, u),
+              CI_high = pct_if(CI_high, u), z, p)
+})
+stopifnot(all(fp_rel_tab$dv == fp_dvs$dv))
+fp_rel_means <- imap_dfr(fp_rel_models, \(m, v) {
+  u <- fp_dvs$unit[fp_dvs$dv == v]
+  as.data.frame(est_means(m, by = "relevance")) |>
+    rename(Mean = any_of(c("Mean", "Probability"))) |>
+    transmute(dv = v, relevance, Mean = pct_if(Mean, u))
+})
+
+# Condition x Topic: omnibus tests and Polio - TB within each condition (two-sided)
+fp_ct_omni <- imap_dfr(fp_ct_models, \(m, v) mutate(omnibus(m, "x"), dv = v))
+fp_ct_con  <- imap_dfr(fp_ct_models, \(m, v) {
+  u <- fp_dvs$unit[fp_dvs$dv == v]
+  as.data.frame(est_contrasts(m, contrast = "topic", by = "condition",
+                              comparison = "revpairwise")) |>
+    transmute(dv = v, condition, Difference = pct_if(Difference, u),
+              CI_low = pct_if(CI_low, u), CI_high = pct_if(CI_high, u), z, p)
+})
+
+fp_rel_tab |>
+  left_join(select(fp_dvs, dv, label), by = "dv") |>
+  left_join(fp_rel_means |> pivot_wider(names_from = relevance, values_from = Mean),
+            by = "dv") |>
+  transmute(Measure = label, Prequestioned, `Non-prequestioned`, Difference,
+            `95% CI` = fmt_ci(CI_low, CI_high, 1), z,
+            p = format_p(p, name = NULL, digits = 3),
+            `Random effects` = map_chr(fp_rel_models, ~ attr(.x, "re_used"))) |>
+  kable(digits = 1, caption = "Prequestioned vs. non-prequestioned (Polio and TB conditions): model-estimated means and differences (ms/word or %)")
+
+fp_ct_omni |>
+  filter(Parameter == "condition:topic") |>
+  left_join(select(fp_dvs, dv, label), by = "dv") |>
+  transmute(Measure = label, `Wald χ²` = stat, df, p = format_p(p, name = NULL, digits = 3)) |>
+  kable(digits = 2, caption = "Condition × Topic interaction")
+
+fp_ct_con |>
+  left_join(select(fp_dvs, dv, label), by = "dv") |>
+  transmute(Measure = label, Condition = condition, `Polio − TB` = Difference,
+            `95% CI` = fmt_ci(CI_low, CI_high, 1), z,
+            p = format_p(p, name = NULL, digits = 3)) |>
+  kable(digits = 1, caption = "Polio − TB within each condition (two-sided)")
+```
+
+## Mediation: does reading time account for the memory benefit? (not preregistered)
+
+::: callout-warning
+## Exploratory
+
+This analysis was not preregistered. It asks how much of the memory benefit for
+prequestioned information can be explained by the extra reading time prequestioned
+sentences receive.
+:::
+
+**Design.** Each of the 10 target sentences contains the answer to exactly one test
+question (mapping below), so treatment, mediator and outcome can be linked sentence by
+sentence. This uses the `r n_distinct(dat_rel$participant)` participants in the two
+prequestion conditions:
+
+- **Treatment (X):** relevance, meaning whether the sentence was prequestioned for this
+  reader. It varies within participants: 5 prequestioned and 5 non-prequestioned
+  sentences each.
+- **Mediator (M):** reading time on the sentence (`r dur_unit`), centred within
+  participant, so that it compares a reader's longer- and shorter-read sentences and is
+  not driven by overall reading speed. The participant's mean reading time is included
+  in the outcome model as a covariate.
+- **Outcome (Y):** points earned on the corresponding test question (binomial, out of the
+  question's points).
+
+**Models.** Each path is a mixed model fitted with `gamlss`, with random intercepts
+entered as penalised `random()` terms:
+
+```r
+# mediator (a path): reading time, Gaussian
+gamlss(gaze_within ~ relevance + random(question), family = NO)
+# outcome (b and c′ paths): points out of the question's maximum, binomial
+gamlss(cbind(points, max - points) ~ relevance + gaze_within + gaze_between +
+         random(participant) + random(question), family = BI)
+```
+
+The indirect effect (*a* × *b*), direct effect (*c*′), total effect (*a**b* + *c*′) and
+proportion mediated (*a**b* / total) are point estimates from the fitted coefficients.
+Their 95% CIs and two-sided *p*-values come from the Monte Carlo method (Preacher &
+Selig, 2012): `r format(2e4, big.mark = ",")` draws of the *a* path from the mediator
+model and of the *b* and *c*′ paths jointly from the outcome model's covariance matrix.
+In the parallel model, the two *a* paths are drawn jointly, with their correlation set to
+the correlation of the two mediator models' residuals. Effects are on the log-odds
+scale. Relevance is coded −0.5 (non-prequestioned) / +0.5 (prequestioned), and reading
+time is in units of 10 `r dur_unit`.
+
+```{r}
+#| label: med-data
+q_map <- tribble(
+  ~questnum, ~pattern,
+  1,  "provides 17%",
+  2,  "^Polio has no cure",
+  3,  "Nigeria",
+  4,  "Supportive measures",
+  5,  "classic symptoms",
+  6,  "only 10%",
+  7,  "long-term course",
+  8,  "not latent",
+  9,  "spread through the air",
+  10, "dropped from many hundreds"
+)
+
+sentence_q <- tibble(sentence = levels(dat$sentence)) |>
+  mutate(questnum = map_dbl(sentence, \(s) {
+    hit <- q_map$questnum[str_detect(s, q_map$pattern)]
+    if (length(hit) == 1) hit else NA_real_
+  }))
+stopifnot(sum(!is.na(sentence_q$questnum)) == 10,
+          !anyDuplicated(na.omit(sentence_q$questnum)))
+
+answer_key <- read_csv("stimuli/answer_key.csv", show_col_types = FALSE)
+
+sentence_q |>
+  filter(!is.na(questnum)) |>
+  left_join(select(answer_key, questnum, Question), by = "questnum") |>
+  arrange(questnum) |>
+  transmute(Q = questnum, Question, Sentence = str_trunc(sentence, 70)) |>
+  kable(caption = "Mapping of target sentences to test questions")
+
+med <- dat_rel |>
+  mutate(sentence = as.character(sentence), participant = as.character(participant)) |>
+  left_join(mutate(sentence_q, sentence = as.character(sentence)), by = "sentence") |>
+  inner_join(read_csv("data/derived/test_scored_items.csv", show_col_types = FALSE) |>
+               select(participant = et_id, questnum, q_points = points, q_max = max_points),
+             by = c("participant", "questnum")) |>
+  filter(!is.na(total_fix)) |>
+  mutate(gaze = total_fix / 10,                          # units of 10 ms/word (or ms)
+         q_fail = q_max - q_points,
+         first_pass_raw = coalesce(first_pass, 0)) |>   # first-pass, 0 if skipped
+  group_by(participant) |>
+  mutate(gaze_between = mean(gaze), gaze_within = gaze - gaze_between) |>
+  ungroup() |>
+  mutate(gaze_between = gaze_between - mean(gaze_between),
+         participant = factor(participant), question = factor(questnum))
+
+stopifnot(all(med$q_points <= med$q_max))
+```
+
+
+```{r}
+#| label: med-helpers
+n_mc <- 2e4
+ctrl_med <- gamlss.control(trace = FALSE, n.cyc = 100)
+# gamlss's vcov() refits the model, looking up its data by name in the global
+# environment, so models are fitted on a named global data frame (`d` is its name)
+fit_gamlss <- function(f, d, family) {
+  eval(bquote(gamlss(.(f), data = .(as.name(d)), family = .(family), control = ctrl_med)),
+       envir = globalenv())
+}
+fit_m <- function(f, d) fit_gamlss(f, d, quote(NO))
+fit_y <- function(f, d) fit_gamlss(f, d, quote(BI))
+
+# Fixed mu coefficients and their covariance (random() terms have no fixed coefficient)
+mu_fixed <- function(m) {
+  b <- coef(m, "mu")
+  b <- b[!is.na(b)]
+  V <- suppressWarnings(vcov(m, type = "vcov"))[seq_along(b), seq_along(b)]
+  dimnames(V) <- list(names(b), names(b))
+  list(b = b, V = V)
+}
+
+# Monte Carlo draws of the relevance -> mediator paths (a), one model per mediator.
+# Paths are drawn jointly, correlated as the mediator models' residuals are.
+a_draws <- function(ms) {
+  est <- map_dbl(ms, \(m) mu_fixed(m)$b[["rel_c"]])
+  se  <- map_dbl(ms, \(m) sqrt(mu_fixed(m)$V["rel_c", "rel_c"]))
+  R   <- cor(sapply(ms, resid))
+  dr  <- MASS::mvrnorm(n_mc, est, diag(se, length(se)) %*% R %*% diag(se, length(se)))
+  list(est = est, draws = matrix(dr, ncol = length(ms), dimnames = list(NULL, names(ms))))
+}
+
+# Monte Carlo draws of the outcome-model paths (b, c′)
+y_draws <- function(m, terms) {
+  f <- mu_fixed(m)
+  list(est = f$b[terms], draws = MASS::mvrnorm(n_mc, f$b[terms], f$V[terms, terms]))
+}
+
+summ_mc <- function(est, draws) {
+  imap(est, \(e, nm) {
+    x <- draws[[nm]]
+    tibble(Effect = nm, est = e,
+           lo = unname(quantile(x, 0.025)), hi = unname(quantile(x, 0.975)),
+           p = if (str_starts(nm, "Proportion")) NA_real_
+               else 2 * min(mean(x > 0), mean(x < 0)))
+  }) |> bind_rows()
+}
+
+fmt_med_tab <- function(tab, caption) {
+  tab |>
+    mutate(prop = str_starts(Effect, "Proportion"),
+           Estimate = if_else(prop, paste0(fmt_num(100 * est, 1), "%"), fmt_num(est, 3)),
+           `95% CI` = if_else(prop, fmt_ci(100 * lo, 100 * hi, 1), fmt_ci(lo, hi, 3)),
+           p = if_else(prop, "", format_p(p, name = NULL))) |>
+    select(Effect, Estimate, `95% CI`, p) |>
+    kable(caption = caption)
+}
+```
+
+```{r}
+#| label: med-total
+set.seed(2025)
+md <- med |>
+  select(gaze_within, gaze_between, rel_c, q_points, q_fail, participant, question) |>
+  as.data.frame()                                    # gamlss refuses NA in any column
+
+m_a <- fit_m(gaze_within ~ rel_c + random(question), "md")
+m_y <- fit_y(cbind(q_points, q_fail) ~ rel_c + gaze_within + gaze_between +
+               random(participant) + random(question), "md")
+stopifnot(m_a$converged, m_y$converged)
+
+med_effects <- function(a, b, cp) list(
+  `a: relevance → reading time` = a,
+  `b: reading time → recall` = b,
+  `c′: direct effect` = cp,
+  `a × b: indirect effect` = a * b,
+  `c: total effect` = a * b + cp,
+  `Proportion mediated` = (a * b) / (a * b + cp)
+)
+
+A <- a_draws(list(gaze = m_a))
+Y <- y_draws(m_y, c("gaze_within", "rel_c"))
+med_tab <- summ_mc(med_effects(A$est[["gaze"]], Y$est[["gaze_within"]], Y$est[["rel_c"]]),
+                   med_effects(A$draws[, "gaze"], Y$draws[, "gaze_within"], Y$draws[, "rel_c"]))
+
+fmt_med_tab(med_tab, sprintf(
+  "Mediation by total gaze duration (%d participants, %d sentence × question observations). a in units of 10 %s; b in log-odds per 10 %s; c, c′ and a × b in log-odds. Monte Carlo 95%% CIs.",
+  n_distinct(med$participant), nrow(med), dur_unit, dur_unit))
+```
+
+```{r}
+#| label: med-parallel
+par_dat <- function(d) {
+  d |>
+    mutate(fp = first_pass_raw / 10, sp = second_pass / 10) |>
+    group_by(participant) |>
+    mutate(firstb = mean(fp), firstw = fp - firstb,
+           secondb = mean(sp), secondw = sp - secondb) |>
+    ungroup() |>
+    mutate(firstb = firstb - mean(firstb),
+           secondb = secondb - mean(secondb)) |>
+    select(firstw, firstb, secondw, secondb, rel_c, q_points, q_fail, participant, question) |>
+    as.data.frame()
+}
+
+par_effects <- function(a1, a2, b1, b2, cp) {
+  tot <- a1 * b1 + a2 * b2 + cp
+  list(`a₁: relevance → first-pass` = a1, `a₂: relevance → second-pass` = a2,
+       `b₁: first-pass → recall` = b1, `b₂: second-pass → recall` = b2,
+       `c′: direct effect` = cp,
+       `a₁b₁: indirect via first-pass` = a1 * b1, `a₂b₂: indirect via second-pass` = a2 * b2,
+       `Total indirect` = a1 * b1 + a2 * b2, `a₁b₁ − a₂b₂` = a1 * b1 - a2 * b2,
+       `c: total effect` = tot,
+       `Proportion mediated: first-pass` = a1 * b1 / tot,
+       `Proportion mediated: second-pass` = a2 * b2 / tot,
+       `Proportion mediated: total` = (a1 * b1 + a2 * b2) / tot)
+}
+
+fit_parallel <- function(d) {                       # d: name of a global data frame
+  m1 <- fit_m(firstw ~ rel_c + random(question), d)
+  m2 <- fit_m(secondw ~ rel_c + random(question), d)
+  my <- fit_y(cbind(q_points, q_fail) ~ rel_c + firstw + firstb + secondw + secondb +
+                random(participant) + random(question), d)
+  stopifnot(m1$converged, m2$converged, my$converged)
+  A <- a_draws(list(first = m1, second = m2))
+  Y <- y_draws(my, c("firstw", "secondw", "rel_c"))
+  summ_mc(par_effects(A$est[["first"]], A$est[["second"]],
+                      Y$est[["firstw"]], Y$est[["secondw"]], Y$est[["rel_c"]]),
+          par_effects(A$draws[, "first"], A$draws[, "second"],
+                      Y$draws[, "firstw"], Y$draws[, "secondw"], Y$draws[, "rel_c"]))
+}
+
+set.seed(2025)
+d_all <- par_dat(med)
+d_fp  <- par_dat(filter(med, first_pass_raw > 0))
+par_all <- fit_parallel("d_all")
+par_fp  <- fit_parallel("d_fp")
+
+bind_rows(`All sentences` = par_all, `First-pass > 0 only` = par_fp, .id = "Sample") |>
+  mutate(prop = str_starts(Effect, "Proportion"),
+         est = if_else(prop, paste0(fmt_num(100 * est, 1), "%"), fmt_num(est, 3)),
+         ci = if_else(prop, fmt_ci(100 * lo, 100 * hi, 1), fmt_ci(lo, hi, 3)),
+         p = if_else(prop, "", format_p(p, name = NULL))) |>
+  select(Sample, Effect, est, ci, p) |>
+  pivot_wider(names_from = Sample, values_from = c(est, ci, p), names_glue = "{Sample}: {.value}") |>
+  select(Effect, starts_with("All"), starts_with("First")) |>
+  rename_with(\(x) str_replace(x, ": est$", ": estimate") |> str_replace(": ci$", ": 95% CI")) |>
+  kable(caption = sprintf(
+    "Parallel mediation by first-pass and second-pass time. All sentences: %d observations; first-pass > 0: %d observations. Monte Carlo 95%% CIs.",
+    nrow(d_all), nrow(d_fp)))
+```
+
+```{r}
+#| label: med-tail
+# LONG READINGS AS THE MEDIATOR (exploratory)
+# The ex-Gaussian analysis located the prequestion effect on total gaze in the tail of
+# unusually long readings (τ). τ describes a distribution, not a single reading, so the
+# sentence-level counterpart is used here: was this reading unusually long for this
+# reader? A reading is "long" if its total gaze duration (per word) is above the
+# reader's own q-th percentile, computed over ALL sentences the reader fixated (target
+# and filler sentences on all four pages), so the prequestioned sentences do not set
+# their own cutoff. Thresholds: 70th, 80th (main) and 90th percentiles.
+#
+# Paths:
+#   a  = change in the probability of a long reading (prequestioned - non-prequestioned),
+#        from a logistic model with participant and question random intercepts
+#   b  = effect of a long reading on recall (log-odds), within readers: the outcome
+#        model includes the reader's rate of long readings as a covariate
+#   indirect = b * a: the expected shift in the log-odds of recall produced by the
+#        change in long readings, on the same scale as the direct effect c′
+tail_thresholds <- c(`70th` = 0.7, `80th` = 0.8, `90th` = 0.9)
+
+reader_gaze <- measures_src |>
+  filter(participant %in% unique(med$participant), total > 0) |>
+  mutate(gaze_all = if (length_norm) total / number_of_units else total) |>
+  select(participant, gaze_all)
+
+tail_effects <- function(a, b, cp) list(
+  `a: relevance → long reading (probability)` = a,
+  `b: long reading → recall` = b,
+  `c′: direct effect` = cp,
+  `a × b: indirect effect` = a * b,
+  `c: total effect` = a * b + cp,
+  `Proportion mediated` = (a * b) / (a * b + cp)
+)
+
+fit_tail <- function(q, label) {
+  cutoffs <- reader_gaze |>
+    group_by(participant) |>
+    summarise(cutoff = quantile(gaze_all, q), .groups = "drop")
+  dname <- paste0("md_tail_", label)
+  d <- med |>
+    left_join(cutoffs, by = c(participant = "participant")) |>
+    mutate(long = as.integer(total_fix > cutoff)) |>
+    group_by(participant) |>
+    mutate(long_rate = mean(long)) |>
+    ungroup() |>
+    mutate(long_rate = long_rate - mean(long_rate),
+           participant = factor(participant)) |>          # random() needs factors
+    select(long, long_rate, rel_c, q_points, q_fail, participant, question) |>
+    as.data.frame()
+  stopifnot(!anyNA(d))
+  assign(dname, d, envir = globalenv())     # gamlss's vcov() looks the data up by name
+
+  m_long <- fit_gamlss(long ~ rel_c + random(participant) + random(question), dname,
+                       quote(BI))
+  m_rec  <- fit_gamlss(cbind(q_points, q_fail) ~ rel_c + long + long_rate +
+                         random(participant) + random(question), dname, quote(BI))
+  stopifnot(m_long$converged, m_rec$converged)
+
+  # a: probability scale, at the average participant and question
+  fa <- mu_fixed(m_long)
+  a_dr <- MASS::mvrnorm(n_mc, fa$b[c("(Intercept)", "rel_c")],
+                        fa$V[c("(Intercept)", "rel_c"), c("(Intercept)", "rel_c")])
+  dp <- \(b0, b1) plogis(b0 + 0.5 * b1) - plogis(b0 - 0.5 * b1)
+  a_est <- dp(fa$b[["(Intercept)"]], fa$b[["rel_c"]])
+  a_draw <- dp(a_dr[, 1], a_dr[, 2])
+  Y <- y_draws(m_rec, c("long", "rel_c"))
+
+  summ_mc(tail_effects(a_est, Y$est[["long"]], Y$est[["rel_c"]]),
+          tail_effects(a_draw, Y$draws[, "long"], Y$draws[, "rel_c"])) |>
+    mutate(threshold = label, share_long = mean(d$long),
+           long_pre = mean(d$long[d$rel_c > 0]), long_non = mean(d$long[d$rel_c < 0]))
+}
+
+set.seed(2025)
+tail_tab <- imap(tail_thresholds, fit_tail) |> bind_rows()
+
+tail_tab |>
+  mutate(prop = str_starts(Effect, "Proportion"),
+         est_txt = case_when(prop ~ paste0(fmt_num(100 * est, 1), "%"),
+                             str_starts(Effect, "a:") ~ fmt_num(100 * est, 1),
+                             TRUE ~ fmt_num(est, 3)),
+         ci_txt = case_when(prop ~ fmt_ci(100 * lo, 100 * hi, 1),
+                            str_starts(Effect, "a:") ~ fmt_ci(100 * lo, 100 * hi, 1),
+                            TRUE ~ fmt_ci(lo, hi, 3)),
+         p_txt = if_else(prop, "", format_p(p, name = NULL))) |>
+  select(threshold, Effect, est_txt, ci_txt, p_txt) |>
+  pivot_wider(names_from = threshold, values_from = c(est_txt, ci_txt, p_txt),
+              names_glue = "{threshold}: {.value}") |>
+  select(Effect, starts_with("70th"), starts_with("80th"), starts_with("90th")) |>
+  rename_with(\(x) x |> str_replace(": est_txt", ": estimate") |>
+                str_replace(": ci_txt", ": 95% CI") |> str_replace(": p_txt", ": p")) |>
+  kable(caption = "Mediation by long readings (reading above the reader's own 70th, 80th or 90th percentile of total gaze). a in percentage points (change in the probability of a long reading); b in log-odds per long reading; c, c′ and a × b in log-odds. Monte Carlo 95% CIs.")
+```
+
+```{r}
+#| label: fig-path
+#| fig-cap: "Path models of the prequestion memory benefit (estimates with Monte Carlo 95% CIs; log-odds scale for paths into recall). A: total gaze duration as mediator. B: first-pass and second-pass time as parallel mediators (all sentences). Reading-time paths are in units of 10 ms/word (or ms)."
+#| fig-width: 11
+#| fig-height: 4.6
+lab <- function(tab, eff, d = 2) {
+  r <- filter(tab, Effect == eff)
+  sprintf("%s\n[%s, %s]", fmt_num(r$est, d), fmt_num(r$lo, d), fmt_num(r$hi, d))
+}
+pct <- function(tab, eff) {
+  r <- filter(tab, Effect == eff)
+  sprintf("%s%% [%s, %s]", fmt_num(100 * r$est, 1), fmt_num(100 * r$lo, 1),
+          fmt_num(100 * r$hi, 1))
+}
+
+path_plot <- function(nodes, edges, title, subtitle) {
+  ggplot() +
+    geom_segment(data = edges,
+                 aes(x = x, y = y, xend = xend, yend = yend),
+                 arrow = arrow(length = unit(0.25, "cm"), type = "closed"),
+                 linewidth = 0.7, colour = "grey30") +
+    geom_label(data = edges, aes(x = (x + xend) / 2 + lx, y = (y + yend) / 2 + ly, label = label),
+               size = 3.1, linewidth = 0, fill = "white", lineheight = 0.9) +
+    geom_label(data = nodes, aes(x, y, label = label), size = 3.5, fontface = "bold",
+               label.padding = unit(0.45, "lines"), fill = "grey95", lineheight = 0.9) +
+    coord_cartesian(xlim = c(-0.35, 2.35), ylim = c(-0.45, 1.35)) +
+    labs(title = title, subtitle = subtitle) +
+    theme_void(base_size = 11) +
+    theme(plot.title = element_text(face = "bold"), plot.subtitle = element_text(size = 9.5))
+}
+
+# trim arrow ends so they stop at the node boxes
+trim <- function(e, k = 0.22) {
+  dx <- e$xend - e$x; dy <- e$yend - e$y; len <- sqrt(dx^2 + dy^2)
+  mutate(e, x = x + k * dx / len, y = y + k * dy / len,
+         xend = xend - k * dx / len, yend = yend - k * dy / len)
+}
+
+pA <- path_plot(
+  nodes = tibble(x = c(0, 1, 2), y = c(0, 1, 0),
+                 label = c("Prequestioned\n(vs. non)", "Gaze duration\n(within reader)", "Recall of\nanswer")),
+  edges = trim(tibble(x = c(0, 1, 0), y = c(0, 1, 0), xend = c(1, 2, 2), yend = c(1, 0, 0),
+                      lx = c(-0.22, 0.22, 0), ly = c(0.08, 0.08, -0.16),
+                      label = c(paste0("a = ", lab(med_tab, "a: relevance → reading time")),
+                                paste0("b = ", lab(med_tab, "b: reading time → recall", 3)),
+                                paste0("c′ = ", lab(med_tab, "c′: direct effect"))))),
+  title = "A. Total gaze duration",
+  subtitle = sprintf("Indirect a × b = %s; proportion mediated = %s",
+                     sub("\n", " ", lab(med_tab, "a × b: indirect effect", 3)),
+                     pct(med_tab, "Proportion mediated")))
+
+pB <- path_plot(
+  nodes = tibble(x = c(0, 1, 1, 2), y = c(0.5, 1.15, -0.15, 0.5),
+                 label = c("Prequestioned\n(vs. non)", "First-pass\ntime", "Second-pass\ntime",
+                           "Recall of\nanswer")),
+  edges = trim(tibble(x = c(0, 1, 0, 1, 0), y = c(0.5, 1.15, 0.5, -0.15, 0.5),
+                      xend = c(1, 2, 1, 2, 2), yend = c(1.15, 0.5, -0.15, 0.5, 0.5),
+                      lx = c(-0.24, 0.24, -0.24, 0.24, 0), ly = c(0.1, 0.1, -0.1, -0.1, 0.12),
+                      label = c(paste0("a₁ = ", lab(par_all, "a₁: relevance → first-pass")),
+                                paste0("b₁ = ", lab(par_all, "b₁: first-pass → recall", 3)),
+                                paste0("a₂ = ", lab(par_all, "a₂: relevance → second-pass")),
+                                paste0("b₂ = ", lab(par_all, "b₂: second-pass → recall", 3)),
+                                paste0("c′ = ", lab(par_all, "c′: direct effect"))))),
+  title = "B. First-pass and second-pass time",
+  subtitle = sprintf("Indirect via first-pass = %s; via second-pass = %s",
+                     pct(par_all, "Proportion mediated: first-pass"),
+                     pct(par_all, "Proportion mediated: second-pass")))
+
+pA + pB
+```
+
+```{r}
+#| label: med-writeup
+B_row <- function(tab, eff) filter(tab, Effect == eff)
+B_txt <- function(tab, eff, d = 3) {
+  r <- B_row(tab, eff)
+  sprintf("%s, 95%% CI [%s, %s], %s", fmt_num(r$est, d), fmt_num(r$lo, d),
+          fmt_num(r$hi, d), format_p(r$p))
+}
+B_pct <- function(tab, eff) {
+  r <- B_row(tab, eff)
+  sprintf("%s%% (95%% CI [%s%%, %s%%])", fmt_num(100 * r$est, 1),
+          fmt_num(100 * r$lo, 1), fmt_num(100 * r$hi, 1))
+}
+B_or <- function(tab, eff) {
+  r <- B_row(tab, eff)
+  sprintf("OR = %s [%s, %s]", fmt_num(exp(r$est)), fmt_num(exp(r$lo)), fmt_num(exp(r$hi)))
+}
+```
+
+**Results: total gaze duration.** Prequestioned sentences were read longer than
+non-prequestioned sentences (*a* = `r B_txt(med_tab, "a: relevance → reading time", 2)`,
+units of 10 `r dur_unit`). Within readers, longer reading of a sentence predicted better
+recall of its answer (*b* = `r B_txt(med_tab, "b: reading time → recall")`). The
+indirect effect was *a* × *b* = `r B_txt(med_tab, "a × b: indirect effect")`, the
+direct effect was *c*′ = `r B_txt(med_tab, "c′: direct effect")`
+(`r B_or(med_tab, "c′: direct effect")`), and the total effect was
+*c* = `r B_txt(med_tab, "c: total effect")` (`r B_or(med_tab, "c: total effect")`).
+Reading time accounted for `r B_pct(med_tab, "Proportion mediated")` of the memory
+benefit (@fig-path A).
+
+**Results: first-pass and second-pass time.** With all sentences, the indirect effect was
+`r B_txt(par_all, "a₁b₁: indirect via first-pass")` via first-pass time and
+`r B_txt(par_all, "a₂b₂: indirect via second-pass")` via second-pass time. Together they
+accounted for `r B_pct(par_all, "Proportion mediated: total")` of the benefit
+(first-pass: `r B_pct(par_all, "Proportion mediated: first-pass")`; second-pass:
+`r B_pct(par_all, "Proportion mediated: second-pass")`; @fig-path B). Restricted to
+sentences with first-pass time > 0, the indirect effects were
+`r B_txt(par_fp, "a₁b₁: indirect via first-pass")` (first-pass) and
+`r B_txt(par_fp, "a₂b₂: indirect via second-pass")` (second-pass), together
+`r B_pct(par_fp, "Proportion mediated: total")`.
+
+**Results: long readings.** Using each reader's own 80th percentile of total gaze as the
+cutoff, `r fmt_num(100 * filter(tail_tab, threshold == "80th")$long_pre[1], 1)`% of
+prequestioned and `r fmt_num(100 * filter(tail_tab, threshold == "80th")$long_non[1], 1)`%
+of non-prequestioned target sentences received a long reading. The indirect effect via
+long readings was `r B_txt(filter(tail_tab, threshold == "80th"), "a × b: indirect effect")`,
+accounting for `r B_pct(filter(tail_tab, threshold == "80th"), "Proportion mediated")` of the
+benefit (70th percentile: `r B_pct(filter(tail_tab, threshold == "70th"), "Proportion mediated")`;
+90th percentile: `r B_pct(filter(tail_tab, threshold == "90th"), "Proportion mediated")`).
+
+Total gaze is the sum of first-pass and second-pass time, so it is never entered in the
+same model as either component. Reading time was observed, not manipulated, so the
+indirect effects are correlational. Readers may also look longer at sentences they would
+remember well for other reasons.
+
+::: callout-important
+First-pass time is 0 (no first pass) for `r round(100 * mean(med$first_pass_raw == 0))`%
+of these sentences. `r if (params$measures == "derived") "With the derived measures these are sentences skipped during first-pass reading." else "With Tobii's metrics this is mostly the page-landing problem: Tobii treats sentences above the landing point as already passed."`
+The all-sentences analysis keeps the decomposition exact (total = first-pass +
+second-pass), counting first-pass as 0 for those sentences. The first-pass > 0 analysis
+leaves them out.
+:::
+
+## Reading benefit and memory benefit (not preregistered)
+
+::: callout-warning
+## Exploratory
+
+This analysis was not preregistered. It asks whether participants who directed more
+reading to prequestioned content also showed a larger memory benefit for prequestioned
+content.
+:::
+
+**Approach.** For each participant in the two prequestion conditions:
+
+- **Reading benefit** = mean total gaze duration on prequestioned sentences − mean total
+  gaze duration on non-prequestioned sentences
+  (`r if (length_norm) "ms/word" else "ms"`).
+- **Memory benefit** = proportion of points earned on prequestioned questions −
+  proportion earned on non-prequestioned questions.
+
+Each participant is compared with themselves, so general reading speed and ability cancel
+out. In the Polio condition the prequestioned topic is Polio, and in the TB condition it
+is TB. Because the topics differ in difficulty and sentence length, the correlation
+between the two benefits is a **partial correlation controlling for condition**
+(`correlation`, easystats). Pearson is the main estimate and Spearman a robustness check.
+Correlations within each condition are also reported. Each benefit score rests on 5
+sentences and 5 questions per topic, so the scores are noisy, and a modest true
+correlation may not reach significance.
+
+```{r}
+#| label: diff-data
+test_items <- read_csv("data/derived/test_scored_items.csv", show_col_types = FALSE) |>
+  filter(et_id %in% levels(dat$participant))
+
+gaze_rel <- dat_rel |>
+  group_by(participant, condition, relevance) |>
+  summarise(gaze = mean(total_fix, na.rm = TRUE), .groups = "drop") |>
+  mutate(participant = as.character(participant))
+
+acc_rel <- test_items |>
+  filter(et_group != "Control") |>
+  mutate(condition = recode(et_group, Po = "Polio"),
+         relevance = if_else(topic == condition, "Prequestioned", "Non-prequestioned")) |>
+  group_by(participant = et_id, relevance) |>
+  summarise(acc = sum(points) / sum(max_points), .groups = "drop")
+
+benefit <- inner_join(gaze_rel, mutate(acc_rel, relevance = factor(relevance, levels(gaze_rel$relevance))),
+                      by = c("participant", "relevance")) |>
+  pivot_wider(names_from = relevance, values_from = c(gaze, acc)) |>
+  transmute(participant, condition = droplevels(condition),
+            gaze_benefit = gaze_Prequestioned - `gaze_Non-prequestioned`,
+            acc_benefit  = acc_Prequestioned - `acc_Non-prequestioned`,
+            cond_TB = as.numeric(condition == "TB"))
+
+stopifnot(nrow(benefit) == n_distinct(dat_rel$participant), !anyNA(benefit))
+
+benefit |>
+  group_by(Condition = condition) |>
+  summarise(n = n(),
+            `Reading benefit M (SD)` = sprintf("%s (%s)", fmt_num(mean(gaze_benefit), 1),
+                                               fmt_num(sd(gaze_benefit), 1)),
+            `Memory benefit M (SD)` = sprintf("%s (%s)", fmt_num(mean(acc_benefit)),
+                                              fmt_num(sd(acc_benefit)))) |>
+  kable(caption = sprintf("Reading benefit (%s) and memory benefit (proportion of points), prequestioned − non-prequestioned",
+                          if (length_norm) "ms/word" else "ms"))
+```
+
+```{r}
+#| label: diff-corr
+# Partial correlation controlling for condition: the t test of reading benefit in
+# lm(memory benefit ~ reading benefit + condition), converted to r (df = n - 3).
+# Spearman version: the same on ranks.
+part_cor <- function(method) {
+  d <- benefit
+  if (method == "spearman") d <- mutate(d, across(c(gaze_benefit, acc_benefit), rank))
+  mp <- model_parameters(lm(acc_benefit ~ gaze_benefit + condition, data = d)) |>
+    as.data.frame() |>
+    filter(Parameter == "gaze_benefit")
+  rr <- as.data.frame(t_to_r(mp$t, mp$df_error, ci = 0.95, alternative = "two.sided"))
+  tibble(r = rr$r, CI_low = rr$CI_low, CI_high = rr$CI_high, df_error = mp$df_error, p = mp$p)
+}
+cond_cor <- function(cnd) {
+  correlation(filter(benefit, condition == cnd) |> select(gaze_benefit, acc_benefit),
+              p_adjust = "none") |>
+    as.data.frame()
+}
+
+pc_pear  <- part_cor("pearson")
+pc_spear <- part_cor("spearman")
+cc <- map(set_names(levels(benefit$condition)), cond_cor)
+
+diff_tab <- bind_rows(
+  tibble(Analysis = "Partial r (controlling for condition)", n = nrow(benefit),
+         r = pc_pear$r, lo = pc_pear$CI_low, hi = pc_pear$CI_high, df = pc_pear$df_error,
+         p = pc_pear$p),
+  tibble(Analysis = "Partial Spearman ρ (controlling for condition)", n = nrow(benefit),
+         r = pc_spear$r, lo = pc_spear$CI_low, hi = pc_spear$CI_high,
+         df = pc_spear$df_error, p = pc_spear$p),
+  imap(cc, \(x, cnd) tibble(Analysis = paste("Pearson r, Polio condition" |>
+                                               sub("Polio", cnd, x = _)),
+                            n = sum(benefit$condition == cnd), r = x$r, lo = x$CI_low,
+                            hi = x$CI_high, df = x$df_error, p = x$p)) |>
+    bind_rows()
+)
+
+diff_tab |>
+  transmute(Analysis, n, r = fmt_num(r), `95% CI` = fmt_ci(lo, hi), df,
+            p = format_p(p, name = NULL, digits = 3)) |>
+  kable(caption = "Correlation between reading benefit and memory benefit")
+```
+
+```{r}
+#| label: fig-benefit
+#| fig-cap: "Exploratory: each participant's reading benefit (gaze on prequestioned − non-prequestioned sentences) and memory benefit (accuracy on prequestioned − non-prequestioned questions), centred within condition. The line is a least-squares fit with 95% CI."
+#| fig-width: 7
+#| fig-height: 4.8
+cond_cols <- topic_cols
+
+benefit |>
+  group_by(condition) |>
+  mutate(across(c(gaze_benefit, acc_benefit), ~ .x - mean(.x), .names = "{.col}_c")) |>
+  ungroup() |>
+  ggplot(aes(gaze_benefit_c, acc_benefit_c)) +
+  geom_hline(yintercept = 0, colour = "grey85") +
+  geom_vline(xintercept = 0, colour = "grey85") +
+  geom_smooth(method = "lm", formula = y ~ x, colour = "grey20", fill = "grey70",
+              linewidth = 0.9) +
+  geom_point(aes(colour = condition), size = 2, alpha = 0.75) +
+  scale_colour_manual(values = cond_cols, name = "Prequestion condition") +
+  scale_y_continuous(labels = scales::label_percent(accuracy = 1)) +
+  labs(x = sprintf("Reading benefit, centred within condition (%s)",
+                   if (length_norm) "ms/word" else "ms"),
+       y = "Memory benefit, centred within condition\n(percentage points)") +
+  theme(legend.position = "top")
+```
+
+```{r}
+#| label: diff-writeup-helpers
+fmt_r <- function(x) sub("^(-?)0\\.", "\\1.", fmt_num(x))
+D_row <- function(a) filter(diff_tab, Analysis == a)
+D_txt <- function(a, sym = "*r*") {
+  r <- D_row(a)
+  sprintf("%s(%d) = %s, 95%% CI [%s, %s], %s", sym, r$df, fmt_r(r$r), fmt_r(r$lo),
+          fmt_r(r$hi), sub("^p", "*p*", apa_p(r$p)))
+}
+D_sig <- function(a) D_row(a)$p < .05
+pc_lab <- "Partial r (controlling for condition)"
+```
+
+**Results.** On average, participants in the prequestion conditions read prequestioned
+sentences longer (mean reading benefit =
+`r fmt_num(mean(benefit$gaze_benefit), 1)` `r if (length_norm) "ms/word" else "ms"`) and
+scored higher on prequestioned questions (mean memory benefit =
+`r fmt_num(100 * mean(benefit$acc_benefit), 1)` percentage points). Across the
+`r nrow(benefit)` participants, the reading benefit and the memory benefit were
+`r yn(D_sig(pc_lab), "significantly", "not significantly")` correlated, controlling
+for condition, `r D_txt(pc_lab)`; partial Spearman
+`r D_txt("Partial Spearman ρ (controlling for condition)", "ρ")`. Within conditions,
+the correlation was `r D_txt("Pearson r, Polio condition")` in the Polio condition and
+`r D_txt("Pearson r, TB condition")` in the TB condition (@fig-benefit).
+
+### Gaze and accuracy for prequestioned and non-prequestioned content
+
+These correlations are computed separately for prequestioned content (gaze on
+prequestioned sentences vs. accuracy on prequestioned questions) and non-prequestioned
+content, in the same `r nrow(benefit)` participants. Each is a partial correlation
+controlling for condition. The two correlations come from the same participants and share
+no variable, so they are compared with a test for dependent, non-overlapping
+correlations (Steiger, 1980; `cocor`) on scores centred within condition, with a 95% CI
+for the difference (Zou, 2007).
+
+```{r}
+#| label: prenon-corr
+library(cocor)
+
+relcor <- inner_join(gaze_rel,
+                     mutate(acc_rel, relevance = factor(relevance, levels(gaze_rel$relevance))),
+                     by = c("participant", "relevance")) |>
+  mutate(relevance = droplevels(relevance), condition = droplevels(condition))
+
+# Partial r controlling for condition (as in part_cor above)
+rel_part_cor <- function(rel, method = "pearson") {
+  d <- filter(relcor, relevance == rel)
+  if (method == "spearman") d <- mutate(d, across(c(gaze, acc), rank))
+  mp <- model_parameters(lm(acc ~ gaze + condition, data = d)) |>
+    as.data.frame() |>
+    filter(Parameter == "gaze")
+  rr <- as.data.frame(t_to_r(mp$t, mp$df_error, ci = 0.95, alternative = "two.sided"))
+  tibble(relevance = rel, n = nrow(d), r = rr$r, lo = rr$CI_low, hi = rr$CI_high,
+         df = mp$df_error, p = mp$p)
+}
+
+prenon_tab <- bind_rows(
+  map(c("Prequestioned", "Non-prequestioned"), rel_part_cor) |> bind_rows() |>
+    mutate(method = "Pearson"),
+  map(c("Prequestioned", "Non-prequestioned"), rel_part_cor, method = "spearman") |>
+    bind_rows() |> mutate(method = "Spearman")
+)
+
+# Difference between the two correlations, on scores centred within condition
+centred <- relcor |>
+  group_by(condition, relevance) |>
+  mutate(across(c(gaze, acc), ~ .x - mean(.x))) |>
+  ungroup() |>
+  pivot_wider(id_cols = participant, names_from = relevance, values_from = c(gaze, acc))
+R <- cor(select(centred, gaze_Prequestioned, acc_Prequestioned,
+                `gaze_Non-prequestioned`, `acc_Non-prequestioned`))
+cmp <- cocor.dep.groups.nonoverlap(
+  r.jk = R["gaze_Prequestioned", "acc_Prequestioned"],
+  r.hm = R["gaze_Non-prequestioned", "acc_Non-prequestioned"],
+  r.jh = R["gaze_Prequestioned", "gaze_Non-prequestioned"],
+  r.jm = R["gaze_Prequestioned", "acc_Non-prequestioned"],
+  r.kh = R["acc_Prequestioned", "gaze_Non-prequestioned"],
+  r.km = R["acc_Prequestioned", "acc_Non-prequestioned"],
+  n = nrow(centred), test = c("steiger1980", "zou2007"))
+prenon_diff <- tibble(diff = R["gaze_Prequestioned", "acc_Prequestioned"] -
+                        R["gaze_Non-prequestioned", "acc_Non-prequestioned"],
+                      lo = cmp@zou2007$conf.int[1], hi = cmp@zou2007$conf.int[2],
+                      z = cmp@steiger1980$statistic, p = cmp@steiger1980$p.value)
+
+prenon_tab |>
+  transmute(Content = relevance, Method = method, n, r = fmt_num(r),
+            `95% CI` = fmt_ci(lo, hi), df, p = format_p(p, name = NULL, digits = 3)) |>
+  kable(caption = "Partial correlations (controlling for condition) between gaze duration and test accuracy")
+```
+
+```{r}
+#| label: prenon-plot-helper
+plot_relcor <- function(rel) {
+  relcor |>
+    filter(relevance == rel) |>
+    ggplot(aes(gaze, acc)) +
+    geom_smooth(aes(colour = condition, fill = condition), method = "lm",
+                formula = y ~ x, alpha = 0.12, linewidth = 0.9) +
+    geom_point(aes(colour = condition), size = 2, alpha = 0.75) +
+    scale_colour_manual(values = cond_cols, name = "Prequestion condition") +
+    scale_fill_manual(values = cond_cols, name = "Prequestion condition") +
+    scale_y_continuous(labels = scales::label_percent(accuracy = 1), limits = c(0, 1)) +
+    labs(x = sprintf("Mean total gaze duration on %s sentences (%s)", tolower(rel),
+                     if (length_norm) "ms/word" else "ms"),
+         y = sprintf("Accuracy on %s questions", tolower(rel))) +
+    theme(legend.position = "top")
+}
+```
+
+```{r}
+#| label: fig-pre-corr
+#| fig-cap: "Exploratory: gaze duration on prequestioned sentences and accuracy on prequestioned questions (Polio and TB conditions). Lines are least-squares fits with 95% CIs, by condition."
+#| fig-width: 7
+#| fig-height: 4.8
+plot_relcor("Prequestioned")
+```
+
+```{r}
+#| label: fig-non-corr
+#| fig-cap: "Exploratory: gaze duration on non-prequestioned sentences and accuracy on non-prequestioned questions (Polio and TB conditions). Lines are least-squares fits with 95% CIs, by condition."
+#| fig-width: 7
+#| fig-height: 4.8
+plot_relcor("Non-prequestioned")
+```
+
+```{r}
+#| label: prenon-writeup-helpers
+PN_txt <- function(rel, method = "Pearson", sym = "*r*") {
+  r <- filter(prenon_tab, relevance == rel, method == !!method)
+  sprintf("%s(%d) = %s, 95%% CI [%s, %s], %s", sym, r$df, fmt_r(r$r), fmt_r(r$lo),
+          fmt_r(r$hi), sub("^p", "*p*", apa_p(r$p)))
+}
+PN_sig <- function(rel) filter(prenon_tab, relevance == rel, method == "Pearson")$p < .05
+```
+
+**Results.** Controlling for condition, gaze duration and accuracy were
+`r yn(PN_sig("Prequestioned"), "significantly", "not significantly")` correlated for
+prequestioned content, `r PN_txt("Prequestioned")` (Spearman
+`r PN_txt("Prequestioned", "Spearman", "ρ")`; @fig-pre-corr), and
+`r yn(PN_sig("Non-prequestioned"), "significantly", "not significantly")` correlated
+for non-prequestioned content, `r PN_txt("Non-prequestioned")` (Spearman
+`r PN_txt("Non-prequestioned", "Spearman", "ρ")`; @fig-non-corr). The two correlations
+`r if (prenon_diff$p < .05) "differed significantly" else "did not differ significantly"`,
+Δ*r* = `r fmt_r(prenon_diff$diff)`, 95% CI [`r fmt_r(prenon_diff$lo)`,
+`r fmt_r(prenon_diff$hi)`], *z* = `r apa_num(prenon_diff$z)`,
+`r sub("^p", "*p*", apa_p(prenon_diff$p))`.
+
+These are between-participant correlations, so they also reflect general reading speed
+and skill. The reading-benefit analysis above removes those by comparing each
+participant with themselves.
+
+## Random-effects selection {#sec-re-selection}
+
+Every comparison made by the random-effects selection procedure (see Models), for every
+eye-movement GLMM (the final-test models are in `final_test.qmd`). *χ²*, *df* and *p* are from the likelihood-ratio test of the model without the
+slope against the model with it.
+
+```{r}
+#| label: re-selection
+glmm_list_et <- c(
+  set_names(models$model, paste("Condition × Topic:", models$label)),
+  set_names(rel_models$model, paste("Prequestioned vs. non:", rel_models$label)),
+  if (exists("spr_model")) list(`Condition × Topic: Second-pass regression` = spr_model,
+                                `Prequestioned vs. non: Second-pass regression` = spr_rel_model))
+re_tabs_et <- re_selection_tables(glmm_list_et)
+show_re_selection(re_tabs_et)
+```
+
+## Session info
+
+```{r}
+#| label: session
+sessionInfo()
+```

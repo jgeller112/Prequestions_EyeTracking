@@ -1,0 +1,8 @@
+﻿Welcome.started,Welcome.stopped,mouse.x,mouse.y,mouse.leftButton,mouse.midButton,mouse.rightButton,mouse.clicked_name,participant,group,date,expName,psychopyVersion,OS,frameRate,Preq_Phase.started,Preq_Phase.stopped,textbox_2.text,mouse_12.x,mouse_12.y,mouse_12.leftButton,mouse_12.midButton,mouse_12.rightButton,mouse_12.clicked_name,trials.thisRepN,trials.thisTrialN,trials.thisN,trials.thisIndex,trials.ran,Condition,Question,End.started,End.stopped,key_resp_2.keys,key_resp_2.rt,key_resp_2.duration
+0.0003,11.7576,0.016409266,-0.398648649,1,0,0,polygon,P44,tb,2024-12-03_16h05.06.991,preQ,2024.2.3,Win32,29.94011976,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,P44,tb,2024-12-03_16h05.06.991,preQ,2024.2.3,Win32,29.94011976,11.7659,16.3589,,-0.003861004,-0.41023166,1,0,0,polygon3,0,0,0,2,1,TB,What is the treatment for tuberculosis?,,,,,
+,,,,,,,,P44,tb,2024-12-03_16h05.06.991,preQ,2024.2.3,Win32,29.94011976,16.3603,19.6919,,-0.002895753,-0.409266409,1,0,0,polygon3,0,1,1,1,1,TB,What percentage of new infections will turn into active cases of tuberculosis?,,,,,
+,,,,,,,,P44,tb,2024-12-03_16h05.06.991,preQ,2024.2.3,Win32,29.94011976,19.6927,25.4242,,-0.002895753,-0.407335907,1,0,0,polygon3,0,2,2,3,1,TB,Can people with latent tuberculosis spread the disease?,,,,,
+,,,,,,,,P44,tb,2024-12-03_16h05.06.991,preQ,2024.2.3,Win32,29.94011976,25.4248,36.3571,coughing,0,-0.406370656,1,0,0,polygon3,0,3,3,4,1,TB,How is tuberculosis spread through the air?,,,,,
+,,,,,,,,P44,tb,2024-12-03_16h05.06.991,preQ,2024.2.3,Win32,29.94011976,36.3578,44.7912,cough and fever,0,-0.406370656,1,0,0,polygon3,0,4,4,0,1,TB,What are the symptoms of tuberculosis?,,,,,
+,,,,,,,,P44,tb,2024-12-03_16h05.06.991,preQ,2024.2.3,Win32,29.94011976,,,,,,,,,,,,,,,,,44.7966,46.1911,space,1.3717,

@@ -1,0 +1,8 @@
+﻿Welcome.started,Welcome.stopped,mouse.x,mouse.y,mouse.leftButton,mouse.midButton,mouse.rightButton,mouse.clicked_name,participant,group,date,expName,psychopyVersion,OS,frameRate,Preq_Phase.started,Preq_Phase.stopped,textbox_2.text,mouse_12.x,mouse_12.y,mouse_12.leftButton,mouse_12.midButton,mouse_12.rightButton,mouse_12.clicked_name,trials.thisRepN,trials.thisTrialN,trials.thisN,trials.thisIndex,trials.ran,Condition,Question,End.started,End.stopped,key_resp_2.keys,key_resp_2.rt,key_resp_2.duration
+0.0002,16.9233,0.002895753,-0.392857143,1,0,0,polygon,P140,tb,2025-04-04_15h05.48.802,preQ,2024.2.3,Win32,30.03003003,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,P140,tb,2025-04-04_15h05.48.802,preQ,2024.2.3,Win32,30.03003003,16.9315,22.6906,,-0.001930502,-0.381274131,1,0,0,polygon3,0,0,0,2,1,TB,What is the treatment for tuberculosis?,,,,,
+,,,,,,,,P140,tb,2025-04-04_15h05.48.802,preQ,2024.2.3,Win32,30.03003003,22.6917,25.1237,,-0.001930502,-0.381274131,1,0,0,polygon3,0,1,1,0,1,TB,What are the symptoms of tuberculosis?,,,,,
+,,,,,,,,P140,tb,2025-04-04_15h05.48.802,preQ,2024.2.3,Win32,30.03003003,25.125,28.8897,,-0.001930502,-0.381274131,1,0,0,polygon3,0,2,2,1,1,TB,What percentage of new infections will turn into active cases of tuberculosis?,,,,,
+,,,,,,,,P140,tb,2025-04-04_15h05.48.802,preQ,2024.2.3,Win32,30.03003003,28.8907,32.5246,,-0.004826255,-0.382239382,1,0,0,polygon3,0,3,3,3,1,TB,Can people with latent tuberculosis spread the disease?,,,,,
+,,,,,,,,P140,tb,2025-04-04_15h05.48.802,preQ,2024.2.3,Win32,30.03003003,32.5253,36.2559,,-0.004826255,-0.382239382,1,0,0,polygon3,0,4,4,4,1,TB,How is tuberculosis spread through the air?,,,,,
+,,,,,,,,P140,tb,2025-04-04_15h05.48.802,preQ,2024.2.3,Win32,30.03003003,,,,,,,,,,,,,,,,,36.2561,37.6895,space,1.4243,

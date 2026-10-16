@@ -1,0 +1,195 @@
+---
+title: "Final Test Analyses"
+subtitle: "Prequestions and Attention: Condition (Control / Polio / TB prequestions) × Sentence Topic (Polio / TB)"
+author: "Jason Geller"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
+    embed-resources: true
+    df-print: paged
+execute:
+  warning: false
+  message: false
+  cache: false
+# R code runs from the project root (one level up), so paths such as data/... work
+knitr:
+  opts_knit:
+    root.dir: ".."
+---
+
+## Overview
+
+Final test performance in the three conditions (Control, Polio prequestions, TB
+prequestions), from the preregistration ([osf.io/8env4](https://osf.io/8env4)). Each
+participant answered all ten questions (five Polio, five TB; 12 points per topic).
+Responses were scored by `grade_test.R` (rules in `scoring_rubric.R`). The sample and
+exclusions are the same as for the eye-movement analyses (`R/data.R`;
+`eye_tracking.qmd`, Exclusions).
+
+```{r}
+#| label: setup
+# Shared setup and data (R/setup.R, R/data.R); run from the project root
+if (!exists("dat")) {
+  source("R/setup.R")
+  source("R/data.R")
+}
+```
+
+## Final test (preregistered)
+
+The preregistered analysis of final test performance models points earned out of the
+total available for each topic (12 points per topic) with a binomial GLMM:
+
+```r
+glmer(cbind(points, total - points) ~ condition * topic + (1 + topic | participant),
+      family = binomial)
+```
+
+The random effects start from this preregistered maximal structure (by-participant
+intercepts and Topic slopes) and are selected by the same model-comparison procedure as
+the eye-movement models.
+
+Responses were graded with `grade_test.R` (rubric in `scoring_rubric.R`). The sample is
+the same as for the eye-tracking analyses.
+
+The preregistration predicts a **specific benefit**: each prequestion condition should
+score higher than Control on its prequestioned topic. It predicts **no general benefit**:
+no difference from Control on the non-prequestioned topic. Each prequestion condition is
+compared with Control *on the same topic*. Specific-benefit contrasts are tested
+one-sided (prequestion > Control). General-benefit contrasts are tested two-sided,
+because no difference is predicted. Contrasts are on the probability scale (difference in
+proportion of points earned).
+
+::: callout-note
+The preregistration describes the comparison as the prequestion condition's score on
+prequestioned items versus the Control condition's *overall* score. Comparing with Control
+on the same topic is the comparison the Condition × Topic model estimates, and it controls
+for differences in difficulty between the Polio and TB questions.
+:::
+
+```{r}
+#| label: test-model
+test_dat <- test_scores |>
+  filter(et_id %in% levels(dat$participant)) |>
+  transmute(participant = factor(et_id),
+            condition   = factor(recode(et_group, Po = "Polio"),
+                                 levels = c("Control", "Polio", "TB")),
+            topic       = factor(topic, levels = c("Polio", "TB")),
+            topic_c     = if_else(topic == "Polio", 0.5, -0.5),
+            points, max_points,
+            prop = points / max_points)
+
+stopifnot(n_distinct(test_dat$participant) == n_distinct(dat$participant))
+
+# Preregistered maximal structure (topic-level data: no sentences)
+m_test <- fit_glmm("cbind(points, max_points - points) ~ condition * topic", test_dat,
+                   "binomial", list(participant = list(Topic = "topic_c")))
+
+test_omni <- omnibus(m_test, "binomial")   # type-III Wald chi-square
+test_omni |>
+  transmute(Effect = Parameter, `Wald χ²` = stat, df,
+            p = format_p(p, name = NULL, digits = 3)) |>
+  kable(digits = 2, caption = sprintf("Final test: type-III Wald tests (random effects: %s)",
+                                      attr(m_test, "re_used")))
+
+test_con <- est_contrasts(m_test, contrast = "condition", by = "topic",
+                               comparison = "pairwise") |>
+  as.data.frame() |>
+  # orient every contrast as prequestion condition − Control
+  filter(Level1 == "Control" | Level2 == "Control") |>
+  mutate(flip = Level1 == "Control",
+         prequestion = if_else(flip, as.character(Level2), as.character(Level1)),
+         Difference = if_else(flip, -Difference, Difference),
+         lo = if_else(flip, -CI_high, CI_low),
+         hi = if_else(flip, -CI_low, CI_high),
+         z = if_else(flip, -z, z),
+         benefit = if_else(prequestion == as.character(topic), "Specific", "General"),
+         p_test = if_else(benefit == "Specific", pnorm(z, lower.tail = FALSE), p),
+         p_type = if_else(benefit == "Specific", "one-sided", "two-sided")) |>
+  select(topic, prequestion, benefit, Difference, SE, lo, hi, z, p_test, p_type)
+
+test_con |>
+  arrange(desc(benefit), topic) |>
+  transmute(Benefit = benefit, Topic = topic,
+            Contrast = paste(prequestion, "− Control"),
+            `Difference (prop.)` = Difference, SE,
+            `95% CI` = fmt_ci(lo, hi, 2),
+            z, p = format_p(p_test, name = NULL, digits = 3), `p type` = p_type) |>
+  kable(digits = 3, caption = "Final test: prequestion condition vs. Control on each topic")
+```
+
+```{r}
+#| label: fig-test
+#| fig-cap: "Final test performance. Small points are participants' proportion of points earned on each topic. Large points are model-estimated means ± 95% CI."
+#| fig-width: 8
+#| fig-height: 4.5
+test_means <- as.data.frame(est_means(m_test, by = c("condition", "topic")))
+
+ggplot(test_dat, aes(condition, prop, colour = topic)) +
+  geom_point(position = position_jitterdodge(jitter.width = 0.15, jitter.height = 0.01,
+                                             dodge.width = 0.6, seed = 1),
+             size = 1.2, alpha = 0.35) +
+  geom_pointrange(data = test_means,
+                  aes(y = Probability, ymin = CI_low, ymax = CI_high, fill = topic),
+                  position = position_dodge(width = 0.6), shape = 21, colour = "grey20",
+                  size = 0.7, linewidth = 0.8) +
+  scale_colour_manual(values = topic_cols, name = "Question topic") +
+  scale_fill_manual(values = topic_cols, name = "Question topic") +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+  labs(x = "Prequestion condition", y = "Points earned") +
+  theme(legend.position = "top")
+```
+
+```{r}
+#| label: test-writeup-helpers
+T_txt <- function(tp, cond) {
+  r <- filter(test_con, topic == tp, prequestion == cond)
+  one <- r$p_type == "one-sided"
+  sprintf("%s percentage points, %s, *z* = %s, %s",
+          apa_num(100 * r$Difference, 1),
+          ci_part(100 * r$Difference, 100 * r$SE, 100 * r$lo, 100 * r$hi, one, Inf, 1),
+          apa_num(r$z), p_part(r$p_test, r$z, Inf, one))
+}
+T_sig <- function(tp, cond) filter(test_con, topic == tp, prequestion == cond)$p_test < .05
+TO_txt <- function(term) {
+  r <- filter(test_omni, Parameter == term)
+  sprintf("χ²(%d) = %s, %s", r$df, apa_num(r$stat), sub("^p", "*p*", apa_p(r$p)))
+}
+TO_sig <- function(term) filter(test_omni, Parameter == term)$p < .05
+```
+
+**Results.** Final test scores (`r n_distinct(test_dat$participant)` participants) were
+analysed with a binomial GLMM of points earned out of 12 per topic. The final model used
+the random-effects structure "`r attr(m_test, "re_used")`". The Condition × Topic interaction
+was `r yn(TO_sig("condition:topic"))`, `r TO_txt("condition:topic")`.
+
+*Specific benefit.* On Polio questions, the Polio condition scored
+`r if (filter(test_con, topic == "Polio", prequestion == "Polio")$Difference > 0) "higher" else "lower"`
+than Control, `r T_txt("Polio", "Polio")`, a `r yn(T_sig("Polio", "Polio"))` difference.
+On TB questions, the TB condition scored
+`r if (filter(test_con, topic == "TB", prequestion == "TB")$Difference > 0) "higher" else "lower"`
+than Control, `r T_txt("TB", "TB")`, a `r yn(T_sig("TB", "TB"))` difference.
+
+*General benefit.* On the non-prequestioned topic, the difference from Control was
+`r yn(T_sig("TB", "Polio"))` for the Polio condition on TB questions,
+`r T_txt("TB", "Polio")`, and `r yn(T_sig("Polio", "TB"))` for the TB condition on
+Polio questions, `r T_txt("Polio", "TB")` (@fig-test).
+
+## Random-effects selection
+
+```{r}
+#| label: re-selection-test
+re_tabs_test <- re_selection_tables(list(`Final test` = m_test))
+show_re_selection(re_tabs_test)
+```
+
+## Session info
+
+```{r}
+#| label: session
+sessionInfo()
+```
