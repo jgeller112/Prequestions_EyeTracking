@@ -1,175 +1,176 @@
 PID	Date	group	Ran	Rerun	accuracy_deg	precision_sd_deg	comments
-P01	11-13-24	po	yes		0.48	0.21	
-P02	11-13-24	tb	yes		0.4	0.09	
-P03	11-13-24	control	yes		0.21	0.12	
-P04	11-13-24	po	yes	x	0.74	1.95	bad calibration and validation (accuracy and pre > .5)
-P05	11-13-24	tb	yes	x	0.53	0.32	sat back duing last page and lost eye gaze
-P06	11-14-24	control	yes		0.21	0.4	
-P07	11-14-24	po	yes		0.26	0.52	
-P08	11-14-24	tb	yes	x	0.53	0.1	
-P09	11-14-24	control	yes		0.46	0.19	
-P10	11-15-24	po	yes		0.34	0.13	
-P11	11-15-24	tb	yes	x	1.16	0.37	
-P12	11-15-24	control	yes		0.46	0.18	
-P13	11-15-24	po	yes		0.48	0.56	
-P14	11-15-24	tb	yes		0.34	0.11	9 point calibration instead of 5 point
-P15	11-15-24	control	yes		0.42	0.16	
-P16	11-15-24	po	yes		0.48	0.14	
-P17	11-15-24	tb	yes		0.31	0.12	
-P18	11-15-24	control	yes	x	0.73	0.35	
-P19	11-18-24	po	yes	x			computer stopped working
-P1901	11-18-24	po	yes	x	0.69	0.18	
-P20	11-18-24	tb	yes		0.5	0.21	
-P21	11-18-24	control	yes		0.33	0.22	
-P22	11-19-24	po	yes		0.48	0.19	
-P23	11-19-24	tb	yes		0.25	0.19	
-P24	11-19-24	control	yes		0.42	0.35	
-P25	11-19-24	po	yes		0.47	0.44	
-P26	11-20-24	tb	yes		0.5	0.24	
-P27	11-20-24	control	yes		0.34	0.08	
-P28	11-20-24	po	yes		0.26	0.28	
-P29	11-20-24	tb	yes	x			
-P30	11-20-24	control	yes	x	1.67	0.84	
-P31	11-21-24	tb	yes		0.24	0.1	
-P32	11-25-24	po	yes		0.42	0.4	
-P33	11-25-24	control	yes		0.48	0.13	
-P34	11-25-24	po	yes		0.27	0.23	
-P35	11-25-24	tb	yes		0.35	0.08	
-P36	11-25-24	control	yes		0.38	0.1	
-P37	11-26-24	po	yes	x	0.96	0.6	
-P38	11-26-24	tb	yes		0.33	0.13	
-P39	11-26-24	control	yes		0.43	0.12	
-P40	12-02-24	po	yes		0.39	0.17	
-P41	12-02-23	tb	yes	x	0.31	0.7	
-P42	12-03-24	control	yes		0.34	0.11	
-P43	12-03-24	po	yes		0.44	0.16	
-P44	12-03-24	tb	yes		0.2	0.1	
-P45	12-04-24	control	yes		0.15	0.22	
-P46	12-04-24	po	yes	x	0.7	0.1	
-P47	12-04-24	tb	yes		0.16	0.1	
-P48	12-05-24	control	yes		0.41	0.44	
-P49	12-04-24	po	yes		0.46	0.38	
-P50	12-05-24	tb	yes	x	0.62	0.14	
-P51	12-05-24	control	yes		0.4	0.09	
-P52	12-05-24	po	yes		0.29	0.08	
-P53	12-05-24	tb	yes		0.46	0.4	
-P54	12-05-24	control	yes		0.44	0.14	
-P55	12-10-24	po	yes				
-P56	01-22-25	tb	yes	x	1.53	0.21	
-P58	01-22-25	control	yes		0.48	0.11	
-P57	01-22-25	po	yes	x	0.65	0.46	
-P59	01-23-25	tb	yes		0.34	0.11	
-P60	01-24-25	control	yes		0.48	0.38	
-P61	1-24-25	po	yes		0.44	0.11	
-P62	1-24-25	tb	yes				
-P63	1-29-25	control	yes		0.39	0.1	
-P64	1-29-25	po	yes		0.46	0.1	
-P65	1-29-25	tb	yes		0.13	0.15	
-P66	1-30-25	control	yes	x			glasses
-P67	1-30-25	po	yes		0.26	0.41	
-P68	1-30-25	tb	yes		0.32	0.25	
-P69	1-30-25	control	yes		0.16	0.2	
-P70	1-30-25	po	yes		0.34	0.18	
-P71	1-31-25	control	yes	x	0.77	0.48	
-P72	1-31-25	po	yes		0.49	0.16	
-P73	2-5-25	tb	yes		0.36	0.11	
-P74	2-5-25	control	yes		0.4	0.47	
-P75	02-07-25	po	yes		0.18	0.12	
-P76	02-07-25	tb	yes		0.29	0.07	
-P77	02-07-25	control	yes		0.26	0.1	
-P78	02-07-25	po	yes		0.38	0.32	
-P79	02-07-25	tb	yes		0.29	0.44	
-P80	02-14-25	control	yes	x	0.98	0.63	glasses
-P81	2-17-25	po	yes		0.28	0.14	
-P82	2-20-25	tb	yes		0.15	0.11	
-P83	2-20-25	control	yes		0.31	0.22	
-P84	2-21-25	Po	yes		0.4	0.08	
-P85	2-21-25	TB	yes		0.45	0.08	
-P86	2-21-25	control	yes		0.16	0.06	
-P87	2-21-25	Po	yes		0.45	0.07	
-P88	2-26-25	TB	yes		0.44	0.08	
-P89	2-26-25	Control	yes		0.24	0.17	
-P90	2-26-25	Po	yes		0.36	0.17	
-P91	2-27-25	TB	yes		0.32	0.08	entered P as 92 for Prequestions (not for test). Please remember to change this.
-P92	2-27-25	Control	yes	X	1.08	0.17	Could not get good calibration
-P93	2-28-25	Control			0.3	0.36	
-P94	3-11-25	PO	yes		0.46	0.13	
-P95	3-11-25	TB	yes		0.21	0.21	
-P96	3-12-25	Control		x	0.86	0.64	
-P97	3-12-25	Po			0.47	0.19	
-P98	3-14-25	TB	yes		0.21	0.18	
-P99	3-14-25	control	yes		0.34	0.12	
-P100	3-14-25	Po	yes		0.43	0.09	
-P101	3-14-25	TB	yes		0.35	0.16	
-P102	3-14-25	Control	yes		0.27	0.2	
-P104	3-19-25	Po	yes		0.45	0.14	
-P105	3-19-25	TB	yes	X	1.05	0.39	
-P106	3-19-25	control	yes		0.25	0.1	
-P107	3-19-25	Po	yes		0.4	0.24	
-P108	3-19-25	control	yes		0.42	0.42	
-P109	3-20-25	Po	yes		0.42	0.15	
-P110	3-21-25	TB	yes	X			
-P111	3-21-25	TB	yes		0.19	0.25	
-P112	3-21-25	control	yes		0.25	0.3	
-P113	3-21-25	Po	yes		0.36	0.15	
-P114	3-21-25	TB	yes		0.16	0.22	
-P115	3-26-25	Control	yes		0.23	0.32	
-P116	3-26-25	Po	yes		0.46	0.28	
-P117	3-26-25	TB	yes		0.37	0.49	
-P118	3-26-25	control	yes		0.48	0.45	
-P119	3-26-25	Po	yes		0.36	0.2	
-P120	3-26-25	Tb	yes		0.3	0.32	
-P121	3-26-25	control	yes		0.46	0.08	
-P122	3-26-25	Po	yes		0.34	0.35	
-P123	3-28-25	Tb	yes		0.47	0.15	Skipped last prequestion accidently
-P124	3-28-25	control	yes		0.46	0.43	
-P125	3-28-25	Po	yes		0.42	0.26	
-P126	3-28-25	Tb	yes	X			glasses
-P127	3-28-25	control	yes		0.38	0.48	
-P128	3-28-25	tb	yes		0.49	0.32	
-P129	3-28-25	Po	yes		0.48	0.26	
-P130	4-2-25	tb	yes		0.42	0.46	
-P131	4-2-25	control	yes		0.49	0.17	
-P132a	4-2-25	Po	yes		0.48	0.1	
-P133	4-2-25	Tb	yes		0.43	0.39	
-P134	4-2-25	control	yes		0.42	0.29	
-P135	4-3-25	Po	yes		0.39	0.48	
-P136	4-3-25	tb	yes		0.38	0.45	
-P137	4-3-25	control	yes		0.31	0.37	eye tracker lost connection during preseidents task. Data for reading is still valid.  Not sure what happened. Not a lot of data loss/
-P138	4-4-25	Po	yes	X			Could not get accuracy under < .5
-P139	4-4-25	Po	yes		0.16	0.35	
-P140	4-4-25	tb	yes		0.44	0.15	
-P141	4-4-25	Control	yes		0.48	0.33	141a (TPL crashed during calibration)  renamed to 141a in TPL
-P142	4-9-25	Po	yes		0.43	0.31	
-P144	4-9-25	tb	yes		0.42	0.11	
-P145	4-9-25	control	yes		0.21	0.14	
-P146	4-9-25	Po	yes		0.49	0.4	
-P147	4-9-25	tb	yes		0.48	0.19	
-P148	4-11-25	control	yes		0.48	0.45	
-P149	4-11-25	Po	yes		0.25	0.17	
-P151	4-11-25	Tb	yes		0.46	0.1	
-P152	4-11	control	yes		0.39	0.08	
-P153	4-16	control	yes		0.38	0.39	
-P154	4-16	Tb	yes		0.46	0.08	
-P155	4-16	control	yes		0.41	0.08	
-P156	4-16	control	No	x			glasses could not get good accuracy
-P157	4-18	control	yes		0.49	0.18	
-P158	4-22-25	Tb	yes		0.38	0.08	
-P159	4-22-25	Po	yes		0.4	0.44	
-P160	4-23-25	Tb	yes		0.36	0.33	
-P161	4-23-25	Tb	yes		0.43	0.1	
-P162	4-23-25	Po	yes		0.3	0.42	
-P163	4-23-25	Tb	yes		0.36	0.08	
-P164	4-24-25	Po	yes		0.42	0.2	
-P165	4-24-25	Tb	yes		0.31	0.22	
-P166	4-24-25	Po	yes		0.48	0.16	
-P167	4-25-25	tb	No	x			
-P168	4-25-25	tb	yes		0.46	0.13	
-P169	4-25-25	po	No	x			
-P170	4-28-25	tb	yes		0.34	0.09	
-P171	4-28-25	po	yes		0.42	0.39	
-P172	4-29-25	control	yes		0.38	0.27	
-P173	4-29-25	Po	yes		0.41	0.47	
-P174	4-29-25	tb	yes		0.28	0.24	
-P175	4-29-25	control	yes		0.44	0.08	
-P176	4-29-25	tb	yes		0.22	0.25	
+P01	11/13/24	po	yes		0.48	0.21	
+P02	11/13/24	tb	yes		0.4	0.09	
+P03	11/13/24	control	yes		0.21	0.12	
+P04	11/13/24	po	yes	x	0.74	1.95	bad calibration and validation (accuracy and pre > .5)
+P05	11/13/24	tb	yes	x	0.53	0.32	sat back duing last page and lost eye gaze
+P06	11/14/24	control	yes		0.21	0.4	
+P07	11/14/24	po	yes		0.26	0.52	
+P08	11/14/24	tb	yes	x	0.53	0.1	
+P09	11/14/24	control	yes		0.46	0.19	
+P10	11/15/24	po	yes		0.34	0.13	
+P11	11/15/24	tb	yes	x	1.16	0.37	
+P12	11/15/24	control	yes		0.46	0.18	
+P13	11/15/24	po	yes		0.48	0.56	
+P14	11/15/24	tb	yes		0.34	0.11	9 point calibration instead of 5 point
+P15	11/15/24	control	yes		0.42	0.16	
+P16	11/15/24	po	yes		0.48	0.14	
+P17	11/15/24	tb	yes		0.31	0.12	
+P18	11/15/24	control	yes	x	0.73	0.35	
+P19	11/18/24	po	yes	x			computer stopped working
+P1901	11/18/24	po	yes	x	0.69	0.18	
+P20	11/18/24	tb	yes		0.5	0.21	
+P21	11/18/24	control	yes		0.33	0.22	
+P22	11/19/24	po	yes		0.48	0.19	
+P23	11/19/24	tb	yes		0.25	0.19	
+P24	11/19/24	control	yes		0.42	0.35	
+P25	11/19/24	po	yes		0.47	0.44	
+P26	11/20/24	tb	yes		0.5	0.24	
+P27	11/20/24	control	yes		0.34	0.08	
+P28	11/20/24	po	yes		0.26	0.28	
+P29	11/20/24	tb	yes	x			
+P30	11/20/24	control	yes	x	1.67	0.84	
+P31	11/21/24	tb	yes		0.24	0.1	
+P32	11/25/24	po	yes		0.42	0.4	
+P33	11/25/24	control	yes		0.48	0.13	
+P34	11/25/24	po	yes		0.27	0.23	
+P35	11/25/24	tb	yes		0.35	0.08	
+P36	11/25/24	control	yes		0.38	0.1	
+P37	11/26/24	po	yes	x	0.96	0.6	
+P38	11/26/24	tb	yes		0.33	0.13	
+P39	11/26/24	control	yes		0.43	0.12	
+P40	12/2/24	po	yes		0.39	0.17	
+P41	12/2/23	tb	yes	x	0.31	0.7	
+P42	12/3/24	control	yes		0.34	0.11	
+P43	12/3/24	po	yes		0.44	0.16	
+P44	12/3/24	tb	yes		0.2	0.1	
+P45	12/4/24	control	yes		0.15	0.22	
+P46	12/4/24	po	yes	x	0.7	0.1	
+P47	12/4/24	tb	yes		0.16	0.1	
+P48	12/5/24	control	yes		0.41	0.44	
+P49	12/4/24	po	yes		0.46	0.38	
+P50	12/5/24	tb	yes	x	0.62	0.14	
+P51	12/5/24	control	yes		0.4	0.09	
+P52	12/5/24	po	yes		0.29	0.08	
+P53	12/5/24	tb	yes		0.46	0.4	
+P54	12/5/24	control	yes		0.44	0.14	
+P55	12/10/24	po	yes				
+P56	1/22/25	tb	yes	x	1.53	0.21	
+P58	1/22/25	control	yes		0.48	0.11	
+P57	1/22/25	po	yes	x	0.65	0.46	
+P59	1/23/25	tb	yes		0.34	0.11	
+P60	1/24/25	control	yes		0.48	0.38	
+P61	1/24/25	po	yes		0.44	0.11	
+P62	1/24/25	tb	yes				
+P63	1/29/25	control	yes		0.39	0.1	
+P64	1/29/25	po	yes		0.46	0.1	
+P65	1/29/25	tb	yes		0.13	0.15	
+P66	1/30/25	control	yes	x			glasses
+P67	1/30/25	po	yes		0.26	0.41	
+P68	1/30/25	tb	yes		0.32	0.25	
+P69	1/30/25	control	yes		0.16	0.2	
+P70	1/30/25	po	yes		0.34	0.18	
+P71	1/31/25	control	yes	x	0.77	0.48	
+P72	1/31/25	po	yes		0.49	0.16	
+P73	2/5/25	tb	yes		0.36	0.11	
+P74	2/5/25	control	yes		0.4	0.47	
+P75	2/7/25	po	yes		0.18	0.12	
+P76	2/7/25	tb	yes		0.29	0.07	
+P77	2/7/25	control	yes		0.26	0.1	
+P78	2/7/25	po	yes		0.38	0.32	
+P79	2/7/25	tb	yes		0.29	0.44	
+P80	2/14/25	control	yes	x	0.98	0.63	glasses
+P81	2/17/25	po	yes		0.28	0.14	
+P82	2/20/25	tb	yes		0.15	0.11	
+P83	2/20/25	control	yes		0.31	0.22	
+P84	2/21/25	Po	yes		0.4	0.08	
+P85	2/21/25	TB	yes		0.45	0.08	
+P86	2/21/25	control	yes		0.16	0.06	
+P87	2/21/25	Po	yes		0.45	0.07	
+P88	2/26/25	TB	yes		0.44	0.08	
+P89	2/26/25	Control	yes		0.24	0.17	
+P90	2/26/25	Po	yes		0.36	0.17	
+P91	2/27/25	TB	yes		0.32	0.08	entered P as 92 for Prequestions (not for test). Please remember to change this.
+P92	2/27/25	Control	yes	X	1.08	0.17	Could not get good calibration
+P93	2/28/25	Control			0.3	0.36	
+P94	3/11/25	PO	yes		0.46	0.13	
+P95	3/11/25	TB	yes		0.21	0.21	
+P96	3/12/25	Control		x	0.86	0.64	
+P97	3/12/25	Po			0.47	0.19	
+P98	3/14/25	TB	yes		0.21	0.18	
+P99	3/14/25	control	yes		0.34	0.12	
+P100	3/14/25	Po	yes		0.43	0.09	
+P101	3/14/25	TB	yes		0.35	0.16	
+P102	3/14/25	Control	yes		0.27	0.2	
+P104	3/19/25	Po	yes		0.45	0.14	
+P105	3/19/25	TB	yes	X	1.05	0.39	
+P106	3/19/25	control	yes		0.25	0.1	
+P107	3/19/25	Po	yes		0.4	0.24	
+P108	3/19/25	control	yes		0.42	0.42	
+P109	3/20/25	Po	yes		0.42	0.15	
+P110	3/21/25	TB	yes	X			
+P111	3/21/25	TB	yes		0.19	0.25	
+P112	3/21/25	control	yes		0.25	0.3	
+P113	3/21/25	Po	yes		0.36	0.15	
+P114	3/21/25	TB	yes		0.16	0.22	
+P115	3/26/25	Control	yes		0.23	0.32	
+P116	3/26/25	Po	yes		0.46	0.28	
+P117	3/26/25	TB	yes		0.37	0.49	
+P118	3/26/25	control	yes		0.48	0.45	
+P119	3/26/25	Po	yes		0.36	0.2	
+P120	3/26/25	Tb	yes		0.3	0.32	
+P121	3/26/25	control	yes		0.46	0.08	
+P122	3/26/25	Po	yes		0.34	0.35	
+P123	3/28/25	Tb	yes		0.47	0.15	Skipped last prequestion accidently
+P124	3/28/25	control	yes		0.46	0.43	
+P125	3/28/25	Po	yes		0.42	0.26	
+P126	3/28/25	Tb	yes	X			glasses
+P127	3/28/25	control	yes		0.38	0.48	
+P128	3/28/25	tb	yes		0.49	0.32	
+P129	3/28/25	Po	yes		0.48	0.26	
+P130	4/2/25	tb	yes		0.42	0.46	
+P131	4/2/25	control	yes		0.49	0.17	
+P132a	4/2/25	Po	yes		0.48	0.1	
+P133	4/2/25	Tb	yes		0.43	0.39	
+P134	4/2/25	control	yes		0.42	0.29	
+P135	4/3/25	Po	yes		0.39	0.48	
+P136	4/3/25	tb	yes		0.38	0.45	
+P137	4/3/25	control	yes		0.31	0.37	eye tracker lost connection during preseidents task. Data for reading is still valid.  Not sure what happened. Not a lot of data loss/
+P138	4/4/25	Po	yes	X			Could not get accuracy under < .5
+P139	4/4/25	Po	yes		0.16	0.35	
+P140	4/4/25	tb	yes		0.44	0.15	
+P141	4/4/25	Control	yes		0.48	0.33	141a (TPL crashed during calibration)  renamed to 141a in TPL
+P142	4/9/25	Po	yes		0.43	0.31	
+P144	4/9/25	tb	yes		0.42	0.11	
+P145	4/9/25	control	yes		0.21	0.14	
+P146	4/9/25	Po	yes		0.49	0.4	
+P147	4/9/25	tb	yes		0.48	0.19	
+P148	4/11/25	control	yes		0.48	0.45	
+P149	4/11/25	Po	yes		0.25	0.17	
+P151	4/11/25	Tb	yes		0.46	0.1	
+P152	11-Apr	control	yes		0.39	0.08	
+P153	16-Apr	control	yes		0.38	0.39	
+P154	16-Apr	Tb	yes		0.46	0.08	
+P155	16-Apr	control	yes		0.41	0.08	
+P156	16-Apr	control	No	x			glasses could not get good accuracy
+P157	18-Apr	control	yes		0.49	0.18	
+P158	4/22/25	Tb	yes		0.38	0.08	
+P159	4/22/25	Po	yes		0.4	0.44	
+P160	4/23/25	Tb	yes		0.36	0.33	
+P161	4/23/25	Tb	yes		0.43	0.1	
+P162	4/23/25	Po	yes		0.3	0.42	
+P163	4/23/25	Tb	yes		0.36	0.08	
+P164	4/24/25	Po	yes		0.42	0.2	
+P165	4/24/25	Tb	yes		0.31	0.22	
+P166	4/24/25	Po	yes		0.48	0.16	
+P167	4/25/25	tb	No	x			
+P168	4/25/25	tb	yes		0.46	0.13	
+P169	4/25/25	po	No	x			
+P170	4/28/25	tb	yes		0.34	0.09	
+P171	4/28/25	po	yes		0.42	0.39	
+P172	4/29/25	control	yes		0.38	0.27	
+P173	4/29/25	Po	yes		0.41	0.47	
+P174	4/29/25	tb	yes		0.28	0.24	
+P175	4/29/25	control	yes		0.44	0.08	
+P176	4/29/25	tb	yes		0.22	0.25	
+P191	10/21/26	Po	yes		0.38	0.33	
