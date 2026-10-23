@@ -809,6 +809,16 @@ P18_preQ_test_2024-11-15_15h13.49.039.csv,P18,Control,2%,6,TB,1,10%,0,,FALSE,P18
 P18_preQ_test_2024-11-15_15h13.49.039.csv,P18,Control,I don't know,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P18,P18,Control
 P18_preQ_test_2024-11-15_15h13.49.039.csv,P18,Control,Through coughing?,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P18,P18,Control
 P18_preQ_test_2024-11-15_15h13.49.039.csv,P18,Control,Coughing blood,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P18,P18,Control
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,no,2,Polio,1,no,1,no,FALSE,P191,P191,Po
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,"quarantine, vaccine",7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P191,P191,Po
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,Yes,8,TB,1,no,0,,FALSE,P191,P191,Po
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,Cough,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P191,P191,Po
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,hundreds of thousands thousands,10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P191,P191,Po
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,Didn't say,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P191,P191,Po
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,cough,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P191,P191,Po
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,"only prevention, vaccines",4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P191,P191,Po
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,17,1,Polio,1,17%,1,seventeen,FALSE,P191,P191,Po
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,idk,6,TB,1,10%,0,,TRUE,P191,P191,Po
 P20_preQ_test_2024-11-18_15h07.15.167.csv,P20,TB,no,2,Polio,1,no,1,no,FALSE,P20,P20,TB
 P20_preQ_test_2024-11-18_15h07.15.167.csv,P20,TB,antibiotics,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",1,antibiotics,FALSE,P20,P20,TB
 P20_preQ_test_2024-11-18_15h07.15.167.csv,P20,TB,"coughing, weight loss, restlessness",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",2,"cough, weight_loss",FALSE,P20,P20,TB

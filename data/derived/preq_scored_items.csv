@@ -284,6 +284,11 @@ P1902_preQ_2024-11-18_14h35.59.568.csv,P1902,po,i do not know,1,Polio,1,17%,0,,T
 P1902_preQ_2024-11-18_14h35.59.568.csv,P1902,po,i dont know,10,Polio,2,many hundreds of thousands to around a thousand,0,,TRUE,P1902,P19012,Po
 P1902_preQ_2024-11-18_14h35.59.568.csv,P1902,po,i dont know,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,TRUE,P1902,P19012,Po
 P1902_preQ_2024-11-18_14h35.59.568.csv,P1902,po,i think some countries in south america and africa,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P1902,P19012,Po
+P191_preQ_2026-10-21_14h10.11.814.csv,P191,po,500000,10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P191,P191,Po
+P191_preQ_2026-10-21_14h10.11.814.csv,P191,po,"medication, vaccine",4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P191,P191,Po
+P191_preQ_2026-10-21_14h10.11.814.csv,P191,po,Don't know,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,TRUE,P191,P191,Po
+P191_preQ_2026-10-21_14h10.11.814.csv,P191,po,Yes,2,Polio,1,no,0,,FALSE,P191,P191,Po
+P191_preQ_2026-10-21_14h10.11.814.csv,P191,po,20,1,Polio,1,17%,0,,FALSE,P191,P191,Po
 P20_preQ_2024-11-18_14h59.42.733.csv,P20,tb,NA,6,TB,1,10%,0,,TRUE,P20,P20,TB
 P20_preQ_2024-11-18_14h59.42.733.csv,P20,tb,coughing,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P20,P20,TB
 P20_preQ_2024-11-18_14h59.42.733.csv,P20,tb,coughing,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P20,P20,TB

@@ -1,0 +1,1666 @@
+item_id,phase,participant,questnum,max_points,auto_points,response
+R0001,Final test,P15,2,1,1,no
+R0002,Final test,P99,7,3,1,antibiotics
+R0003,Final test,P23,8,1,1,no
+R0004,Final test,P09,1,1,0,5
+R0005,Final test,P91,6,1,1,10%
+R0006,Final test,P98,4,4,0,quarantine (less effective) and vaccine
+R0007,Final test,P40,5,4,3,"blood in cough, night sweats, fever"
+R0008,Prequestion,P56,8,1,0,yes
+R0009,Final test,P48,3,4,2,"Afghanistan, India, some others"
+R0010,Final test,P11,5,4,3,"Fever. losing weight, cough"
+R0011,Final test,P09,9,3,0,droplets
+R0012,Final test,P158,6,1,1,10
+R0013,Final test,P100,7,3,0,"exercise, good nutrition, vaccination"
+R0014,Final test,P163,7,3,1,Antibiotics and vaccinations
+R0015,Final test,P172,8,1,1,No
+R0016,Prequestion,P151,5,4,1,coughing
+R0017,Final test,P105,2,1,1,no
+R0018,Final test,P40,1,1,1,17%
+R0019,Final test,P170,3,4,2,"Pakistan, Nigeria"
+R0020,Final test,P112,7,3,1,There are vacines that can be used to treat TB in order to prevent transmission. You can also use antibiotics to help treat symptoms of TB.
+R0021,Final test,P09,2,1,0,yes
+R0022,Final test,P22,4,4,2,"antibiotics, moderate exercise, ect"
+R0023,Final test,P107,6,1,1,10
+R0024,Final test,P124,8,1,0,yes
+R0025,Final test,P100,3,4,2,"Nigeria, Afghanistan"
+R0026,Final test,P53,10,2,0,"1 million to 200,000"
+R0027,Final test,P158,1,1,0,5
+R0028,Final test,P31,3,4,0,African countries
+R0029,Final test,P87a,2,1,1,no
+R0030,Final test,P57,9,3,1,saliva
+R0031,Final test,P82,10,2,0,38%; 7%
+R0032,Final test,P128,5,4,3,"cough, night sweats, fever"
+R0033,Final test,P101,5,4,3,"Cough with blood, night sweats, fever"
+R0034,Final test,P134,4,4,0,"quarentine, rest and vaccine"
+R0035,Prequestion,P59,8,1,0,yes
+R0036,Final test,P56,2,1,1,no
+R0037,Prequestion,P94,2,1,1,no
+R0038,Final test,P77,4,4,3,"Exercise, healthy diet, pain relief, and something to prevent further paralysis of muscles"
+R0039,Final test,P164,10,2,2,hundreds of thousands to about a thousand
+R0040,Final test,P54,6,1,1,10%
+R0041,Final test,P43,4,4,1,"vaccine, antibiotics, care for weak muscles"
+R0042,Prequestion,P79,5,4,1,coughing
+R0043,Final test,P121,9,3,1,through coughing
+R0044,Final test,P66,9,3,3,"It is spread through the air, particularly when someone coughs, sneezes, or spits."
+R0045,Final test,P150,2,1,1,no
+R0046,Final test,P83,3,4,0,countries in Africa and South America
+R0047,Final test,P74,10,2,1,1000 to 500
+R0048,Final test,P176,7,3,3,two part prolonged antibiotic regimen
+R0049,Final test,P62,7,3,2,2 rounds of antibiotics
+R0050,Final test,P17,7,3,0,Different forms of therapy
+R0051,Final test,P39,9,3,1,particles of saliva
+R0052,Final test,P65,2,1,1,no
+R0053,Final test,P01,1,1,1,17%
+R0054,Final test,P45,8,1,0,yes
+R0055,Final test,P93,9,3,2,"Through particles from sneezing, coughing etc.."
+R0056,Final test,P63,7,3,1,vaccine and antibiotics
+R0057,Final test,P106,6,1,0,80%
+R0058,Final test,P14,8,1,1,No
+R0059,Final test,P111,9,3,0,bacteria
+R0060,Prequestion,P70,2,1,1,No
+R0061,Final test,P04,7,3,1,antibiotics
+R0062,Final test,P96,2,1,1,no
+R0063,Final test,P173,8,1,1,No
+R0064,Final test,P122,3,4,4,"Nigeria, Pakistan, Afghanistan, India"
+R0065,Final test,P144,2,1,0,yes (salk)
+R0066,Final test,P40,2,1,1,no
+R0067,Final test,P172,3,4,4,"Nigeria, India, Pakistan, and Afghanistan"
+R0068,Prequestion,P11,6,1,0,0.01%
+R0069,Final test,P94,3,4,4,"India, Pakistan, Nigeria, and Afghanistan"
+R0070,Final test,P130,2,1,1,no
+R0071,Final test,P69,3,4,0,"yes, not in europe or north america though"
+R0072,Final test,P18,2,1,1,No
+R0073,Final test,P26,6,1,1,10%
+R0074,Final test,P96,3,4,3,"India, Pakistan, Afghanistan"
+R0075,Final test,P152,9,3,1,particles (like saliva)
+R0076,Final test,P04,6,1,0,9
+R0077,Final test,P116,4,4,2,"Healthy diet, moderate exercise, muscle relaxation"
+R0078,Final test,P66,3,4,1,"Nigeria, and other African countries"
+R0079,Final test,P131,5,4,0,"Fatigue, sickness, nausea, death"
+R0080,Final test,P48,2,1,1,No
+R0081,Final test,P155,2,1,1,No
+R0082,Final test,P57,3,4,3,"nigeria, india, pakistan"
+R0083,Final test,P58,7,3,1,antibiotics
+R0084,Final test,P40,3,4,4,"nigeria, india, pakistan, afghanistan"
+R0085,Final test,P164,3,4,1,"nigeria, algeria"
+R0086,Final test,P135,2,1,1,No
+R0087,Prequestion,P43,4,4,0,vaccine
+R0088,Final test,P80,8,1,0,yes
+R0089,Final test,P175,4,4,1,antibiotics
+R0090,Final test,P134,7,3,0,Rest and vaccines
+R0091,Final test,P154,2,1,1,No -- there is a vaccine
+R0092,Final test,P62,1,1,1,17%
+R0093,Final test,P75,8,1,0,yes
+R0094,Final test,P38,1,1,0,800 Million
+R0095,Final test,P96,7,3,2,two types of antibiotics that work to kill the disease
+R0096,Final test,P113,8,1,1,no
+R0097,Final test,P114,2,1,1,No
+R0098,Final test,P93,10,2,1,"20,000 1,000"
+R0099,Final test,P89,6,1,0,5
+R0100,Final test,P21,7,3,1,antibiotics
+R0101,Final test,P144,10,2,2,"hundreds of thousands, thousands"
+R0102,Final test,P141a,10,2,2,hundreds of thousands to thousands
+R0103,Final test,P99,4,4,0,vaccination or quarantine
+R0104,Final test,P42,5,4,2,"coughing blood, weigh loss, muscle degeneration"
+R0105,Final test,P41,1,1,1,17
+R0106,Final test,P100,6,1,1,10
+R0107,Prequestion,P111,9,3,0,molecules
+R0108,Final test,P06,4,4,0,Vaccines and herd immunity
+R0109,Prequestion,P17,5,4,1,"cough, aches"
+R0110,Final test,P125,1,1,1,17%
+R0111,Final test,P146,8,1,1,no
+R0112,Prequestion,P98,6,1,0,40
+R0113,Prequestion,P41,6,1,0,35
+R0114,Final test,P35,7,3,0,looking for one
+R0115,Final test,P100,4,4,2,"Exercise, healthy diet, vaccinations"
+R0116,Final test,P157,4,4,0,Vaccine at birth
+R0117,Final test,P147,10,2,0,70000 10000
+R0118,Final test,P160,2,1,1,No
+R0119,Final test,P21,8,1,1,no
+R0120,Final test,P124,5,4,2,"cough, sweating"
+R0121,Final test,P99,3,4,2,"African countries, Afghanistan, Pakistan"
+R0122,Final test,P175,7,3,0,"medication, but much less effective than vaccination before contraction"
+R0123,Final test,P06,2,1,1,No
+R0124,Final test,P05,8,1,1,no
+R0125,Final test,P61,8,1,0,yes
+R0126,Final test,P74,1,1,0,90%
+R0127,Final test,P136,1,1,0,15%
+R0128,Prequestion,P57,4,4,0,vaccine
+R0129,Final test,P106,8,1,1,no
+R0130,Final test,P53,4,4,0,"in the modern treatment of polio, vaccines are most important"
+R0131,Final test,P01,6,1,0,19%
+R0132,Final test,P147,4,4,2,"vaccines, quarantine, antibiotics, exercise"
+R0133,Final test,P133,7,3,1,antibiotics
+R0134,Final test,P100,8,1,1,no
+R0135,Final test,P67,2,1,1,no
+R0136,Final test,P124,2,1,1,no
+R0137,Prequestion,P64,10,2,0,950 0
+R0138,Final test,P98,1,1,0,40
+R0139,Final test,P128,6,1,1,10%
+R0140,Final test,P104po,2,1,1,no
+R0141,Prequestion,P59,9,3,2,particles when coughing or sneezing
+R0142,Final test,P67,5,4,2,"cough, blood in mucus, weightloss"
+R0143,Final test,P100,1,1,0,15
+R0144,Final test,P101,4,4,0,Vaccination
+R0145,Final test,P157,10,2,2,"hundred thousands, thousands"
+R0146,Final test,P46,10,2,2,hundreds of thousands to a thousand
+R0147,Prequestion,P64,2,1,1,no
+R0148,Final test,P102,2,1,1,No
+R0149,Final test,P76,6,1,1,10%
+R0150,Final test,P112,5,4,1,"Patients typically experience coughing, and other issues in their lungs."
+R0151,Final test,P159,5,4,3,"coughing, weight loss, fever"
+R0152,Final test,P124,1,1,0,11%
+R0153,Final test,P92,2,1,1,No
+R0154,Final test,P63,2,1,1,no
+R0155,Final test,P53,1,1,0,20%
+R0156,Final test,P11,3,4,1,Nigeria
+R0157,Final test,P98,2,1,1,no
+R0158,Final test,P106,3,4,1,Nigeria
+R0159,Final test,P02,9,3,0,It would be some sort of bacteria but I thought it was mostly spread through mucous or other fluids
+R0160,Final test,P125,10,2,2,"hundreds of thousands, thousands"
+R0161,Prequestion,P114,7,3,1,Antibiotics/antibacterial
+R0162,Final test,P155,6,1,1,1/10
+R0163,Final test,P78,9,3,2,"Cough, sneezing"
+R0164,Final test,P150,9,3,2,"cough, sneezing"
+R0165,Final test,P36,7,3,0,vaccine
+R0166,Final test,P70,3,4,3,"Afghastan, India, Nigeria"
+R0167,Prequestion,P84,4,4,0,vaccine
+R0168,Final test,P124,3,4,1,Nigeria
+R0169,Final test,P03,7,3,1,"antibiotics, vaccination, isolation"
+R0170,Final test,P80,2,1,1,no
+R0171,Final test,P61,7,3,0,"oral medication, herd immunity"
+R0172,Final test,P25,3,4,2,India Afganastan Ethiopia
+R0173,Final test,P114,9,3,2,"Mycobacterium Tuberculosis. Airborne pathogens through human-human transmission via coughing, sneezing, and bodily fluid exchange."
+R0174,Final test,P58,3,4,1,"india, south america"
+R0175,Final test,P21,2,1,1,no
+R0176,Final test,P28PO,9,3,2,"Cough, sneeze"
+R0177,Final test,P173,10,2,2,hundreds of thousands to thousands
+R0178,Final test,P05,3,4,2,"Afghanistan, India"
+R0179,Prequestion,P76,5,4,1,coughing blood
+R0180,Final test,P86,6,1,1,10%
+R0181,Final test,P85,1,1,1,17
+R0182,Final test,P42,7,3,1,"antibiotics, quarentine"
+R0183,Final test,P41,8,1,1,no
+R0184,Prequestion,P72,2,1,0,there's a vaccine
+R0185,Final test,P134,8,1,1,no
+R0186,Final test,P92,3,4,2,India and Nigeria
+R0187,Final test,P117,7,3,1,antibiotic
+R0188,Final test,P70,9,3,2,"Coughing, sneezing etc."
+R0189,Final test,P90,3,4,2,"Afghanistan, India, and 2 others"
+R0190,Final test,P09,10,2,2,hundreds of thousands to thousands
+R0191,Final test,P139,7,3,1,Antibiotics and a common vaccination. I think it was called GSP
+R0192,Final test,P165,8,1,0,yes
+R0193,Final test,P153,1,1,0,40
+R0194,Final test,P24,5,4,3,"Coughing up blood, Cronic Cough, Weight Loss, Sweats"
+R0195,Final test,P166,9,3,2,"coughing, spit"
+R0196,Final test,P75,2,1,1,"no, just a vaccine"
+R0197,Final test,P107,4,4,0,Vaccination
+R0198,Final test,P70,1,1,0,10%
+R0199,Final test,P160,3,4,1,"India, countries in Africa"
+R0200,Final test,P109,6,1,1,10%
+R0201,Prequestion,P91,8,1,0,yes
+R0202,Final test,P43,2,1,1,no
+R0203,Final test,P77,10,2,2,hundreds of thousands to a thousand
+R0204,Prequestion,P107,1,1,0,2
+R0205,Final test,P174,10,2,2,hundreds of thousands to a few thousands
+R0206,Final test,P128,8,1,1,No
+R0207,Final test,P155,5,4,1,"weight loss, vomiting blood, difficulty sleeping"
+R0208,Final test,P130,5,4,2,fever and cough
+R0209,Final test,P104po,8,1,1,no
+R0210,Final test,P31,4,4,0,Vaccines and herd immunity
+R0211,Final test,P50,8,1,1,No
+R0212,Final test,P59,6,1,1,10%
+R0213,Final test,P153,9,3,0,Bacteria
+R0214,Final test,P65,10,2,2,hundreds of thouands to a thousand
+R0215,Prequestion,P62,8,1,0,yes
+R0216,Final test,P99,6,1,1,10%
+R0217,Final test,P96,8,1,1,no
+R0218,Prequestion,P17,8,1,0,yes
+R0219,Final test,P90,1,1,1,17%
+R0220,Final test,P129,6,1,0,17
+R0221,Final test,P112,6,1,1,Only around 10% of all infections have symptoms.
+R0222,Final test,P65,9,3,3,"through coughs, sneezes, and spit"
+R0223,Final test,P116,10,2,2,A few hundred thousand to thousands
+R0224,Final test,P139,4,4,1,Antibiotics and a common vaccine
+R0225,Final test,P101,2,1,1,No
+R0226,Final test,P111,4,4,0,vaccination
+R0227,Final test,P170,2,1,1,No
+R0228,Final test,P05,2,1,1,no
+R0229,Final test,P152,10,2,0,10k to <100
+R0230,Final test,P67,9,3,0,through water vapor
+R0231,Final test,P46,9,3,3,"person to person contact like coughing, or spitting, sneezing, etc"
+R0232,Final test,P12,8,1,1,"No, tuberculosis cannot be spread without the symptoms to spread the bacteria"
+R0233,Final test,P122,10,2,0,"17000, 100"
+R0234,Final test,P35,1,1,0,20%
+R0235,Final test,P170,8,1,1,"No, only active"
+R0236,Final test,P104po,7,3,2,"2 antibiotic treatment, rest"
+R0237,Final test,P11,7,3,0,Vaccine
+R0238,Final test,P140,5,4,3,"coughing, sputum with blood, fever, night sweats"
+R0239,Final test,P94,5,4,1,Coughing up blood
+R0240,Final test,P80,6,1,1,10%
+R0241,Prequestion,P02,5,4,1,"Coughing, These sort of hardened capsules of bacteria in lungs"
+R0242,Final test,P129,2,1,1,no
+R0243,Final test,P35,2,1,0,yes
+R0244,Final test,P76,9,3,3,coughing spitting sneezing
+R0245,Final test,P31,10,2,2,"100,000 to 1,000"
+R0246,Final test,P56,9,3,3,"sneezing, coughing, and spitting"
+R0247,Final test,P26,2,1,1,no
+R0248,Final test,P139,10,2,0,1 million to 10000?
+R0249,Final test,P23,4,4,0,the polio vaccine and very rarely quaratine.
+R0250,Final test,P02,3,4,1,"Nigeria and two other African countries, Sudan maybe?"
+R0251,Final test,P175,9,3,2,through coughing/sneezing?
+R0252,Prequestion,P44,9,3,1,coughing
+R0253,Final test,P75,1,1,1,17
+R0254,Final test,P159,2,1,1,No
+R0255,Final test,P53,7,3,2,"treatment includes a round of two different antibiotics, specifically those who treat antibiotic-resistant tuberculosis, BFG vaccine"
+R0256,Prequestion,P101,5,4,1,Coughing blood
+R0257,Final test,P25,4,4,2,"vaccination, exercise, healthy diet"
+R0258,Final test,P144,6,1,1,10
+R0259,Final test,P37,3,4,4,"Nigeria, India, Pakistan, Afghanistan"
+R0260,Final test,P76,7,3,1,antibiotics
+R0261,Final test,P171,9,3,2,coughing or sneezing of infected person
+R0262,Final test,P119,9,3,2,"spread of mucus, coughing, sneezing, the viral pathogens are spread that way"
+R0263,Final test,P132a,3,4,0,some countries in Africa
+R0264,Final test,P03,1,1,0,61%
+R0265,Prequestion,P139,3,4,0,Third world countries in Africa?
+R0266,Final test,P89,8,1,0,yes
+R0267,Final test,P150,3,4,2,"Nigeria, India"
+R0268,Final test,P58,1,1,1,17
+R0269,Final test,P78,8,1,0,yes
+R0270,Final test,P117,9,3,2,coughing and sneezing
+R0271,Final test,P70,6,1,0,90%
+R0272,Final test,P128,9,3,0,bacteria called Bacillus
+R0273,Prequestion,P11,7,3,0,Vaccine
+R0274,Final test,P36,3,4,1,"India, african and middle Eastern countries"
+R0275,Prequestion,P56,6,1,1,10
+R0276,Final test,P133,5,4,3,"cough, fever, sweat"
+R0277,Final test,P122,1,1,0,20%
+R0278,Final test,P35,9,3,3,"cough, sneeze, spit"
+R0279,Final test,P76,10,2,1,millions to a thousand
+R0280,Final test,P141a,8,1,1,no
+R0281,Final test,P26,9,3,3,"when people that have it cough, sneeze, or spit"
+R0282,Final test,P96,6,1,1,10%
+R0283,Final test,P36,5,4,2,"coughing, mucus, fever"
+R0284,Final test,P63,8,1,0,yes
+R0285,Prequestion,P165,6,1,0,1
+R0286,Final test,P63,1,1,0,18
+R0287,Prequestion,P79,9,3,2,coughing and sneezing
+R0288,Prequestion,P109,4,4,0,vaccination
+R0289,Final test,P164,7,3,1,"antibiotics, with exercise and healthy diet"
+R0290,Final test,P148,1,1,0,54
+R0291,Final test,P90,9,3,1,germs through things like coughing
+R0292,Final test,P35,5,4,1,cough...
+R0293,Final test,P14,3,4,1,"India, other eastern countries"
+R0294,Prequestion,P116,2,1,0,yes
+R0295,Final test,P175,3,4,1,African countries like Nigeria
+R0296,Final test,P165,10,2,1,tens of thousands to thousands
+R0297,Final test,P27,7,3,1,antibiotics
+R0298,Final test,P06,3,4,4,"Nigeria, Afghanistan, Pakistan, India"
+R0299,Prequestion,P158,7,3,1,Special antibiotics that target the pathogen
+R0300,Final test,P81,8,1,1,no
+R0301,Final test,P57,2,1,1,no
+R0302,Final test,P157,3,4,3,"Nigeria, India, Pakistan"
+R0303,Final test,P53,5,4,3,"symptoms included blood suptum, fever, weight gain, and night sweats"
+R0304,Final test,P42,3,4,0,not Europe and America
+R0305,Prequestion,P16,10,2,1,1500 500
+R0306,Final test,P77,7,3,1,Antibiotics
+R0307,Final test,P94,1,1,1,17
+R0308,Final test,P17,5,4,2,"cough,fever, etc"
+R0309,Final test,P24,10,2,2,"hundreds of thousands, thousands"
+R0310,Final test,P162,8,1,0,Yes
+R0311,Final test,P173,3,4,3,"Nigeria, India, Pakistan"
+R0312,Final test,P28PO,7,3,0,Vaccine
+R0313,Final test,P74,9,3,2,coughing/sneezing
+R0314,Final test,P16,10,2,2,"100,000s to 1,000s"
+R0315,Final test,P108,8,1,1,no
+R0316,Final test,P42,8,1,0,yes
+R0317,Final test,P160,1,1,0,less than 20 percent
+R0318,Final test,P74,3,4,0,all
+R0319,Prequestion,P04,2,1,0,yes
+R0320,Final test,P13,9,3,2,Coughing or Sneezing airborne particles
+R0321,Prequestion,P10,2,1,0,"yes, a vaccine"
+R0322,Prequestion,P98,7,3,0,there is a vaccine available
+R0323,Prequestion,P16,3,4,0,Germany
+R0324,Final test,P127,9,3,1,When one coughs it can be transmitted to those in close proximity.
+R0325,Final test,P48,5,4,1,"blood in lungs, bad cough, difficulty breathing"
+R0326,Final test,P135,8,1,1,No
+R0327,Final test,P02,8,1,1,No
+R0328,Final test,P77,9,3,3,Coughing spitting and sneezing
+R0329,Final test,P49,6,1,0,90
+R0330,Prequestion,P70,4,4,0,Vaccine
+R0331,Final test,P60,1,1,0,24%
+R0332,Final test,P165,9,3,2,"cough, sweat, saliva"
+R0333,Final test,P152,1,1,1,17 percent
+R0334,Final test,P104po,10,2,2,"100,000 to 1,000"
+R0335,Final test,P68,8,1,0,"air contact, breathing, coughing"
+R0336,Final test,P153,5,4,2,"Weight Loss, Bone issues, cough. fatigue"
+R0337,Prequestion,P111,8,1,0,yes
+R0338,Final test,P03,3,4,3,"pakistan, afghanistan, india, africa"
+R0339,Final test,P148,5,4,1,"cough, fatigue, respiratory blood"
+R0340,Final test,P171,5,4,2,"fever, coughing"
+R0341,Final test,P140,1,1,1,17%
+R0342,Final test,P35,6,1,1,10%
+R0343,Final test,P16,7,3,0,vaccines
+R0344,Final test,P132a,4,4,0,"vaccination, herd immunity"
+R0345,Final test,P63,4,4,1,quarantine and antibiotics
+R0346,Final test,P174,1,1,0,30
+R0347,Final test,P115,3,4,0,US
+R0348,Final test,P130,9,3,2,"coughing, sneezing"
+R0349,Final test,P129,3,4,2,"Afghanistan, Nigeria"
+R0350,Final test,P40,7,3,2,2 different kinds of antibiotics
+R0351,Final test,P37,2,1,1,"no cure, but symptoms can be relieved with antibiotics and nutritious diet"
+R0352,Final test,P165,1,1,1,17
+R0353,Final test,P135,1,1,1,17
+R0354,Final test,P129,5,4,2,"coughing up blood, fever"
+R0355,Final test,P90,10,2,0,300 million to 100 million
+R0356,Final test,P06,10,2,1,"Something to 2,000"
+R0357,Final test,P52,9,3,0,"particles from the mouth, person to person"
+R0358,Final test,P98,10,2,2,hundreds of thousands to thousands
+R0359,Prequestion,P23,5,4,2,"coughing, fever, and more that i dont know"
+R0360,Final test,P107,8,1,1,No
+R0361,Final test,P77,6,1,1,10%
+R0362,Final test,P23,9,3,3,"through droplets like coughing, sneezing, spitting"
+R0363,Final test,P92,5,4,2,"Cough with blood loss, weight loss, fatigue"
+R0364,Final test,P44,6,1,0,50%
+R0365,Final test,P65,8,1,1,no only active TB
+R0366,Final test,P123,10,2,1,many millions to thousands
+R0367,Final test,P150,1,1,0,15%
+R0368,Final test,P70,8,1,0,yes
+R0369,Final test,P118,6,1,0,20%
+R0370,Final test,P95,2,1,0,yes
+R0371,Final test,P174,8,1,1,no
+R0372,Final test,P164,8,1,1,no?
+R0373,Final test,P148,2,1,1,"no, only things to help"
+R0374,Final test,P121,2,1,1,no
+R0375,Final test,P125,4,4,1,antibiotics for muscles and other parts of the body
+R0376,Final test,P39,5,4,2,"night sweats, fever"
+R0377,Final test,P15,10,2,1,"10,000 to 1000"
+R0378,Final test,P145,7,3,1,antibiotic
+R0379,Final test,P172,7,3,1,Series of antibiotics or vaccine for prevention
+R0380,Final test,P159,4,4,0,vaccines
+R0381,Final test,P14,10,2,0,"1,000 to 10"
+R0382,Final test,P131,2,1,1,No
+R0383,Final test,P22,8,1,0,yes
+R0384,Final test,P84,1,1,1,17
+R0385,Final test,P27,2,1,1,no
+R0386,Final test,P11,4,4,0,Vaccines
+R0387,Final test,P51,3,4,2,"Pakistan, India"
+R0388,Final test,P100,5,4,1,"red mucus, fatigue"
+R0389,Final test,P166,1,1,1,17
+R0390,Final test,P116,9,3,2,"Coughing, spitting, breathing"
+R0391,Final test,P53,9,3,2,it is spread by a diseased person who coughs or spits in the air
+R0392,Final test,P157,2,1,1,no
+R0393,Final test,P69,1,1,1,17%
+R0394,Final test,P90,4,4,2,"vaccination, alagesics, antibiotics"
+R0395,Final test,P84,9,3,3,"coughing, spitting, sneezing, airborne spit"
+R0396,Prequestion,P97,10,2,0,"1000000, 20000"
+R0397,Final test,P118,7,3,0,TB test but there is no vaccine
+R0398,Final test,P33,2,1,1,"there is not a single known cure for polio, so vaccination is best prevention"
+R0399,Final test,P75,9,3,3,"coughing, sneezing, saliva"
+R0400,Final test,P139,3,4,4,"India, Pakistan, Afghanistan, and Nigeria"
+R0401,Final test,P118,3,4,0,Countries in Africa
+R0402,Final test,P102,9,3,3,"Spread through someone who has active tuberculosis and through a cough, sneeze or spit"
+R0403,Final test,P122,2,1,1,no
+R0404,Final test,P127,5,4,2,"Cough, fever, chills, weakness"
+R0405,Final test,P26,7,3,2,two long doses of treatment
+R0406,Final test,P42,1,1,0,200 million dollars
+R0407,Final test,P01,4,4,0,antibiotic resistance
+R0408,Final test,P141a,1,1,1,17
+R0409,Final test,P80,1,1,0,90%
+R0410,Prequestion,P64,4,4,0,vaccination
+R0411,Prequestion,P139,2,1,0,Yes
+R0412,Final test,P97,6,1,1,10%
+R0413,Final test,P31,1,1,0,"$200 million, not sure of exact percentage"
+R0414,Final test,P90,6,1,0,70%
+R0415,Prequestion,P75,2,1,0,yes
+R0416,Final test,P144,5,4,1,coughing blood
+R0417,Prequestion,P111,7,3,0,medication
+R0418,Prequestion,P98,5,4,1,coughing
+R0419,Final test,P91,8,1,1,no
+R0420,Final test,P123,6,1,1,10%
+R0421,Final test,P88,7,3,0,vaccine
+R0422,Final test,P49,2,1,1,no
+R0423,Final test,P164,9,3,2,"coughs, sneezes"
+R0424,Final test,P45,2,1,1,No
+R0425,Final test,P83,9,3,3,"cough, sneeze, spit"
+R0426,Final test,P108,4,4,0,Treatments are cheap so they can be disseminated widely. Herding for individuals with TB because it can only be spread when active.
+R0427,Final test,P41,5,4,3,"cough with blood(wet),fever,weight loss"
+R0428,Final test,P171,4,4,1,use of two antibiotics and oral vaccine
+R0429,Final test,P54,10,2,2,"hundreds of thousands, around one thousand"
+R0430,Final test,P52,5,4,2,"blood in mucus, fever, cough,"
+R0431,Final test,P120,6,1,1,10
+R0432,Final test,P133,2,1,1,no
+R0433,Final test,P71,1,1,1,17
+R0434,Final test,P58,6,1,1,10
+R0435,Prequestion,P163,9,3,1,coughing/touching
+R0436,Final test,P12,2,1,1,"no, there is a vaccine pill"
+R0437,Final test,P150,6,1,0,15
+R0438,Final test,P30,4,4,1,"quarantine, antibiotics"
+R0439,Final test,P55,7,3,0,vaccination
+R0440,Final test,P45,7,3,0,Vaccine
+R0441,Final test,P81,7,3,1,anti-biotic
+R0442,Final test,P104po,9,3,3,"saliva droplet: coughing, sneezing, breathing"
+R0443,Final test,P146,4,4,0,medicine to help muscle stiffness and mediate effect of paralysis
+R0444,Prequestion,P41,8,1,0,yes
+R0445,Final test,P114,5,4,2,"Coughing, often with blood sputum, prolonged fever, fatigue."
+R0446,Final test,P18,5,4,1,Coughing blood
+R0447,Prequestion,P91,9,3,0,through proximity
+R0448,Final test,P132a,8,1,1,no
+R0449,Final test,P04,2,1,1,no
+R0450,Prequestion,P41,7,3,1,Antibiotics
+R0451,Final test,P134,1,1,0,15%
+R0452,Final test,P175,8,1,1,no
+R0453,Final test,P65,4,4,3,"maintaining a healthy diet, taking antibiotics to prevent infection from muscle weakness, staying active (exercise)"
+R0454,Final test,P131,10,2,1,Millions to thousands
+R0455,Final test,P50,2,1,1,no
+R0456,Final test,P38,5,4,3,"fever,chills,coughing(perhaps with blood), weight loss"
+R0457,Final test,P114,6,1,1,Around ten percent
+R0458,Final test,P38,7,3,1,antibiotics but for prevention vaccines
+R0459,Final test,P134,3,4,0,less developed countries
+R0460,Final test,P127,2,1,1,"No, there is no cure for polio."
+R0461,Final test,P75,5,4,1,"weight loss, fatigue, respiratory problems, nausea"
+R0462,Final test,P09,4,4,0,symptom management and vaccines for children
+R0463,Prequestion,P82,7,3,1,Antibiotics
+R0464,Final test,P131,3,4,2,"Afghanistan, Nigeria, Iraq"
+R0465,Prequestion,P02,8,1,1,No
+R0466,Final test,P30,10,2,0,"90, 15"
+R0467,Final test,P65,5,4,2,"fever, night chills, chronic cough with blood-tinged sputum, weakness"
+R0468,Final test,P160,8,1,1,No
+R0469,Final test,P116,1,1,1,17%
+R0470,Prequestion,P57,10,2,0,800003000
+R0471,Final test,P99,9,3,1,an infected individual coughs on an uninfected individual
+R0472,Final test,P172,2,1,1,no
+R0473,Final test,P164,6,1,1,10
+R0474,Final test,P171,10,2,1,hundreds of thousands to hundreds
+R0475,Prequestion,P11,8,1,0,Yes
+R0476,Final test,P121,1,1,0,20%
+R0477,Final test,P46,8,1,1,no
+R0478,Final test,P121,6,1,1,10%
+R0479,Prequestion,P150,10,2,1,4000000; 1500
+R0480,Final test,P13,6,1,1,10%
+R0481,Final test,P76,1,1,1,17%
+R0482,Final test,P35,4,4,0,vaccine
+R0483,Final test,P60,6,1,0,2%
+R0484,Final test,P166,2,1,1,no
+R0485,Final test,P02,6,1,1,10%
+R0486,Final test,P163,9,3,0,The immune system
+R0487,Prequestion,P123,8,1,1,No
+R0488,Final test,P14,4,4,0,A vaccine
+R0489,Final test,P70,7,3,0,Vaccine
+R0490,Prequestion,P10,4,4,0,vaccines
+R0491,Final test,P44,1,1,0,1%
+R0492,Final test,P106,5,4,1,coughing up blood
+R0493,Prequestion,P114,9,3,0,Bacterial pathogens
+R0494,Final test,P10,10,2,2,"hundreds of thousands, thousands"
+R0495,Final test,P175,1,1,1,17%
+R0496,Final test,P165,6,1,1,10
+R0497,Prequestion,P37,4,4,1,vaccine / antibiotics?
+R0498,Final test,P87a,10,2,2,"hundreds of thousands, a thousand"
+R0499,Final test,P118,8,1,0,Yes
+R0500,Final test,P78,3,4,2,"Nigeria, India"
+R0501,Final test,P97,9,3,1,coughing
+R0502,Final test,P03,5,4,1,coughing with bloody phlegm
+R0503,Final test,P67,4,4,0,foundations are trying to find vaccines
+R0504,Prequestion,P62,9,3,0,droplets
+R0505,Final test,P53,2,1,1,"there is no cure for polio, however there is treatment through vaccines"
+R0506,Final test,P28PO,3,4,4,"Nigeria, Afghanistan, India, Pakistan"
+R0507,Final test,P158,7,3,1,an antibiotic
+R0508,Final test,P75,7,3,1,antibiotics to mitigate symptoms
+R0509,Final test,P47,5,4,4,"coughing with blood, night sweats, weight loss, fever"
+R0510,Final test,P01,5,4,1,"sweats chills, paralysis"
+R0511,Prequestion,P151,9,3,1,through droplets of saliva or respiration
+R0512,Final test,P113,7,3,2,vaccines for prevention and 2 types of antibiotics for treatment
+R0513,Final test,P170,6,1,1,10%
+R0514,Final test,P147,7,3,1,antibiotics
+R0515,Final test,P136,2,1,1,no
+R0516,Prequestion,P35,8,1,0,maybe
+R0517,Prequestion,P125,3,4,0,Congo
+R0518,Final test,P60,5,4,0,I am not sure.
+R0519,Final test,P27,10,2,2,hundreds of thousands to just a few thousand
+R0520,Final test,P02,4,4,2,"some antibiotics, physical activity"
+R0521,Final test,P58,4,4,0,vaccinations
+R0522,Final test,P175,6,1,1,10%
+R0523,Final test,P113,9,3,0,breathing it in
+R0524,Final test,P160,4,4,0,There is no cure for polio
+R0525,Prequestion,P119,3,4,0,third world countries
+R0526,Final test,P18,1,1,1,17%
+R0527,Final test,P71,2,1,1,No
+R0528,Final test,P27,9,3,3,through coughing and sneezing (the spit particles)
+R0529,Final test,P97,7,3,1,Antibiotics
+R0530,Final test,P132a,9,3,3,"coughing, sneezing, spitting"
+R0531,Final test,P81,10,2,2,Hundreds of thousands to thousands
+R0532,Final test,P63,5,4,1,blood in cough
+R0533,Final test,P44,4,4,2,antibiotics and exercise
+R0534,Final test,P09,3,4,0,ghana
+R0535,Prequestion,P72,10,2,0,3500 to 100
+R0536,Prequestion,P17,7,3,0,medication?
+R0537,Final test,P140,9,3,2,through when an infected person coughs or sneezes
+R0538,Final test,P91,1,1,0,18%
+R0539,Final test,P23,7,3,1,"antibiotics and for some individuals, vaccines can help. but only for infants, not adults."
+R0540,Final test,P163,3,4,3,"Nigeria, Afghanistan, and India"
+R0541,Final test,P27,8,1,1,no
+R0542,Prequestion,P101,8,1,1,No
+R0543,Prequestion,P38,5,4,2,"fever,coughing,wheezing,chills"
+R0544,Final test,P40,10,2,2,hundreds of thousands to thousands
+R0545,Final test,P86,7,3,2,Two different antibiotics
+R0546,Final test,P68,4,4,0,isolation of infected and vaccination
+R0547,Final test,P39,6,1,1,10%
+R0548,Final test,P23,3,4,2,"india, nigeria, and more that I don't remember"
+R0549,Prequestion,P135,3,4,0,african
+R0550,Final test,P129,9,3,3,"coughing, sneezing, spitting"
+R0551,Final test,P59,8,1,1,no
+R0552,Final test,P70,2,1,1,No
+R0553,Final test,P111,3,4,1,nigeria
+R0554,Final test,P114,1,1,0,10 percent
+R0555,Final test,P113,5,4,2,"weight loss, coughing"
+R0556,Final test,P159,9,3,1,coughing
+R0557,Final test,P01,10,2,2,"100,000 to 1,000"
+R0558,Final test,P84,3,4,4,"India, Nigeria, Afghanistan, Pakistan"
+R0559,Final test,P24,1,1,1,17%
+R0560,Final test,P49,3,4,4,"Nigeria, india, afghanistan, pakistan"
+R0561,Final test,P173,7,3,2,Long term antibiotics and a healthy lifestyle
+R0562,Final test,P91,3,4,2,"nigeria, india"
+R0563,Final test,P162,1,1,1,17%
+R0564,Final test,P163,8,1,1,No
+R0565,Final test,P112,8,1,1,"No, only people who have active symptoms of TB can transmit the disease."
+R0566,Final test,P30,3,4,3,"India, Pakistan, Afghanistan"
+R0567,Final test,P147,2,1,1,no
+R0568,Final test,P12,10,2,0,a million;half a million
+R0569,Final test,P162,6,1,0,1%
+R0570,Final test,P70,5,4,0,Paralysis
+R0571,Final test,P166,4,4,0,medicine to relieve symptoms
+R0572,Final test,P95,7,3,0,vaccination
+R0573,Final test,P159,1,1,1,17
+R0574,Final test,P91,10,2,0,45% to 17%
+R0575,Final test,P57,10,2,1,hundreds of thousands to tens of thousands
+R0576,Final test,P38,3,4,0,third world countries like africa
+R0577,Final test,P20,7,3,1,"antibiotics, vaccines"
+R0578,Final test,P72,10,2,2,hundreds of thousands to under a thousand
+R0579,Final test,P91,2,1,1,no
+R0580,Final test,P174,6,1,1,10
+R0581,Final test,P15,9,3,3,"through spit, cough, sneeze"
+R0582,Final test,P120,9,3,2,"cough, sneeze"
+R0583,Final test,P25,9,3,2,"cough, spit"
+R0584,Final test,P24,9,3,1,Coughing
+R0585,Final test,P81,4,4,0,The measures for the modern treatment of polio are focused on easing symptoms of patients and preventing the spread of the disease through vaccination
+R0586,Final test,P112,9,3,2,"Through particles that are released through cough, sneeze, etc."
+R0587,Final test,P147,8,1,1,"no, only active"
+R0588,Final test,P140,6,1,1,10%
+R0589,Final test,P30,6,1,0,80
+R0590,Final test,P82,1,1,0,90%
+R0591,Final test,P62,5,4,4,"coughing up bloody sputum, fever, weight loss, night sweats"
+R0592,Prequestion,P02,6,1,0,34%
+R0593,Final test,P41,3,4,4,"India,Afghanistan,Nigeria,Pakistan"
+R0594,Final test,P101,1,1,1,17%
+R0595,Final test,P145,8,1,1,no
+R0596,Final test,P76,8,1,1,no
+R0597,Final test,P51,4,4,0,vaccine
+R0598,Final test,P94,9,3,1,Disease molecules when an infected person coughs or breaths
+R0599,Final test,P98,9,3,2,coughing and sneezing
+R0600,Final test,P170,4,4,2,"2 courses of antibiotic treatment, with other supplementary measures such as diet, sleep"
+R0601,Final test,P71,10,2,0,"17 million, 5 million"
+R0602,Final test,P162,4,4,2,Antibiotics and pain killers
+R0603,Final test,P130,3,4,0,third world countries
+R0604,Prequestion,P01,2,1,0,yes
+R0605,Prequestion,P82,6,1,0,19%
+R0606,Final test,P153,10,2,0,1000 to 40 ?
+R0607,Final test,P18,3,4,1,"Nigeria, Saudi Arabia, and ?"
+R0608,Final test,P10,6,1,1,10%
+R0609,Final test,P122,7,3,1,antibiotics
+R0610,Final test,P166,7,3,0,medicine
+R0611,Final test,P25,1,1,1,17%
+R0612,Final test,P145,2,1,1,no
+R0613,Final test,P155,4,4,0,Oral medicine
+R0614,Final test,P81,5,4,3,"cough, fever, weightloss,"
+R0615,Final test,P03,10,2,1,"50,000 5,000"
+R0616,Prequestion,P53,8,1,1,No
+R0617,Final test,P131,6,1,1,10%
+R0618,Final test,P94,4,4,0,there is no cure but vaccines can prevent it
+R0619,Final test,P101,8,1,1,No
+R0620,Final test,P102,3,4,1,"India, and 3 others"
+R0621,Final test,P54,9,3,3,"Coughing, sneezing, spitting"
+R0622,Final test,P77,8,1,0,Yes
+R0623,Final test,P141a,9,3,2,"coughing, sneezing, etc."
+R0624,Final test,P93,3,4,0,"Countries in Africa, and other non American/European Countries"
+R0625,Final test,P142,7,3,1,antibiotic cycles
+R0626,Prequestion,P162,4,4,0,Vaccination at young age
+R0627,Final test,P158,5,4,2,"coughing blood, weight loss, etc"
+R0628,Prequestion,P159,8,1,0,Yes
+R0629,Final test,P148,4,4,1,Antibiotics to help muscles
+R0630,Final test,P139,6,1,1,10 percent
+R0631,Prequestion,P50,8,1,0,Yes
+R0632,Final test,P72,6,1,1,10%
+R0633,Final test,P148,10,2,0,50000 100
+R0634,Final test,P157,5,4,3,"fever, chills, blood in mucus, sudden weight loss"
+R0635,Final test,P148,7,3,2,two rounds of antibiotics
+R0636,Final test,P25,10,2,2,hundreds of thousands to thousands
+R0637,Final test,P82,3,4,2,"Nigeria, Afghanistan, and 2 others i forget"
+R0638,Final test,P74,8,1,1,no
+R0639,Final test,P61,6,1,1,10%
+R0640,Final test,P142,2,1,1,no
+R0641,Final test,P22,2,1,1,no
+R0642,Final test,P78,4,4,1,Vaccines and antibiotics
+R0643,Prequestion,P90,2,1,1,no
+R0644,Final test,P158,8,1,1,no
+R0645,Final test,P87a,9,3,0,bacteria that is air-borne
+R0646,Final test,P76,4,4,1,vaccines/antibiotics
+R0647,Final test,P67,6,1,1,10
+R0648,Prequestion,P174,8,1,1,No
+R0649,Final test,P101,9,3,3,"When somebody with active tuberculosis coughs, sneezes or spits"
+R0650,Final test,P118,4,4,0,Treatment of the symptoms
+R0651,Final test,P09,6,1,0,35
+R0652,Final test,P98,5,4,3,"couginh blood, fever, and sweats"
+R0653,Final test,P151,10,2,2,hundreds of thousands; about a thousand
+R0654,Final test,P131,8,1,1,No
+R0655,Final test,P45,1,1,1,17
+R0656,Final test,P58,9,3,2,"coughing, sneezing, breathing"
+R0657,Final test,P163,10,2,2,hundreds of thousands to a thousand
+R0658,Final test,P111,10,2,2,hundred thousands to a thousand
+R0659,Final test,P13,2,1,1,No
+R0660,Final test,P06,7,3,0,Time
+R0661,Final test,P47,8,1,1,no
+R0662,Final test,P154,4,4,1,vaccination and antibiotics
+R0663,Final test,P63,3,4,1,"nigeria, jamaica. Mostly countries in Africa or Island area."
+R0664,Final test,P142,1,1,1,17%
+R0665,Final test,P119,7,3,0,vaccinations
+R0666,Final test,P81,2,1,1,no
+R0667,Final test,P151,6,1,1,10%
+R0668,Prequestion,P65,8,1,1,no
+R0669,Final test,P86,1,1,1,17%
+R0670,Final test,P147,6,1,1,10%
+R0671,Final test,P144,7,3,1,antibiotics over the course of 2 weeks
+R0672,Final test,P21,10,2,1,"100,00 to 1,000"
+R0673,Final test,P146,1,1,1,17
+R0674,Final test,P49,10,2,2,"100,000 to 1,000"
+R0675,Final test,P62,2,1,1,No
+R0676,Prequestion,P23,9,3,1,through droplet transmission like coughing
+R0677,Final test,P68,7,3,0,vaccination
+R0678,Final test,P106,9,3,1,coughing
+R0679,Final test,P25,5,4,2,"cough, weight loss, sleeplessness"
+R0680,Final test,P99,8,1,0,yes
+R0681,Prequestion,P16,4,4,0,isolation
+R0682,Final test,P69,4,4,0,the vaccine is cheap so just improving overall health infrastructure in affected areas
+R0683,Final test,P111,1,1,0,70%
+R0684,Final test,P41,4,4,3,"healthy,nutritious diet, moderate excercise, antibiotics"
+R0685,Final test,P163,1,1,0,80%
+R0686,Final test,P70,4,4,0,Vaccine
+R0687,Final test,P121,10,2,2,hundreds of thousands to a thousand
+R0688,Final test,P96,5,4,2,"fever, rash, cough"
+R0689,Final test,P55,3,4,3,"nigeria, pakistan, afganistan"
+R0690,Final test,P48,6,1,0,2%
+R0691,Final test,P87a,1,1,0,50
+R0692,Final test,P94,2,1,1,no
+R0693,Final test,P95,5,4,1,"coughing, sneezing"
+R0694,Final test,P132a,1,1,0,70%
+R0695,Final test,P162,3,4,4,"Afghanistan, Pakistan, India, Nigeria"
+R0696,Final test,P152,4,4,0,vaccine... otherwise breathing assitants such as ventilators
+R0697,Final test,P176,5,4,1,coughing up blood
+R0698,Prequestion,P65,6,1,0,13%
+R0699,Final test,P102,7,3,0,"Herd immunity is pretty popular. Now they do a vaccine, I believe it is 2 different vaccines that have the best approach. Quarantining was not found to be as helpful as the vaccines"
+R0700,Prequestion,P176,5,4,1,coughing
+R0701,Prequestion,P46,4,4,0,vaccines
+R0702,Final test,P33,5,4,1,"swollen lymph nodes, bodily pain, coughing, coughing blood"
+R0703,Final test,P40,9,3,3,"By someone coughing, sneezing, or spitting"
+R0704,Final test,P116,6,1,1,10%
+R0705,Final test,P98,3,4,0,in less developed countries
+R0706,Final test,P04,1,1,0,18
+R0707,Final test,P133,3,4,1,"africa, nigeria"
+R0708,Final test,P150,5,4,1,"cough, blood in spitum"
+R0709,Final test,P51,7,3,2,2 kinds of antibiotics
+R0710,Final test,P24,7,3,2,"Non typical antibiotics, needs two drugs to help kill the disease"
+R0711,Prequestion,P128,5,4,0,fatigue
+R0712,Final test,P35,3,4,1,"afghanistan, ..."
+R0713,Prequestion,P105,8,1,1,no
+R0714,Prequestion,P16,2,1,1,no
+R0715,Final test,P118,9,3,2,Sneezing or coughing
+R0716,Final test,P24,3,4,3,"Pakistan, India, Afghanistan,"
+R0717,Final test,P37,7,3,2,"very long antibiotic treatment,can be avoided if you have the vaccine"
+R0718,Prequestion,P55,2,1,1,no
+R0719,Final test,P146,6,1,1,10
+R0720,Final test,P16,9,3,1,through coughing and the molecules
+R0721,Final test,P41,6,1,1,10
+R0722,Final test,P26,5,4,4,"cough with blood coming up, fevers, night sweats, weight loss"
+R0723,Final test,P10,3,4,4,"India, Nigeria, Afghanistan, Pakistan"
+R0724,Final test,P56,1,1,0,200 million
+R0725,Prequestion,P10,1,1,0,5%
+R0726,Prequestion,P97,2,1,0,"Yes, the vaccine"
+R0727,Final test,P105,6,1,0,70%
+R0728,Final test,P23,2,1,0,"yes, the vaccine."
+R0729,Final test,P69,2,1,1,no
+R0730,Final test,P115,8,1,1,NO
+R0731,Final test,P151,7,3,1,BCG vaccine and antibiotics
+R0732,Final test,P16,4,4,0,quarentine and vaccination
+R0733,Final test,P75,4,4,1,"antibiotics to mitigate symptoms,"
+R0734,Final test,P66,10,2,1,tens of thousands to thousands
+R0735,Final test,P66,2,1,1,There is no cure for polio
+R0736,Final test,P107,5,4,2,"Weight loss, fever,"
+R0737,Final test,P42,4,4,1,"antibiotics, vaccinations, quarentines"
+R0738,Final test,P56,6,1,1,10
+R0739,Final test,P106,1,1,1,17 %
+R0740,Final test,P53,3,4,1,polio is still a major concern in many African nations as well as India
+R0741,Final test,P05,7,3,1,Vaccine and antibiotics
+R0742,Final test,P12,1,1,1,17 percent
+R0743,Final test,P102,10,2,2,hundreds of thousands to a thousand
+R0744,Final test,P72,4,4,0,vaccination
+R0745,Final test,P111,5,4,1,coughing
+R0746,Final test,P56,7,3,1,antibiotics
+R0747,Final test,P54,7,3,1,Anti-bacterial medicine
+R0748,Final test,P67,3,4,0,Africa
+R0749,Final test,P11,6,1,1,10%
+R0750,Final test,P92,4,4,0,Vaccine given to infants and oral vaccine given to adults.
+R0751,Final test,P51,1,1,0,25%
+R0752,Final test,P129,10,2,0,thousands to hundreds
+R0753,Prequestion,P82,8,1,0,yes
+R0754,Final test,P157,9,3,1,Spread by coughing
+R0755,Final test,P37,9,3,2,"coughing, sneezing"
+R0756,Final test,P71,4,4,1,antibiotics
+R0757,Final test,P20,8,1,1,no
+R0758,Final test,P84,8,1,1,no
+R0759,Final test,P20,2,1,1,no
+R0760,Final test,P120,5,4,2,"cough, fever"
+R0761,Final test,P97,4,4,0,"Vaccines are the best way to eradicate it, through ""herd immunity"""
+R0762,Final test,P150,10,2,0,Not given in the passage
+R0763,Final test,P151,2,1,1,no
+R0764,Final test,P121,8,1,1,no
+R0765,Prequestion,P128,9,3,0,bacteria
+R0766,Final test,P72,7,3,0,"there is vaccine testing in the making, but you could treat the symptoms on their own."
+R0767,Final test,P105,9,3,2,"cough, sneeze etc"
+R0768,Final test,P109,7,3,2,"antibiotics, multi-stage antibiotics, BCG in development."
+R0769,Final test,P55,1,1,0,20%
+R0770,Final test,P146,7,3,0,medication
+R0771,Final test,P17,9,3,1,coughing
+R0772,Final test,P171,8,1,1,no
+R0773,Final test,P81,9,3,2,"People coughing, sneezing, etc."
+R0774,Final test,P15,6,1,0,17%
+R0775,Final test,P62,4,4,0,quarantine
+R0776,Final test,P153,6,1,1,10
+R0777,Final test,P119,2,1,1,no
+R0778,Final test,P60,10,2,2,"200,000 to 2,000"
+R0779,Final test,P25,8,1,0,yes
+R0780,Final test,P114,4,4,2,"No cure is available. Mitigation of symptoms through antibiotics for muscular infections, other respiratory treatments, and alleviation of pain with appropriate medications."
+R0781,Final test,P39,3,4,2,"India, Pakistan"
+R0782,Final test,P105,1,1,0,200 milion
+R0783,Prequestion,P129,2,1,1,no
+R0784,Final test,P101,3,4,2,"Nigeria, India"
+R0785,Final test,P80,9,3,2,through coughing and sneezing
+R0786,Prequestion,P01,1,1,0,73%
+R0787,Final test,P40,4,4,0,vaccines and herd immunity
+R0788,Final test,P53,6,1,1,10%
+R0789,Final test,P66,5,4,3,"The symptoms include, coughing, extreme sweating, and high temperature"
+R0790,Final test,P102,8,1,1,No
+R0791,Final test,P118,10,2,0,10000
+R0792,Final test,P124,7,3,2,two rounds of antibiotics
+R0793,Final test,P107,1,1,1,17
+R0794,Final test,P89,3,4,0,US
+R0795,Prequestion,P113,2,1,1,no
+R0796,Final test,P90,8,1,0,yes
+R0797,Final test,P117,4,4,1,vaccinations using antibiotics using a captilastphilanthropy method
+R0798,Final test,P48,10,2,0,2 million to 1.3 million
+R0799,Final test,P12,9,3,1,It is spread through human to human contact. When a person coughs in the air it is spread and enters the body of the non infected.
+R0800,Final test,P45,4,4,0,herd immunity
+R0801,Final test,P100,2,1,1,no
+R0802,Prequestion,P20,5,4,1,coughing
+R0803,Final test,P141a,5,4,1,"Extreme coughing, weak body, affected lungs and breathing"
+R0804,Final test,P91,9,3,1,through cough micro bacteria
+R0805,Final test,P134,10,2,2,hundreds of thousands to a thousand
+R0806,Final test,P16,1,1,1,17
+R0807,Final test,P27,6,1,1,10%
+R0808,Final test,P114,10,2,2,"hundreds of thousands, approximately one thousand"
+R0809,Final test,P88,8,1,0,"yes through air,cough"
+R0810,Final test,P45,9,3,2,Saliva Cough ect
+R0811,Final test,P37,5,4,1,"cough, sneeze, chest pain,"
+R0812,Final test,P118,5,4,1,Coughing blood
+R0813,Prequestion,P117,8,1,1,im guessing no as latent sounds like a less severe form
+R0814,Final test,P38,10,2,0,a couple thousand to a couple
+R0815,Final test,P66,7,3,0,"there is no treatment for tuberculosis, only a vaccine"
+R0816,Final test,P146,2,1,1,no
+R0817,Final test,P78,5,4,1,"Coughing, fatigue, body aches"
+R0818,Prequestion,P146,4,4,0,a shot
+R0819,Final test,P05,5,4,2,"Night sweats, fatigue, weight loss"
+R0820,Final test,P30,7,3,1,antibiotics
+R0821,Final test,P01,9,3,1,coughing
+R0822,Final test,P99,1,1,0,100%
+R0823,Final test,P62,8,1,1,no
+R0824,Final test,P176,8,1,1,no
+R0825,Final test,P30,9,3,2,"cough, sneeze"
+R0826,Final test,P30,5,4,1,"cough, blood-tinged"
+R0827,Prequestion,P79,6,1,0,<10%
+R0828,Final test,P152,8,1,1,no
+R0829,Final test,P82,9,3,3,"spit, coughing, sneezing"
+R0830,Final test,P141a,4,4,0,They are trying an oral vaccine
+R0831,Final test,P164,1,1,1,17
+R0832,Final test,P49,4,4,2,"diet, exercise, healthier lifestyle"
+R0833,Final test,P122,9,3,2,"cough, sneezing"
+R0834,Final test,P47,1,1,0,80%
+R0835,Final test,P04,9,3,2,"coughing, sneezing"
+R0836,Final test,P113,6,1,1,10%
+R0837,Final test,P43,7,3,1,quarantine and antibiotics
+R0838,Final test,P24,8,1,1,No
+R0839,Final test,P03,6,1,1,10%
+R0840,Final test,P172,10,2,2,hundreds of thousands to thousands
+R0841,Final test,P41,2,1,1,no
+R0842,Final test,P145,5,4,1,"cough, sneeze, weak muscles and muscle pain"
+R0843,Final test,P116,5,4,2,"Weight loss, spitting blood"
+R0844,Final test,P31,7,3,1,Antibiotics that treat and get rid of bacteria that you have
+R0845,Final test,P48,7,3,1,Anti-Biotics
+R0846,Prequestion,P04,1,1,0,30
+R0847,Final test,P133,6,1,0,25
+R0848,Final test,P133,8,1,1,no
+R0849,Final test,P158,10,2,0,"20, 5"
+R0850,Final test,P11,2,1,1,No
+R0851,Prequestion,P166,2,1,1,no
+R0852,Final test,P125,6,1,1,10%
+R0853,Final test,P82,7,3,1,antibiotics
+R0854,Prequestion,P02,9,3,0,I have no idea
+R0855,Final test,P142,6,1,1,10%
+R0856,Final test,P59,4,4,0,vaccines
+R0857,Final test,P18,9,3,1,Through coughing?
+R0858,Final test,P148,6,1,0,30
+R0859,Final test,P01,3,4,3,"nigeria, afghanistan, india"
+R0860,Final test,P139,8,1,0,Yes
+R0861,Final test,P12,3,4,0,many developing countries including countries in Africa
+R0862,Final test,P25,2,1,1,no
+R0863,Final test,P84,7,3,0,vaccine
+R0864,Final test,P22,3,4,3,"Nigergia, India, Afghanistan,"
+R0865,Final test,P98,6,1,0,most new infections - 80%
+R0866,Final test,P09,5,4,1,coughing up blood
+R0867,Final test,P56,5,4,1,cough
+R0868,Final test,P148,3,4,2,"India, nigeria"
+R0869,Final test,P69,8,1,0,yes
+R0870,Final test,P06,5,4,3,"Cough, bloody spitum, weight loss, fever"
+R0871,Final test,P71,7,3,1,"antibiotics, vaccine"
+R0872,Final test,P16,3,4,2,Nigeria and India
+R0873,Final test,P117,2,1,1,no
+R0874,Final test,P81,3,4,4,"Nigeria, India, Pakistan, Afghanistan"
+R0875,Final test,P26,3,4,2,"nigeria, india, possibly ethiopia (there were 2 more i forget)"
+R0876,Final test,P66,1,1,0,10%
+R0877,Final test,P21,5,4,4,"coughing with blood, fever, weight loss, night sweats"
+R0878,Final test,P164,5,4,2,"bloody cough, weight loss"
+R0879,Final test,P95,1,1,0,around 10%
+R0880,Final test,P160,9,3,3,"coughing, spitting, sneezing"
+R0881,Final test,P76,3,4,2,"Nigeria, India, one more i forget"
+R0882,Final test,P147,9,3,2,"coughing, sneezing"
+R0883,Final test,P69,10,2,2,hundreds of thousands to around 1000
+R0884,Final test,P116,7,3,0,Vaccination
+R0885,Prequestion,P90,3,4,0,congo
+R0886,Final test,P157,1,1,0,800 million dollars
+R0887,Prequestion,P28PO,2,1,1,No
+R0888,Final test,P54,2,1,1,No
+R0889,Final test,P05,9,3,3,"Coughing, spitting, sneezing"
+R0890,Final test,P18,6,1,0,2%
+R0891,Final test,P46,4,4,0,vaccines
+R0892,Prequestion,P150,3,4,0,Some african countries
+R0893,Prequestion,P161,7,3,0,Medications
+R0894,Final test,P124,4,4,1,helping with the pain and providing comfort for such as muscle aches
+R0895,Final test,P36,4,4,0,cbg
+R0896,Final test,P131,1,1,1,17%
+R0897,Final test,P47,2,1,1,no
+R0898,Final test,P87a,6,1,1,10
+R0899,Prequestion,P35,9,3,1,cough
+R0900,Final test,P125,2,1,1,No
+R0901,Final test,P48,1,1,0,2 million
+R0902,Prequestion,P159,9,3,2,"Coughing, Sneezing"
+R0903,Final test,P125,8,1,0,yes
+R0904,Final test,P158,3,4,3,"afghanistan, nigeria, india"
+R0905,Final test,P154,8,1,1,No -- only active TB
+R0906,Prequestion,P16,1,1,0,10
+R0907,Final test,P113,1,1,1,17%
+R0908,Final test,P05,4,4,0,vaccines
+R0909,Final test,P03,4,4,1,"vaccination, antibiotics, isolaton"
+R0910,Final test,P37,8,1,0,"yes, by coughing and sneezing and breathing"
+R0911,Final test,P165,7,3,1,There is an antibiotic but they are also pushing to vaccinate as many people as possible
+R0912,Final test,P02,1,1,0,25% Because it was 800 million a year and they devoted 200 million. I think...
+R0913,Final test,P49,7,3,2,multiple rounds of antibiotics
+R0914,Final test,P174,3,4,2,"nigeria, liberia, india"
+R0915,Final test,P50,5,4,2,"coughing, blood in spittle, weight-loss"
+R0916,Final test,P109,10,2,2,"100,000+ to around 1000"
+R0917,Final test,P159,6,1,0,17
+R0918,Final test,P36,10,2,2,"hundreds of thousands, thousands"
+R0919,Final test,P24,2,1,1,No
+R0920,Final test,P124,6,1,1,10%
+R0921,Prequestion,P161,6,1,0,25%
+R0922,Final test,P111,2,1,1,no
+R0923,Final test,P33,3,4,4,"Nigeria, India, Pakistan, (Afghanistan?)"
+R0924,Final test,P50,4,4,1,There is no cure for polio but antibiotics can be used. Prevention with herd immunity and vaccines is best.
+R0925,Prequestion,P57,2,1,0,yes
+R0926,Final test,P173,1,1,1,17%
+R0927,Final test,P136,9,3,1,coughing
+R0928,Final test,P129,7,3,0,"there is no cure, only ways to relieve symptoms"
+R0929,Final test,P10,4,4,3,"antibiotics, moderate exercise, a healthy diet"
+R0930,Prequestion,P38,8,1,0,yes
+R0931,Final test,P146,9,3,2,"coughing, sneezing, etc"
+R0932,Final test,P122,4,4,1,antibiotics and symptom relief
+R0933,Final test,P88,2,1,0,yes
+R0934,Final test,P119,5,4,2,"cough, fever, chills"
+R0935,Final test,P80,7,3,0,vaccination
+R0936,Final test,P125,5,4,0,"vomiting, nausea"
+R0937,Prequestion,P122,3,4,1,nigeria
+R0938,Final test,P148,8,1,1,no
+R0939,Final test,P124,10,2,2,hundred of thousands to thousands
+R0940,Final test,P58,2,1,1,no
+R0941,Final test,P155,9,3,0,Mynobacteria
+R0942,Final test,P72,1,1,1,17%
+R0943,Final test,P109,8,1,1,no
+R0944,Final test,P12,7,3,3,the treatment is two rounds of long term antibiotics
+R0945,Final test,P165,2,1,1,no
+R0946,Final test,P33,1,1,0,80%?
+R0947,Final test,P159,3,4,0,Africa
+R0948,Final test,P87a,5,4,1,coughing up blood
+R0949,Final test,P99,2,1,1,there is no cure
+R0950,Final test,P73,10,2,2,hundreds of thousands to thousands
+R0951,Prequestion,P162,10,2,1,500000:10000
+R0952,Final test,P152,6,1,0,around 40?
+R0953,Final test,P22,5,4,2,"cough, fever, nuasea, etc"
+R0954,Final test,P04,5,4,1,"cough, fatigue"
+R0955,Prequestion,P170,5,4,1,"coughing, shortness of breath"
+R0956,Final test,P80,3,4,2,"pakistan, africa. afghanistan"
+R0957,Final test,P10,2,1,1,no
+R0958,Final test,P95,8,1,0,yes
+R0959,Final test,P69,7,3,1,antibiotics
+R0960,Final test,P01,8,1,0,yes
+R0961,Final test,P89,1,1,0,$80 million
+R0962,Prequestion,P59,7,3,0,medicine
+R0963,Final test,P77,5,4,4,"Coughing up blood, night sweats, fever, losing weight"
+R0964,Final test,P49,5,4,2,"blood in sputum, coughing, fever, chills"
+R0965,Final test,P53,8,1,1,"no, they cannot"
+R0966,Final test,P95,6,1,1,10 %
+R0967,Final test,P88,1,1,0,60
+R0968,Final test,P54,5,4,1,"Worse breathing, coughing, lung and throat irritation"
+R0969,Final test,P15,5,4,1,"coughing, vomiting, blood"
+R0970,Prequestion,P72,3,4,0,third world countries/countries not in WHO
+R0971,Prequestion,P142,1,1,0,2%
+R0972,Final test,P116,8,1,0,Yes
+R0973,Final test,P42,2,1,1,no
+R0974,Final test,P49,8,1,0,yes
+R0975,Final test,P68,2,1,1,no
+R0976,Final test,P68,5,4,2,"blood in cough, fever"
+R0977,Prequestion,P41,9,3,1,through miniature molecules of spit which contain the TB bacteria
+R0978,Final test,P146,3,4,2,"four - nigeria, pakistan, two more"
+R0979,Final test,P127,8,1,0,Yes
+R0980,Final test,P17,2,1,1,no
+R0981,Final test,P134,9,3,3,"through coughing, sneezing or spit"
+R0982,Final test,P170,7,3,2,2 courses of antibiotics to counteract the symptoms of the active variant
+R0983,Final test,P162,10,2,2,hundreds of thousands : few thousands
+R0984,Prequestion,P25,2,1,1,no
+R0985,Final test,P135,5,4,1,bleeding cough and heart problems
+R0986,Final test,P83,8,1,1,no
+R0987,Prequestion,P19012,2,1,0,there is a vaccine
+R0988,Final test,P24,6,1,1,10
+R0989,Final test,P22,7,3,1,isolation and antibiotic
+R0990,Final test,P146,5,4,1,"coughing, mucus in lungs"
+R0991,Final test,P78,2,1,1,no
+R0992,Final test,P117,3,4,1,"india,"
+R0993,Final test,P52,7,3,0,vaccine
+R0994,Final test,P38,9,3,2,"coughing, spit/saliva"
+R0995,Final test,P140,2,1,1,no
+R0996,Final test,P115,5,4,0,TIRED
+R0997,Final test,P100,9,3,1,"Coughing, Speech"
+R0998,Prequestion,P53,5,4,2,"cough, fever, headache, body ache, chills"
+R0999,Final test,P151,9,3,2,"coughing, sneezing"
+R1000,Final test,P85,4,4,1,antibiotics
+R1001,Prequestion,P158,5,4,1,"coughing, shortness of breath, excess mucus, etc"
+R1002,Final test,P15,7,3,0,two antibodies working with each other
+R1003,Final test,P74,2,1,1,no
+R1004,Final test,P27,5,4,0,"blood in mouth, headache"
+R1005,Final test,P86,2,1,1,No
+R1006,Final test,P01,2,1,1,no
+R1007,Final test,P67,10,2,2,hundreds of thousands to thousands
+R1008,Final test,P55,2,1,1,no
+R1009,Final test,P39,10,2,1,hundreds of thousands; hundreds
+R1010,Final test,P82,2,1,1,no
+R1011,Final test,P170,9,3,3,"Coughing, sneezing, spittle"
+R1012,Final test,P99,5,4,1,"heavy cough, nausea, spitting up blood"
+R1013,Final test,P109,9,3,2,"coughing, sneezing, from infected people"
+R1014,Final test,P80,10,2,2,100 thousand to thousand
+R1015,Prequestion,P38,7,3,1,antibiotics
+R1016,Final test,P115,1,1,0,16%
+R1017,Final test,P65,3,4,3,"India, Afghanistan, Nigeria, and one more"
+R1018,Final test,P57,7,3,2,2-time antibiotic treatment
+R1019,Final test,P14,1,1,0,10%
+R1020,Final test,P41,9,3,2,when people spit or cough
+R1021,Final test,P119,4,4,0,quarantine but more prominently the BCG vaccination
+R1022,Final test,P43,6,1,1,10%
+R1023,Final test,P150,4,4,0,vaccinations
+R1024,Final test,P38,2,1,1,no
+R1025,Prequestion,P59,6,1,0,5
+R1026,Final test,P33,6,1,0,60%
+R1027,Prequestion,P01,4,4,0,vaccine response rate
+R1028,Final test,P104po,6,1,1,10%
+R1029,Final test,P91,4,4,2,polio vaccines but also mainly prevention of pain through excersise and other physical treatments
+R1030,Final test,P17,1,1,0,60%
+R1031,Final test,P172,1,1,1,17%
+R1032,Final test,P120,8,1,1,no
+R1033,Final test,P59,7,3,2,Two rounds of special and strong antibiotics
+R1034,Final test,P03,8,1,0,yes
+R1035,Final test,P63,6,1,0,40
+R1036,Prequestion,P65,5,4,1,"wheezing, coughing, shortness of breath, weakness"
+R1037,Final test,P92,7,3,2,Two types of antibiotics
+R1038,Final test,P92,1,1,1,17%
+R1039,Final test,P136,3,4,1,developing countries like nigeria
+R1040,Final test,P75,10,2,2,hundreds of thousands to ~ a thousand
+R1041,Final test,P59,9,3,3,"coughing, sneezing, and spit"
+R1042,Final test,P02,2,1,1,No
+R1043,Final test,P41,10,2,2,"100,000's, 1000's"
+R1044,Final test,P28PO,8,1,0,Yes
+R1045,Final test,P27,3,4,1,nigeria and other underdeveloped places
+R1046,Final test,P145,3,4,0,"kenya, ethiopia, african countries"
+R1047,Final test,P155,1,1,0,200 Million dollars
+R1048,Final test,P18,8,1,1,No
+R1049,Final test,P157,7,3,0,BCG vaccine
+R1050,Final test,P28PO,1,1,1,17%
+R1051,Final test,P44,8,1,0,yes
+R1052,Final test,P60,2,1,1,"No, but there is a vacinnes."
+R1053,Final test,P15,1,1,0,10%
+R1054,Final test,P21,9,3,3,when people who have it cough or sneeze or spit
+R1055,Final test,P130,6,1,1,10%
+R1056,Final test,P163,6,1,0,7%
+R1057,Final test,P52,8,1,1,"no, only active"
+R1058,Final test,P136,8,1,0,yes
+R1059,Final test,P04,4,4,3,"healthy diet, regular exercise, antibiotics"
+R1060,Final test,P60,9,3,0,"No, spreads by human contact."
+R1061,Final test,P89,9,3,2,by spiting or coughing
+R1062,Prequestion,P117,6,1,0,in 2025 probably a smaller percentage because of the advanced technology so 2.7%
+R1063,Final test,P31,8,1,1,"No, only people with active tuberculosis"
+R1064,Final test,P36,1,1,1,17%
+R1065,Final test,P116,2,1,1,No
+R1066,Final test,P31,9,3,2,Through coughing and sneezing
+R1067,Prequestion,P90,1,1,0,7%
+R1068,Final test,P52,4,4,0,"vaccination, herd immunity, vaccination at a young age"
+R1069,Final test,P153,7,3,0,"There is no effective cure, but symptoms can be treated"
+R1070,Final test,P111,6,1,1,10%
+R1071,Final test,P47,9,3,2,"coughing, sneezing"
+R1072,Final test,P58,10,2,2,hundreds of thousands; a thousand
+R1073,Final test,P51,5,4,3,"weight loss, night sweats, fever"
+R1074,Final test,P100,10,2,1,"5 million, 5 thousand"
+R1075,Final test,P155,7,3,0,vaccination
+R1076,Final test,P66,6,1,1,10%
+R1077,Final test,P97,10,2,2,hundreds of thousands to about a thousand
+R1078,Final test,P26,8,1,1,no only active
+R1079,Final test,P56,10,2,0,100's to 10's
+R1080,Final test,P133,1,1,0,71
+R1081,Prequestion,P17,9,3,0,yes
+R1082,Final test,P166,3,4,4,"afghanistan, pakistan, nigeria, india"
+R1083,Final test,P86,9,3,1,"Coughing droplets, talking"
+R1084,Final test,P33,7,3,1,"Vaccines are the best preventative measure, but antibiotics/medications and medical treatments can be used for tuberculosis"
+R1085,Final test,P121,5,4,2,"bloody cough, fever"
+R1086,Final test,P61,4,4,0,"vaccination, herd immunity, oral treatment"
+R1087,Final test,P15,8,1,1,no
+R1088,Prequestion,P146,2,1,0,yes
+R1089,Final test,P03,2,1,1,no
+R1090,Final test,P154,1,1,0,40%
+R1091,Final test,P57,4,4,0,herd treatment
+R1092,Final test,P77,2,1,1,No
+R1093,Prequestion,P73,8,1,1,no
+R1094,Final test,P57,1,1,1,17
+R1095,Prequestion,P150,1,1,0,8
+R1096,Final test,P99,10,2,2,"hundreds of thousands, thousands"
+R1097,Final test,P62,3,4,1,Nigeria
+R1098,Final test,P115,2,1,1,NO
+R1099,Final test,P153,2,1,1,no
+R1100,Final test,P114,7,3,2,"Treatment for mycobacterium tuberculosis involves a double-round of antibiotics since multidrug-resistance TB has become prevalent in countries around the world. In this way, the aim is to target the bacteria with the drugs that are capable of killing it such that the patient is healed. It is becoming complex to develop new antibiotics to treat TB."
+R1101,Final test,P124,9,3,2,"cough, sneeze, breath"
+R1102,Prequestion,P162,2,1,1,No
+R1103,Final test,P83,4,4,2,"daily exercise, good diet, there is no cure"
+R1104,Final test,P115,7,3,0,VACCINE
+R1105,Prequestion,P73,6,1,0,60
+R1106,Final test,P176,1,1,1,17%
+R1107,Prequestion,P40,2,1,1,no
+R1108,Final test,P52,2,1,1,no but there is a vaccine
+R1109,Final test,P09,7,3,0,quarantine
+R1110,Final test,P123,7,3,2,Two round antibiotics
+R1111,Final test,P95,10,2,0,a large number to 100
+R1112,Prequestion,P107,10,2,0,"10000, 100"
+R1113,Final test,P61,5,4,2,"cough, bloody mucus/coughs, fever"
+R1114,Final test,P73,4,4,1,antibiotics
+R1115,Final test,P85,5,4,2,"coughing, fever"
+R1116,Final test,P151,4,4,0,BCG vaccine
+R1117,Final test,P139,1,1,1,17 percent
+R1118,Final test,P50,9,3,1,through droplets after coughing
+R1119,Prequestion,P161,9,3,1,Sneezing
+R1120,Prequestion,P64,1,1,0,3000000
+R1121,Prequestion,P56,5,4,0,rash
+R1122,Final test,P108,3,4,1,Nigeria
+R1123,Prequestion,P25,1,1,0,10%
+R1124,Final test,P68,9,3,0,yes
+R1125,Prequestion,P107,4,4,0,Blood
+R1126,Final test,P141a,7,3,0,"A vaccine, to achieve herd immunity"
+R1127,Prequestion,P135,2,1,0,yes
+R1128,Final test,P176,9,3,1,spit
+R1129,Final test,P48,8,1,1,no
+R1130,Final test,P45,10,2,1,100000 100
+R1131,Final test,P13,7,3,1,antibiotics
+R1132,Final test,P87a,4,4,0,vaccination
+R1133,Prequestion,P78,2,1,0,Yes
+R1134,Final test,P141a,6,1,0,"Not many, around 9%"
+R1135,Prequestion,P25,3,4,0,Different European countries
+R1136,Final test,P56,8,1,1,no
+R1137,Final test,P71,3,4,0,4
+R1138,Prequestion,P98,8,1,1,no
+R1139,Prequestion,P91,6,1,0,34%
+R1140,Final test,P65,7,3,3,a long-term course of 2 antibiotics
+R1141,Final test,P98,7,3,0,vaccinations are an option
+R1142,Final test,P109,5,4,4,"coughing frequently with blood in the mucous, night sweats, weight loss, fever"
+R1143,Final test,P62,6,1,1,10 percent
+R1144,Final test,P30,2,1,1,no
+R1145,Final test,P165,5,4,3,"cough, cold sweats, fever, night ____"
+R1146,Final test,P16,5,4,3,"bloody cough, losing weight, fever"
+R1147,Final test,P153,8,1,1,no
+R1148,Final test,P144,4,4,2,"exercise, diet"
+R1149,Final test,P43,5,4,1,coughing blood
+R1150,Prequestion,P62,5,4,1,coughing blood
+R1151,Final test,P117,6,1,1,10
+R1152,Prequestion,P162,3,4,0,Northern Africa
+R1153,Final test,P107,9,3,1,Through diseased cough
+R1154,Final test,P151,1,1,1,17 percent
+R1155,Final test,P172,9,3,2,Coughing or sneezing of an infected individual
+R1156,Final test,P135,7,3,0,oral vaccine cost of 0.10
+R1157,Prequestion,P13,2,1,0,Yes
+R1158,Final test,P113,3,4,3,"india, afganistan, nigeria"
+R1159,Final test,P57,8,1,1,no
+R1160,Final test,P55,8,1,0,yes
+R1161,Final test,P131,9,3,2,"When people with the disease cough, sneeze, or sweat"
+R1162,Final test,P90,7,3,1,antibiotics
+R1163,Final test,P54,1,1,1,17%
+R1164,Final test,P164,2,1,1,no
+R1165,Prequestion,P82,5,4,1,coughing up blood
+R1166,Final test,P46,6,1,0,1
+R1167,Final test,P65,6,1,1,10%
+R1168,Final test,P145,1,1,0,75%
+R1169,Final test,P13,4,4,2,"antibiotics, moderate exercise"
+R1170,Final test,P03,9,3,3,"through spit, cough, or sneezes"
+R1171,Prequestion,P142,10,2,0,200 to 15
+R1172,Prequestion,P20,9,3,1,coughing
+R1173,Final test,P51,9,3,3,"sneezing, coughing, spit"
+R1174,Final test,P174,7,3,0,no treatment
+R1175,Final test,P45,5,4,2,fever bloody cough
+R1176,Final test,P134,5,4,3,"coughing, fever and weight loss"
+R1177,Final test,P123,4,4,0,Vaccination by Salk
+R1178,Final test,P83,10,2,2,hundreds of thousands to thousands
+R1179,Final test,P10,9,3,2,through coughing or spitting
+R1180,Final test,P73,8,1,0,yes
+R1181,Prequestion,P22,3,4,0,Russia
+R1182,Final test,P78,7,3,1,Antibiotics
+R1183,Final test,P12,5,4,1,"bloody septum, coughing, fatigue"
+R1184,Final test,P92,8,1,0,Yes
+R1185,Final test,P91,7,3,3,two antibiotics over time
+R1186,Final test,P113,2,1,1,no
+R1187,Final test,P140,7,3,1,antibiotics
+R1188,Final test,P123,3,4,3,"Afghanistan, Pakistan, Nigeria"
+R1189,Final test,P90,5,4,2,"blood filled coughing, fever"
+R1190,Final test,P128,7,3,1,antibiotics
+R1191,Final test,P20,5,4,2,"coughing, weight loss, restlessness"
+R1192,Final test,P160,6,1,0,1/3
+R1193,Final test,P174,9,3,2,"sneezing, coughing"
+R1194,Final test,P87a,8,1,1,no
+R1195,Final test,P73,1,1,0,80%
+R1196,Prequestion,P109,2,1,0,there is a vaccine
+R1197,Final test,P96,10,2,2,hundreds of thousands to about a thousand
+R1198,Prequestion,P165,8,1,0,yes
+R1199,Final test,P151,8,1,1,no
+R1200,Final test,P132a,2,1,1,no
+R1201,Final test,P30,1,1,0,80
+R1202,Final test,P96,9,3,2,"through sneeze, cough, etc. of someone who has active tuberculosis"
+R1203,Final test,P31,6,1,1,10%
+R1204,Final test,P14,7,3,1,Antibiotics
+R1205,Prequestion,P82,9,3,1,coughing
+R1206,Final test,P131,7,3,0,"GEB vaccine, primarily used in EU/US"
+R1207,Final test,P21,4,4,1,"treatments that focus on helping with symptoms, like pain meds"
+R1208,Prequestion,P119,4,4,0,"isolation,"
+R1209,Final test,P10,7,3,2,two courses of antibiotics
+R1210,Prequestion,P159,5,4,1,"Mucus, Coughing"
+R1211,Final test,P51,10,2,2,hundreds of thousands to about one thousand
+R1212,Final test,P47,7,3,1,vaccines and antibiotics
+R1213,Prequestion,P79,8,1,0,Yes
+R1214,Final test,P65,1,1,1,17%
+R1215,Final test,P37,4,4,3,"antibiotics, exercise, healthy diet"
+R1216,Final test,P21,6,1,1,10%
+R1217,Final test,P74,7,3,0,medicine
+R1218,Final test,P144,9,3,2,"coughing, sneezing from active TB"
+R1219,Final test,P58,8,1,1,no
+R1220,Prequestion,P150,2,1,0,vaccines
+R1221,Final test,P107,10,2,2,"Hundreds of thousands, a thousand"
+R1222,Final test,P14,2,1,1,No
+R1223,Prequestion,P111,5,4,1,coughing
+R1224,Final test,P31,2,1,1,No
+R1225,Final test,P81,1,1,1,17
+R1226,Final test,P61,2,1,1,no
+R1227,Final test,P72,9,3,0,"close contact, that's why herd immunity is so effective"
+R1228,Final test,P158,4,4,0,"oral vaccination, and child vaccination (there is no cure)"
+R1229,Prequestion,P111,6,1,0,30%
+R1230,Final test,P44,2,1,1,no
+R1231,Final test,P162,5,4,1,"Coughing, blood cough"
+R1232,Final test,P52,1,1,1,17%
+R1233,Final test,P97,1,1,1,17%
+R1234,Final test,P163,5,4,3,"Harsh cough, loss of weight, night sweats"
+R1235,Final test,P119,10,2,2,a couple hundred thousand to a few thousand
+R1236,Prequestion,P117,5,4,1,vomitting fever hallucination
+R1237,Final test,P176,4,4,0,"quarentine isn't very effective, vaccination is preferable"
+R1238,Final test,P63,10,2,1,"10,000 to 1,000"
+R1239,Final test,P145,9,3,3,"sneeze, cough, spit"
+R1240,Final test,P26,1,1,1,17%
+R1241,Final test,P107,2,1,1,No
+R1242,Final test,P31,5,4,2,"Cough at night with blood, weight loss"
+R1243,Final test,P135,10,2,2,hundreds of thousands to thousand
+R1244,Final test,P84,4,4,0,"vaccination, ""herd immunity"""
+R1245,Final test,P157,6,1,0,one third
+R1246,Final test,P140,4,4,3,"antibiotics, exercise, analgesics"
+R1247,Final test,P90,2,1,1,no
+R1248,Final test,P26,4,4,0,polio has no cure
+R1249,Prequestion,P125,4,4,0,Vaccination at a young age
+R1250,Final test,P146,10,2,2,100000 to 1000
+R1251,Final test,P86,4,4,1,"There is no cure, but antibiotics to prevent secondary infection in weakened muscles are used. Also measures are taken to relieve symptoms like breathing difficulty."
+R1252,Final test,P54,8,1,1,No
+R1253,Final test,P82,4,4,1,antibiotics
+R1254,Final test,P84,5,4,2,"cough, coughing up blood, fever"
+R1255,Prequestion,P161,8,1,0,Yes
+R1256,Final test,P42,10,2,1,millions to thousands
+R1257,Final test,P107,7,3,1,Antibiotics
+R1258,Final test,P87a,7,3,0,vaccination
+R1259,Final test,P113,4,4,0,"vaccination, quaritine"
+R1260,Final test,P63,9,3,2,"cough, sneeze, etc."
+R1261,Final test,P94,10,2,2,a hundred thousand to a thousand
+R1262,Final test,P30,8,1,0,yes
+R1263,Final test,P105,5,4,3,"fever, cough, weight loss, etc"
+R1264,Final test,P141a,3,4,2,"India, Pakistan and more"
+R1265,Final test,P150,8,1,1,no
+R1266,Final test,P141a,2,1,1,no
+R1267,Final test,P128,4,4,0,symptom control
+R1268,Final test,P176,10,2,0,many to few
+R1269,Final test,P67,1,1,0,18
+R1270,Final test,P155,3,4,3,"India, Pakistan, Nigeria"
+R1271,Final test,P73,6,1,1,10%
+R1272,Final test,P97,8,1,1,No
+R1273,Final test,P160,5,4,1,"chronic cough, spitting up blood"
+R1274,Prequestion,P52,2,1,1,"no, theres a vaccine"
+R1275,Final test,P109,1,1,1,17%
+R1276,Prequestion,P142,3,4,0,germany
+R1277,Prequestion,P52,4,4,0,a shot and getting children vaccinated
+R1278,Prequestion,P132a,2,1,0,yes
+R1279,Final test,P36,2,1,1,no
+R1280,Final test,P85,10,2,0,thousands to hundreds
+R1281,Final test,P175,5,4,1,"coughing up blood, light-headedness, dizzyness, weakness"
+R1282,Final test,P174,2,1,1,no
+R1283,Final test,P133,10,2,0,thousands to hundreds
+R1284,Final test,P132a,10,2,1,hundreds of thousands to hundreds
+R1285,Final test,P21,3,4,0,Most places other than the americas and europe
+R1286,Final test,P101,10,2,0,90% 10%
+R1287,Final test,P122,5,4,2,"cough, weight loss, bloody mucus"
+R1288,Final test,P132a,6,1,1,10%
+R1289,Prequestion,P176,8,1,1,no
+R1290,Final test,P02,5,4,2,"cough, bloody mucous, fever"
+R1291,Final test,P09,8,1,0,yes
+R1292,Final test,P56,4,4,1,vaccines and two different antibiotics
+R1293,Final test,P154,6,1,1,10
+R1294,Final test,P171,7,3,0,vaccination and quarantine
+R1295,Final test,P173,6,1,1,10%
+R1296,Final test,P46,7,3,1,antibiotics
+R1297,Final test,P39,2,1,1,no
+R1298,Final test,P162,9,3,1,Through coughing (respiratory droplets)
+R1299,Final test,P176,2,1,1,no
+R1300,Final test,P39,8,1,1,no
+R1301,Final test,P108,6,1,0,20%
+R1302,Final test,P06,8,1,1,No
+R1303,Final test,P123,9,3,3,"Sneeze, Cough, Spit"
+R1304,Prequestion,P61,2,1,0,yes
+R1305,Final test,P97,3,4,3,"India, Nigeria, Pakistan"
+R1306,Final test,P16,6,1,1,10
+R1307,Final test,P36,6,1,1,10%
+R1308,Final test,P142,5,4,1,chest pain / bloody cough
+R1309,Final test,P140,3,4,2,India and Afghanistan
+R1310,Final test,P173,4,4,2,"Vaccines, antibiotics, moderate exercise"
+R1311,Final test,P115,6,1,0,22
+R1312,Final test,P76,2,1,1,No
+R1313,Final test,P102,6,1,1,10%
+R1314,Final test,P153,4,4,0,vaccination and quarantine
+R1315,Final test,P104po,3,4,4,"Nigeria, India, Pakistan, Afghanistan"
+R1316,Final test,P95,9,3,2,by breath - cough or sneeze
+R1317,Final test,P93,6,1,0,12%
+R1318,Final test,P15,4,4,0,vaccines
+R1319,Final test,P159,8,1,1,no
+R1320,Final test,P12,6,1,0,3 percent
+R1321,Prequestion,P117,7,3,0,drugs
+R1322,Final test,P35,8,1,1,no
+R1323,Prequestion,P176,7,3,0,vaccine
+R1324,Final test,P122,6,1,1,10%
+R1325,Final test,P145,4,4,1,"vaccines and antibiotics, quarentine but not as affective"
+R1326,Final test,P27,4,4,0,there is none they just try and reduce the symptoms
+R1327,Final test,P56,3,4,0,U.S
+R1328,Prequestion,P25,10,2,0,10000
+R1329,Final test,P162,2,1,1,No
+R1330,Final test,P107,3,4,4,"Nigeria,India, Pakistan, and Afghanistan"
+R1331,Final test,P72,2,1,1,"no, but out of those who have it, only 10% show paralytic symptoms. Similarly, there are preventative measures like the vaccine"
+R1332,Prequestion,P49,3,4,0,Third world countries
+R1333,Final test,P25,6,1,0,1%
+R1334,Final test,P50,3,4,0,Algeria? Not in the United States.
+R1335,Final test,P11,1,1,0,20%
+R1336,Final test,P38,6,1,0,60%
+R1337,Final test,P14,6,1,1,10%
+R1338,Final test,P127,3,4,1,Nigeria is one of the countries in which polio is still a major concern.
+R1339,Final test,P50,7,3,2,Two courses of antibiotics
+R1340,Final test,P61,3,4,3,"Afghanistan, India, Nigeria"
+R1341,Final test,P13,8,1,1,No
+R1342,Prequestion,P119,10,2,0,"1 million to 500,000"
+R1343,Final test,P16,2,1,1,no
+R1344,Final test,P71,6,1,1,10
+R1345,Final test,P173,2,1,1,No
+R1346,Final test,P57,6,1,1,10
+R1347,Final test,P27,1,1,0,20%
+R1348,Final test,P51,6,1,1,10%
+R1349,Final test,P93,2,1,1,No
+R1350,Final test,P67,8,1,1,no
+R1351,Final test,P122,8,1,1,no
+R1352,Final test,P72,8,1,0,yes
+R1353,Final test,P162,7,3,1,Antibiotics and pain killers
+R1354,Final test,P129,1,1,0,80
+R1355,Final test,P117,10,2,1,"50,000 2000"
+R1356,Prequestion,P101,6,1,0,20%
+R1357,Prequestion,P125,2,1,0,Vaccination
+R1358,Final test,P84,6,1,1,10
+R1359,Final test,P54,4,4,2,"Moderate exercise, nutrient-filled diet, rest, quarantine"
+R1360,Final test,P20,4,4,1,antibiotics
+R1361,Final test,P135,9,3,1,cough
+R1362,Prequestion,P65,7,3,1,antibiotics
+R1363,Final test,P108,5,4,0,acute paralysis
+R1364,Final test,P117,8,1,1,no
+R1365,Final test,P40,8,1,1,no
+R1366,Prequestion,P01,3,4,0,south africa
+R1367,Final test,P140,10,2,2,hundreds of thousands to about a thousand
+R1368,Final test,P96,4,4,2,"healthy diet, excercise, physical therapy"
+R1369,Final test,P97,2,1,1,No
+R1370,Final test,P73,9,3,1,"Coughing, breathing. germs"
+R1371,Final test,P148,9,3,0,through bacterica cells
+R1372,Final test,P139,5,4,1,"Coughing blood, respiratory distress, night terrors"
+R1373,Final test,P116,3,4,1,"Afghanistan, Iran"
+R1374,Final test,P66,4,4,0,a vaccine and isolating those infected
+R1375,Final test,P97,5,4,1,"cough, blood in your cough"
+R1376,Final test,P165,3,4,0,It is not a concern in the americas and europe
+R1377,Final test,P98,8,1,1,no
+R1378,Final test,P130,8,1,1,no
+R1379,Final test,P171,1,1,1,17
+R1380,Final test,P18,10,2,2,Hundreds of thousands to about a thousand per year
+R1381,Final test,P23,5,4,3,"coughs with bloody sputum, fever, weight loss,"
+R1382,Final test,P152,3,4,1,india and countries in africa
+R1383,Prequestion,P119,2,1,0,yes
+R1384,Final test,P135,6,1,1,10
+R1385,Final test,P111,8,1,1,no
+R1386,Prequestion,P37,2,1,0,maybe vaccine
+R1387,Final test,P129,8,1,0,yes
+R1388,Final test,P119,3,4,1,nigeria
+R1389,Prequestion,P162,1,1,0,12%
+R1390,Final test,P125,9,3,2,when infected people cough or talk through saliva
+R1391,Prequestion,P35,5,4,1,"cough, sore throat"
+R1392,Final test,P147,1,1,0,30%
+R1393,Prequestion,P19012,3,4,0,i think some countries in south america and africa
+R1394,Final test,P91,5,4,2,"cough, blood from cough, weight loss"
+R1395,Prequestion,P65,9,3,1,pathogens through coughing
+R1396,Final test,P41,7,3,2,antibiotics(2 rounds)
+R1397,Final test,P43,10,2,1,"ten thousands, thousands"
+R1398,Prequestion,P40,1,1,0,5%
+R1399,Final test,P159,7,3,1,vaccine/antibiotics
+R1400,Final test,P25,7,3,1,vaccine or antibiotics
+R1401,Final test,P44,5,4,2,"cough, fever, muscle pain"
+R1402,Final test,P73,5,4,2,sweating/coughing
+R1403,Final test,P58,5,4,2,"cough, coughing up blood, fever"
+R1404,Final test,P18,7,3,0,A vaccine
+R1405,Final test,P24,4,4,1,"Antibiotics that slow the symptoms, treatment"
+R1406,Final test,P17,8,1,0,yes
+R1407,Final test,P160,7,3,2,two different kinds of antibiotics
+R1408,Final test,P154,7,3,3,two antibiotics over a long period of treatment
+R1409,Final test,P68,1,1,0,70
+R1410,Final test,P144,3,4,1,"india, Africa (not a country)"
+R1411,Final test,P86,8,1,0,Yes
+R1412,Final test,P92,10,2,2,Hundreds of thousands to thousands.
+R1413,Final test,P42,6,1,1,10 percent
+R1414,Final test,P88,5,4,0,muscle soreness
+R1415,Prequestion,P166,3,4,0,Africa
+R1416,Prequestion,P150,4,4,0,Iron lung
+R1417,Final test,P95,3,4,3,"india, afghanistan, pakistan"
+R1418,Final test,P71,5,4,1,"fever, muscle contraction"
+R1419,Final test,P134,6,1,1,10%
+R1420,Final test,P120,7,3,1,antibiotic
+R1421,Final test,P104po,5,4,2,"coughing, spitting blood, fever, trouble breathing"
+R1422,Prequestion,P104po,1,1,0,10
+R1423,Final test,P104po,4,4,2,"symptom management: healthy diet, rest, movement, etc."
+R1424,Final test,P114,8,1,1,No
+R1425,Final test,P59,2,1,1,no
+R1426,Prequestion,P50,5,4,1,coughing
+R1427,Final test,P60,3,4,0,Third world countries.
+R1428,Prequestion,P40,3,4,0,Sub-Saharan Africa
+R1429,Prequestion,P10,10,2,0,"1 million, 100,000"
+R1430,Final test,P60,7,3,0,Vaccines.
+R1431,Prequestion,P56,7,3,0,vaccine
+R1432,Final test,P43,1,1,0,10%
+R1433,Final test,P121,4,4,0,"social separation, vaccination"
+R1434,Final test,P38,8,1,0,yes
+R1435,Final test,P77,3,4,0,Developing countries
+R1436,Final test,P86,10,2,2,hundreds of thousands to less than a thousand
+R1437,Final test,P83,2,1,1,no
+R1438,Final test,P68,3,4,1,"india,"
+R1439,Final test,P70,10,2,2,Hundreds of thousands to thousands
+R1440,Final test,P85,7,3,0,currently the Gate's Foundation invested money for vaccines that can treat tuberculosis
+R1441,Prequestion,P22,2,1,1,No
+R1442,Prequestion,P49,2,1,1,No
+R1443,Final test,P62,9,3,2,"coughing, sneezing, droplets"
+R1444,Final test,P28PO,5,4,1,Coughing up blood
+R1445,Final test,P175,10,2,2,hundreds of thousands to thousands
+R1446,Prequestion,P91,5,4,1,"lung problems, cough"
+R1447,Prequestion,P53,6,1,0,30%
+R1448,Final test,P123,5,4,3,"Night sweats, fever, cough"
+R1449,Prequestion,P41,5,4,1,"coughing, trouble breathing, sore throat"
+R1450,Final test,P51,8,1,1,no
+R1451,Final test,P11,8,1,0,Yes
+R1452,Final test,P83,6,1,1,10%
+R1453,Final test,P84,2,1,1,no
+R1454,Prequestion,P84,2,1,0,yes
+R1455,Prequestion,P114,5,4,0,"Flu-like symptoms, can cross blood-brain barrier"
+R1456,Final test,P172,5,4,2,"fever, coughing up blood"
+R1457,Final test,P83,1,1,0,almost all of it
+R1458,Final test,P166,5,4,3,"coughing, night sweats, fever"
+R1459,Final test,P147,3,4,0,countries in Africa
+R1460,Final test,P48,4,4,0,isolation
+R1461,Final test,P171,2,1,1,no
+R1462,Final test,P135,3,4,2,"India, Afghanistan and Indonesia"
+R1463,Final test,P139,9,3,1,Coughing
+R1464,Prequestion,P35,7,3,1,antibiotics
+R1465,Final test,P82,5,4,1,"coughing up blood, sneezing, etc"
+R1466,Final test,P06,6,1,1,10%
+R1467,Final test,P36,8,1,1,no
+R1468,Final test,P80,5,4,1,bloody cough. respiratory issues
+R1469,Final test,P33,4,4,0,"Vaccines (herd immunity), which is more effective than quarantine"
+R1470,Final test,P109,2,1,1,no
+R1471,Prequestion,P154,9,3,0,droplets/particles?
+R1472,Final test,P67,7,3,0,a vaccine
+R1473,Final test,P46,1,1,1,17
+R1474,Final test,P39,1,1,0,50%
+R1475,Final test,P85,8,1,1,no only active
+R1476,Final test,P101,6,1,1,10%
+R1477,Final test,P127,6,1,0,26%
+R1478,Final test,P155,8,1,1,no
+R1479,Final test,P05,6,1,1,10%
+R1480,Final test,P117,1,1,0,80%
+R1481,Prequestion,P61,4,4,0,vaccination
+R1482,Final test,P69,5,4,2,"cough, bloody phlegm, weight loss, etc"
+R1483,Final test,P93,1,1,0,20%
+R1484,Final test,P132a,7,3,0,quarantine
+R1485,Final test,P118,1,1,0,5%
+R1486,Final test,P44,7,3,1,antibiotics
+R1487,Final test,P44,10,2,2,hundreds of thousands to thousands
+R1488,Final test,P68,6,1,1,10
+R1489,Final test,P106,2,1,1,No there is only treatment and a vaccine
+R1490,Final test,P152,2,1,1,no but there is a vaccine
+R1491,Final test,P52,3,4,1,india
+R1492,Final test,P142,4,4,1,"antibiotic / vaccine, sometimes quarantine but less effective"
+R1493,Final test,P77,1,1,1,17%
+R1494,Final test,P109,4,4,2,"exercise, physical therapy, analgesic treatments, pain relievers."
+R1495,Final test,P123,2,1,1,No
+R1496,Final test,P10,8,1,0,yes
+R1497,Final test,P73,2,1,0,yes
+R1498,Final test,P108,2,1,0,yes
+R1499,Prequestion,P25,4,4,0,vaccine
+R1500,Final test,P144,8,1,1,no
+R1501,Final test,P33,9,3,2,"by inhaling virulent particles of an infected individual's coughs, sneezes or breath"
+R1502,Final test,P69,9,3,3,"through people coughing, sneezing, spitting"
+R1503,Prequestion,P59,5,4,2,"fever, coughing blood"
+R1504,Final test,P166,8,1,0,yes
+R1505,Final test,P128,3,4,3,Nigeria India Pakistan
+R1506,Final test,P133,9,3,3,"cough, spit, sneeze"
+R1507,Final test,P145,10,2,2,"500,000 to 1,000"
+R1508,Final test,P47,3,4,0,many in africa
+R1509,Final test,P95,4,4,0,vaccination
+R1510,Final test,P127,4,4,0,"There is a ""herd immunity"" being supported and funded by the Gates foundation."
+R1511,Final test,P46,3,4,4,"pakistan, india, nigeria, afghanistan"
+R1512,Final test,P125,7,3,2,antibiotics long-term
+R1513,Final test,P13,5,4,0,"None for latent, autoimmune for active"
+R1514,Final test,P44,9,3,1,coughing
+R1515,Final test,P73,3,4,0,USA
+R1516,Prequestion,P56,9,3,0,breathing
+R1517,Final test,P170,5,4,3,"coughing with blood in sputum, night sweats, loss of weight"
+R1518,Final test,P173,5,4,2,"Bloody phlegm, weight loss"
+R1519,Final test,P172,4,4,1,"Exercise, quarantine, medicine but still no cure besides vaccine for prevention"
+R1520,Prequestion,P98,9,3,0,through germs that can be emitted from one person and then intaken by another
+R1521,Final test,P128,2,1,1,no
+R1522,Final test,P57,5,4,3,"cough, blood, sweat, high fever"
+R1523,Final test,P113,10,2,2,hundreds of thousands to thousands
+R1524,Final test,P06,9,3,1,By people coughing and others breathing it in
+R1525,Final test,P140,8,1,1,No
+R1526,Final test,P46,2,1,1,no
+R1527,Prequestion,P01,10,2,1,"200,000 20,000"
+R1528,Final test,P78,10,2,2,hundreds of thousands to a thousand
+R1529,Final test,P114,3,4,1,"Nigeria, Ecuador, I believe some others."
+R1530,Final test,P71,9,3,1,coughing
+R1531,Final test,P152,7,3,0,no treatment.. but there is a vaccine
+R1532,Prequestion,P117,9,3,1,"coughing, small spaces (spreads faster)"
+R1533,Final test,P127,7,3,0,There are new treatments being funded by the Gates foundation; however the treatment name I am unaware of.
+R1534,Final test,P45,6,1,0,3
+R1535,Final test,P93,8,1,1,NO
+R1536,Final test,P12,4,4,0,Pills and quarentine but there is not many cures.
+R1537,Final test,P37,6,1,1,10%
+R1538,Final test,P112,2,1,1,"No there is not a cure, it can help to stop the spread through vaccination and ultimately herd immunity."
+R1539,Final test,P82,6,1,1,10%
+R1540,Final test,P118,2,1,1,No
+R1541,Final test,P62,10,2,2,hundreds of thousands to a thousand
+R1542,Final test,P39,7,3,1,antibiotic
+R1543,Prequestion,P107,2,1,0,yes
+R1544,Final test,P26,10,2,2,hundreds of thousands to a thousand
+R1545,Prequestion,P11,5,4,0,"Headache, sores, bodily pain"
+R1546,Final test,P152,5,4,1,Coughing. coughing out blood
+R1547,Final test,P102,5,4,2,"fever, blood spurted saliva, aches"
+R1548,Final test,P60,4,4,0,Make sure you have your vaccine.
+R1549,Prequestion,P122,2,1,1,no
+R1550,Final test,P54,3,4,1,"Nigeria, Ghana"
+R1551,Final test,P74,4,4,0,medicine
+R1552,Final test,P142,10,2,2,hundreds of thousands to a thousand
+R1553,Prequestion,P79,7,3,0,Early vaccination
+R1554,Final test,P85,6,1,1,10
+R1555,Prequestion,P95,9,3,0,by breath
+R1556,Final test,P72,3,4,2,"India, Nigeria, and more that I can't recall"
+R1557,Final test,P112,1,1,0,8%
+R1558,Prequestion,P142,2,1,1,no
+R1559,Final test,P04,8,1,1,no
+R1560,Prequestion,P165,5,4,1,"fever, headache"
+R1561,Final test,P72,5,4,3,"cough, flegm, body sweats, weight loss"
+R1562,Final test,P174,4,4,1,"antibiotics, relief of symptoms, quarantine"
+R1563,Final test,P37,10,2,1,hundreds of thousands to hundreds
+R1564,Final test,P86,5,4,2,"Blood in sputum, coughing, fever"
+R1565,Prequestion,P176,9,3,0,yes
+R1566,Final test,P39,4,4,0,series of medications
+R1567,Final test,P22,9,3,2,"cough. sneeze, ect"
+R1568,Final test,P145,6,1,1,10%
+R1569,Final test,P92,9,3,2,"Cough, spit, and breath of those infected."
+R1570,Final test,P176,3,4,0,global south
+R1571,Final test,P28PO,10,2,2,"hundreds of thousands, a thousand"
+R1572,Final test,P14,9,3,2,Through bacteria from cough and sneeze
+R1573,Final test,P142,9,3,2,through coughing sneezing and sharing air with other people
+R1574,Final test,P105,8,1,1,no
+R1575,Prequestion,P57,1,1,0,25
+R1576,Prequestion,P44,5,4,2,cough and fever
+R1577,Final test,P06,1,1,0,85%
+R1578,Final test,P71,8,1,0,yes
+R1579,Final test,P119,1,1,1,17%
+R1580,Final test,P60,8,1,0,Yes
+R1581,Final test,P154,9,3,0,microparticles
+R1582,Final test,P163,2,1,1,No
+R1583,Final test,P15,3,4,0,ethiopia
+R1584,Prequestion,P146,3,4,0,70
+R1585,Final test,P21,1,1,0,20%
+R1586,Final test,P83,7,3,1,"antibiotics, vaccine as an infant"
+R1587,Final test,P61,1,1,1,17%
+R1588,Final test,P150,7,3,0,no treatment
+R1589,Final test,P165,4,4,1,"daily activitiy, excersize"
+R1590,Final test,P121,3,4,0,countries in Africa
+R1591,Final test,P139,2,1,1,No
+R1592,Final test,P14,5,4,3,"Cough with blood, fever, weight loss"
+R1593,Final test,P66,8,1,1,No
+R1594,Final test,P176,6,1,1,10%
+R1595,Final test,P78,1,1,1,17
+R1596,Final test,P123,1,1,0,10%
+R1597,Final test,P44,3,4,1,afghanistan
+R1598,Final test,P93,7,3,0,Vaccination
+R1599,Final test,P119,8,1,0,yes
+R1600,Final test,P104po,1,1,1,17%
+R1601,Final test,P04,3,4,4,"Afghanistan, Nigeria, India, Pakistan"
+R1602,Final test,P157,8,1,0,yes
+R1603,Final test,P81,6,1,1,10
+R1604,Final test,P94,8,1,1,No
+R1605,Final test,P36,9,3,1,usually through cough and emitting germs
+R1606,Final test,P94,7,3,1,There are two medications
+R1607,Final test,P142,3,4,4,"Nigeria, India, Pakistan, Afghanistan"
+R1608,Final test,P28PO,2,1,1,No
+R1609,Final test,P13,3,4,3,"India, Pakistan, Afghanistan"
+R1610,Final test,P131,4,4,0,"Polio Vaccine, primarily in the US in Europe, but not yet in countries like Afghanistan or Nigeria, where quarantine is common"
+R1611,Final test,P73,7,3,1,antibiotics
+R1612,Final test,P93,5,4,1,Coughing up blood
+R1613,Prequestion,P91,7,3,1,extensive treatment for longer period of time
+R1614,Final test,P33,8,1,1,No
+R1615,Final test,P125,3,4,4,"India, Afghanistan, Pakistan, Nigeria"
+R1616,Prequestion,P100,2,1,0,yes
+R1617,Final test,P151,3,4,1,Afghanistan Africa
+R1618,Final test,P51,2,1,1,no
+R1619,Final test,P175,2,1,1,no
+R1620,Final test,P134,2,1,1,no
+R1621,Final test,P123,8,1,1,No
+R1622,Final test,P92,6,1,0,17%
+R1623,Final test,P50,1,1,0,18%
+R1624,Final test,P10,1,1,1,17%
+R1625,Final test,P75,3,4,4,"India, Pakistan, Afghanistan, Nigeria"
+R1626,Final test,P121,7,3,0,vaccine
+R1627,Final test,P158,2,1,1,no
+R1628,Final test,P82,8,1,0,yes
+R1629,Final test,P10,5,4,2,"bloody cough, fever, weakness, nightmares"
+R1630,Final test,P89,2,1,0,yes
+R1631,Final test,P133,4,4,0,"quaratine, vaccines, medication"
+R1632,Final test,P151,5,4,3,"coughing, bloody sputum, fevers, weight loss"
+R1633,Final test,P96,1,1,1,17%
+R1634,Final test,P76,5,4,2,"weight loss, coughing blood sputum"
+R1635,Final test,P01,7,3,2,vaccination or long term antibiotics
+R1636,Final test,P43,8,1,0,yes
+R1637,Final test,P80,4,4,0,vaccination at birth
+R1638,Prequestion,P23,8,1,1,no
+R1639,Prequestion,P90,4,4,0,vaccination
+R1640,Final test,P23,1,1,1,17%
+R1641,Final test,P88,9,3,2,"coughing, sneezing"
+R1642,Final test,P69,6,1,1,10%
+R1643,Final test,P59,5,4,4,"Fever, chronic cough with blood, night sweats, weight loss"
+R1644,Final test,P43,3,4,1,"sudan, afghanistan"
+R1645,Final test,P163,4,4,2,"Treating symptoms, improving diet, as well as fitness"
+R1646,Final test,P136,4,4,0,vaccination
+R1647,Final test,P47,6,1,1,10%
+R1648,Final test,P117,5,4,4,"fever, night sweats, coughing, weight loss"
+R1649,Final test,P49,9,3,1,By coughing
+R1650,Final test,P74,6,1,0,25%
+R1651,Final test,P16,8,1,0,yes
+R1652,Final test,P112,4,4,0,"There is vaccine that can be produced for about ten cents, however once contracted there is not much treatment that can be administered other than making the patient comfortable."
+R1653,Final test,P111,7,3,0,medicine
+R1654,Final test,P85,9,3,0,"it flies through air and enters other people through their eyes, nose, and mouth"
+R1655,Final test,P109,3,4,3,"nigeria, afghanistan, india, iran"
+R1656,Final test,P38,4,4,0,vaccines
+R1657,Final test,P59,3,4,3,"India, Afghanistan, Pakistan, Iran"
+R1658,Final test,P142,8,1,1,"no, only active"
+R1659,Final test,P147,5,4,1,"blood in sputum, cough"
+R1660,Final test,P102,1,1,0,20%
+R1661,Final test,P11,9,3,3,Cough spit or sneeze
+R1662,Final test,P153,3,4,1,India and south africa
+R1663,Final test,P74,5,4,2,sweating/coughing/sneezing/heat flashes
+R1664,Final test,P02,7,3,2,"Antibiotics, 2 rounds specifically"
+R1665,Final test,P48,9,3,1,saliva
