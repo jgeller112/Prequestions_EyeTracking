@@ -57,13 +57,13 @@ content: after a change, only the affected steps rerun. Its bookkeeping is store
 
 **Fitted models.** The Bayesian models take several hours to fit from scratch (40,000
 posterior draws each). Fits are cached in `analysis/brms_cache/` (not tracked by git) and
-reused unless a model's data, formula or priors change. The fitted models are included in
-the repository in `models/`, saved as `.qs2` files split into parts smaller than 90 MB
-(`<name>.qs2.part001`, …; about 3 GB in total). When a fit is missing from the cache,
-`R/bayes_helpers.R` recombines its parts and restores it automatically, so after cloning,
-`tar_make()` reuses the shared fits instead of refitting. After refitting, run
-`Rscript scripts/export_brms_cache.R` to update `models/`. The prior-only models used for the
-Bayes factors are not shared; they are regenerated automatically (a few minutes each).
+reused unless a model's data, formula or priors change. The fitted models are not in the
+repository (about 3 GB): after cloning, `tar_make()` fits them, together with the prior-only
+models used for the Bayes factors. The results files the manuscript reads
+(`analysis/results_*.rds`) are included, so the manuscript can be rendered without fitting
+anything. Optionally, `Rscript scripts/export_brms_cache.R` saves the cached fits to `models/`
+as `.qs2` files split into parts smaller than 90 MB (not tracked by git), from which
+`R/bayes_helpers.R` restores any fit missing from the cache.
 
 Steps and outputs:
 
@@ -136,8 +136,8 @@ analysis/                      step 4: one Bayesian report per part (code + expl
                                choice of model (beta-binomial vs. binomial vs. ordered beta)
   eye_tracking.qmd             eye movements: specific and general effects, Group x Topic
   results_*.rds                results read by the manuscript
-  brms_cache/                  fitted models (not tracked by git; restored from models/)
-models/                        the fitted models, as split .qs2 parts (tracked)
+  brms_cache/                  fitted models (not tracked by git; fitted by tar_make())
+models/                        optional export of the fitted models (not tracked by git)
 manuscript/                    step 7: the paper
   manuscript.qmd               source (its R code runs from the project root)
   manuscript.pdf, .docx        rendered paper

@@ -9,8 +9,7 @@ _targets/
 # OS and editor clutter
 .DS_Store
 ~$*
-# brms model cache (the analysis documents); too large for GitHub. The fits are shared as
-# split .qs2 parts in models/ (scripts/export_brms_cache.R); only the parts are tracked,
-# and R/bayes_helpers.R restores missing fits from them.
+# Fitted models: too large for GitHub (about 3 GB); tar_make() fits them. models/ holds an
+# optional export as split .qs2 parts (scripts/export_brms_cache.R).
 analysis/brms_cache/
-models/*.qs2
+models/
