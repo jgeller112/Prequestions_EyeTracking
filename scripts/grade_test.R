@@ -8,12 +8,12 @@
 #
 # Rubric and helpers: scoring_rubric.R
 
-source("scripts/scoring_rubric.R")
+source(here::here("scripts", "scoring_rubric.R"))
 
-key <- read_csv("stimuli/answer_key.csv", show_col_types = FALSE)
+key <- read_csv(here::here("stimuli", "answer_key.csv"), show_col_types = FALSE)
 et_ids <- load_et_ids()
 
-raw <- read_psychopy("data/raw/psychopy/final_test") |>
+raw <- read_psychopy(here::here("data", "raw", "psychopy", "final_test")) |>
   filter(!str_squish(participant) %in% test_sessions)
 
 scored_all <- score_responses(raw, key) |>
@@ -35,8 +35,8 @@ topics <- scored |>
             .groups = "drop") |>
   mutate(prop_correct = points / max_points)
 
-write_csv(scored, "data/derived/test_scored_items.csv")
-write_csv(topics, "data/derived/test_scored_topics.csv")
+write_csv(scored, here::here("data", "derived", "test_scored_items.csv"))
+write_csv(topics, here::here("data", "derived", "test_scored_topics.csv"))
 
 # ---- Report ----------------------------------------------------------------
 cat("\nScored", n_distinct(topics$et_id), "test sessions\n")

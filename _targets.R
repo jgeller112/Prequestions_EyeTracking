@@ -1,6 +1,6 @@
 # =====================================================================================
-# Reproducible pipeline for "Where Do Prequestions Direct Attention? An Eye-Tracking
-# Study of the Prequestion Effect" (targets, https://docs.ropensci.org/targets/)
+# Reproducible pipeline for "I Remember That Question: How Prequestions Shape Reading"
+# (targets, https://docs.ropensci.org/targets/)
 # =====================================================================================
 #
 # Run everything:        targets::tar_make()
@@ -16,11 +16,16 @@
 #   1. Score the prequestions       grade_prequestions.R -> data/derived/preq_scored_*.csv
 #   2. Score the final test         grade_test.R         -> data/derived/test_scored_*.csv
 #   3. Derive eye-movement measures derive_et_measures.R -> data/derived/*.tsv
-#   4. Analysis reports, one per domain (shared code: R/setup.R, R/data.R)
-#        analysis/prequestions.qmd -> analysis/prequestions.html
-#        analysis/final_test.qmd   -> analysis/final_test.html
-#        analysis/eye_tracking.qmd -> analysis/eye_tracking.html
-#   5. Manuscript                   manuscript/manuscript.qmd -> manuscript/manuscript.pdf, .docx
+#   4. Bayesian analysis reports, one per part (shared code: R/setup.R, R/data.R,
+#      R/bayes_helpers.R); fits are cached in analysis/brms_cache/, so a re-render only
+#      refits models whose data or specification changed
+#        analysis/prequestions.qmd -> .html, analysis/results_prequestions.rds
+#        analysis/final_test.qmd   -> .html, analysis/results_final_test.rds
+#        analysis/eye_tracking.qmd -> .html, analysis/results_eye_tracking.rds
+#   5. Manuscript inputs            scripts/manuscript_inputs.R -> data/derived/manuscript_inputs.rds
+#   6. Second-rater agreement       scripts/rater_agreement.R -> data/derived/rater_agreement.rds
+#   7. Manuscript                   manuscript/manuscript.qmd -> manuscript/manuscript.pdf, .docx
+#      (reads the results files of steps 4-6; refits nothing)
 # =====================================================================================
 
 library(targets)
@@ -69,6 +74,9 @@ list(
              format = "file"),
   # Lab run sheet with calibration accuracy and precision (participant names removed)
   tar_target(raw_calibration, "data/raw/calibration/et_run_sheet.tsv", format = "file"),
+  # Second rater: blind scoring sheet as returned, and its key (scripts/make_ra_scoring_sheet.R)
+  tar_target(raw_rater, c("data/raw/rater/ra_scoring_sheet_scored.xlsx", "scoring/ra_scoring_key.csv"),
+             format = "file"),
 
   # ---- Code (tracked by content) -----------------------------------------------------
   tar_target(code_scoring_rubric, "scripts/scoring_rubric.R", format = "file"),
@@ -77,9 +85,16 @@ list(
   tar_target(code_derive_et, "scripts/derive_et_measures.R", format = "file"),
   # shared analysis code and the three analysis documents
   tar_target(code_analysis_shared, c("R/setup.R", "R/data.R"), format = "file"),
+  # helpers the manuscript uses instead of re-running the analysis documents
+  tar_target(code_manuscript_helpers, "R/manuscript_helpers.R", format = "file"),
+  tar_target(code_manuscript_inputs, "scripts/manuscript_inputs.R", format = "file"),
+  tar_target(code_rater_agreement, "scripts/rater_agreement.R", format = "file"),
+  # udpipe English model (syntactic complexity of the target sentences)
+  tar_target(raw_udpipe_model, "stimuli/udpipe/english-ewt-ud-2.5-191206.udpipe", format = "file"),
   tar_target(doc_prequestions, "analysis/prequestions.qmd", format = "file"),
   tar_target(doc_final_test, "analysis/final_test.qmd", format = "file"),
   tar_target(doc_eye_tracking, "analysis/eye_tracking.qmd", format = "file"),
+  tar_target(code_bayes_helpers, c("R/bayes_helpers.R", "scripts/split_qs2.R"), format = "file"),
   tar_target(doc_manuscript, "manuscript/manuscript.qmd", format = "file"),
   # Manuscript support files: references, citation style, APA Quarto extension
   tar_target(doc_manuscript_support,
@@ -111,31 +126,49 @@ list(
                         raw_tobii_fixations, raw_sentences, raw_page_images),
              format = "file"),
 
-  # ---- 4. Analysis reports ---------------------------------------------------------
+  # ---- 4. Bayesian analysis reports (one per part); each writes a results file the
+  #         manuscript reads. Fits are cached in analysis/brms_cache/.
   tar_target(report_prequestions,
-             render_quarto(doc_prequestions, "analysis/prequestions.html",
-                           code_analysis_shared, preq_scored, test_scored, et_derived,
-                           raw_calibration, raw_sentences),
+             render_quarto(doc_prequestions,
+                           c("analysis/prequestions.html", "analysis/results_prequestions.rds"),
+                           code_analysis_shared, code_bayes_helpers, preq_scored, test_scored,
+                           et_derived, raw_calibration, raw_sentences),
              format = "file"),
   tar_target(report_final_test,
-             render_quarto(doc_final_test, "analysis/final_test.html",
-                           code_analysis_shared, preq_scored, test_scored, et_derived,
-                           raw_calibration, raw_sentences),
+             render_quarto(doc_final_test,
+                           c("analysis/final_test.html", "analysis/results_final_test.rds"),
+                           code_analysis_shared, code_bayes_helpers, preq_scored, test_scored,
+                           et_derived, raw_calibration, raw_sentences),
              format = "file"),
   tar_target(report_eye_tracking,
-             render_quarto(doc_eye_tracking, "analysis/eye_tracking.html",
-                           code_analysis_shared, preq_scored, test_scored, et_derived,
-                           raw_calibration, raw_answer_key, raw_page_images,
-                           raw_sentences),
+             render_quarto(doc_eye_tracking,
+                           c("analysis/eye_tracking.html", "analysis/results_eye_tracking.rds"),
+                           code_analysis_shared, code_bayes_helpers, preq_scored, test_scored,
+                           et_derived, raw_calibration, raw_sentences),
              format = "file"),
 
-  # ---- 5. Manuscript (re-runs the analysis code itself; see its setup chunk) ---------
+  # ---- 5. Manuscript inputs: sample, exclusions, calibration, materials, fixation
+  #         processing (everything the manuscript reports that is not a model result)
+  tar_target(manuscript_inputs,
+             run_script(code_manuscript_inputs, "data/derived/manuscript_inputs.rds",
+                        code_analysis_shared, preq_scored, test_scored, et_derived,
+                        raw_tobii_fixations, raw_calibration, raw_answer_key, raw_sentences,
+                        raw_udpipe_model),
+             format = "file"),
+
+  # Agreement between the automated scoring and the second rater
+  tar_target(rater_agreement,
+             run_script(code_rater_agreement,
+                        c("data/derived/rater_agreement.rds", "data/derived/rater_disagreements.csv"),
+                        raw_rater),
+             format = "file"),
+
   tar_target(manuscript,
              render_quarto(doc_manuscript,
                            c("manuscript/manuscript.pdf", "manuscript/manuscript.docx"),
-                           code_analysis_shared, doc_prequestions, doc_final_test,
-                           doc_eye_tracking, doc_manuscript_support, preq_scored,
-                           test_scored, et_derived, raw_calibration, raw_answer_key,
+                           code_analysis_shared, code_manuscript_helpers,
+                           doc_manuscript_support, report_prequestions, report_final_test,
+                           report_eye_tracking, manuscript_inputs, rater_agreement,
                            raw_page_images),
              format = "file")
 )

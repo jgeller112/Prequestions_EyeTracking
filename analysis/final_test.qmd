@@ -1,195 +1,211 @@
 ---
-title: "Final Test Analyses"
-subtitle: "Prequestions and Attention: Condition (Control / Polio / TB prequestions) × Sentence Topic (Polio / TB)"
+title: "Final Test Performance"
+subtitle: "Bayesian beta-binomial models of the points earned on each question"
 author: "Jason Geller"
 date: today
 format:
   html:
     toc: true
     toc-depth: 3
-    code-fold: true
+    code-fold: show
     code-tools: true
     embed-resources: true
     df-print: paged
 execute:
   warning: false
   message: false
-  cache: false
-# R code runs from the project root (one level up), so paths such as data/... work
-knitr:
-  opts_knit:
-    root.dir: ".."
+params:
+  # Sampler settings. For quick checks use e.g. chains = 2, iter = 1000.
+  chains: 4
+  iter: 11000      # 4 chains x 10,000 post-warmup draws (40,000, for stable Bayes factors)
+  warmup: 1000
+  adapt_delta: 0.95
+  refit: false     # true: refit even if a cached fit exists
+  measures: derived  # eye-movement measures from derive_et_measures.R (R/data.R)
 ---
 
-## Overview
+## What this document does
 
-Final test performance in the three conditions (Control, Polio prequestions, TB
-prequestions), from the preregistration ([osf.io/8env4](https://osf.io/8env4)). Each
-participant answered all ten questions (five Polio, five TB; 12 points per topic).
-Responses were scored by `grade_test.R` (rules in `scoring_rubric.R`). The sample and
-exclusions are the same as for the eye-movement analyses (`R/data.R`;
-`eye_tracking.qmd`, Exclusions).
+All participants answered the ten final-test questions (five Polio, five TB). Each answer
+is scored as the points earned out of the question's maximum (1–4 points). Because the
+questions are worth different numbers of points, each question's score is modelled as
+points out of its maximum with a **beta-binomial** model: a binomial model for the points
+earned, with an overdispersion parameter, because a student tends to know all or none of
+a question's elements. The estimates are on the probability of earning a point (μ), that
+is, the expected **proportion of a question's points**, averaged over the sample.
+
+Two sets of models:
+
+- **Status models (pooled).** Each question is coded by its status for the participant:
+  **Prequestioned** (the topic of the participant's prequestions), **Non-prequestioned**
+  (the other topic, for participants given prequestions), or **no-prequestion** (participants
+  without prequestions). Prequestioned − no-prequestion is the specific benefit and
+  Non-prequestioned − no-prequestion the general benefit. Status + Topic.
+- **Group × Topic models** (preregistered, as are the specific and general benefits): Group (Polio, TB, no-prequestion) × Topic
+  (Polio, TB questions). Reported: the Polio − TB difference within each group (which
+  combines any prequestion effect with differences between the Polio and TB questions) and
+  the interaction contrast, the Polio group's Polio − TB difference minus the TB group's
+  (in which the question differences cancel). Their Bayes factors are computed on the
+  response scale (proportion of points), the scale of the estimates.
+
+*Naming:* the paper calls the group without prequestions the **no-prequestion** condition;
+in the data and code it is labelled `Control`.
+
+Random effects: the maximal structure warranted by the design, by-participant intercepts
+and Topic slopes and by-question intercepts and Status (or Group) slopes (every question was
+answered in all three statuses and by all three groups). Status, Group and Topic have equal-prior contrasts
+(`bayestestR::contr.equalprior_pairs`), so every pairwise difference has the same
+normal(0, 1.5) prior on the log-odds scale. Bayes factors are Savage–Dickey
+(`bayestestR::bayesfactor_parameters()`) on the link-scale comparisons from `modelbased`,
+against draws from the same model sampled from its priors. Shared code is in
+`R/bayes_helpers.R`; fits are cached in `analysis/brms_cache/`.
+
+## Setup
 
 ```{r}
 #| label: setup
-# Shared setup and data (R/setup.R, R/data.R); run from the project root
-if (!exists("dat")) {
-  source("R/setup.R")
-  source("R/data.R")
+library(here)
+fit_settings <- list(chains = 4, iter = 11000, warmup = 1000, adapt_delta = 0.95, refit = FALSE)
+if (exists("params")) {
+  fit_settings <- modifyList(fit_settings, params[intersect(names(params), names(fit_settings))])
 }
+source(here("R", "setup.R"))
+source(here("R", "data.R"))
+source(here("R", "bayes_helpers.R"))
 ```
 
-## Final test (preregistered)
-
-The preregistered analysis of final test performance models points earned out of the
-total available for each topic (12 points per topic) with a binomial GLMM:
-
-```r
-glmer(cbind(points, total - points) ~ condition * topic + (1 + topic | participant),
-      family = binomial)
-```
-
-The random effects start from this preregistered maximal structure (by-participant
-intercepts and Topic slopes) and are selected by the same model-comparison procedure as
-the eye-movement models.
-
-Responses were graded with `grade_test.R` (rubric in `scoring_rubric.R`). The sample is
-the same as for the eye-tracking analyses.
-
-The preregistration predicts a **specific benefit**: each prequestion condition should
-score higher than Control on its prequestioned topic. It predicts **no general benefit**:
-no difference from Control on the non-prequestioned topic. Each prequestion condition is
-compared with Control *on the same topic*. Specific-benefit contrasts are tested
-one-sided (prequestion > Control). General-benefit contrasts are tested two-sided,
-because no difference is predicted. Contrasts are on the probability scale (difference in
-proportion of points earned).
-
-::: callout-note
-The preregistration describes the comparison as the prequestion condition's score on
-prequestioned items versus the Control condition's *overall* score. Comparing with Control
-on the same topic is the comparison the Condition × Topic model estimates, and it controls
-for differences in difficulty between the Polio and TB questions.
-:::
+## Data
 
 ```{r}
-#| label: test-model
-test_dat <- test_scores |>
+#| label: data
+# One row per participant x question (grade_test.R), analysed participants
+test_items <- read_csv(here("data", "derived", "test_scored_items.csv"), show_col_types = FALSE) |>
   filter(et_id %in% levels(dat$participant)) |>
   transmute(participant = factor(et_id),
-            condition   = factor(recode(et_group, Po = "Polio"),
-                                 levels = c("Control", "Polio", "TB")),
-            topic       = factor(topic, levels = c("Polio", "TB")),
-            topic_c     = if_else(topic == "Polio", 0.5, -0.5),
-            points, max_points,
-            prop = points / max_points)
+            condition = factor(recode(et_group, Po = "Polio"), levels = c("Control", "Polio", "TB")),
+            topic = factor(topic, levels = c("Polio", "TB")),
+            question = factor(questnum), points, max_points) |>
+  mutate(status = case_when(condition == "Control" ~ "Control",
+                            as.character(topic) == as.character(condition) ~ "Prequestioned",
+                            TRUE ~ "Non-prequestioned"),
+         status = factor(status, levels = c("Prequestioned", "Non-prequestioned", "Control"))) |>
+  equal_prior()
+test_items_cond <- cond_coding(test_items)
 
-stopifnot(n_distinct(test_dat$participant) == n_distinct(dat$participant))
+test_items |>
+  group_by(status, topic) |>
+  summarise(n = n(), prop_points = sum(points) / sum(max_points), .groups = "drop") |>
+  kable(digits = 3, caption = "Observed proportion of points by status and topic")
+```
 
-# Preregistered maximal structure (topic-level data: no sentences)
-m_test <- fit_glmm("cbind(points, max_points - points) ~ condition * topic", test_dat,
-                   "binomial", list(participant = list(Topic = "topic_c")))
+## Models
 
-test_omni <- omnibus(m_test, "binomial")   # type-III Wald chi-square
-test_omni |>
-  transmute(Effect = Parameter, `Wald χ²` = stat, df,
-            p = format_p(p, name = NULL, digits = 3)) |>
-  kable(digits = 2, caption = sprintf("Final test: type-III Wald tests (random effects: %s)",
-                                      attr(m_test, "re_used")))
-
-test_con <- est_contrasts(m_test, contrast = "condition", by = "topic",
-                               comparison = "pairwise") |>
-  as.data.frame() |>
-  # orient every contrast as prequestion condition − Control
-  filter(Level1 == "Control" | Level2 == "Control") |>
-  mutate(flip = Level1 == "Control",
-         prequestion = if_else(flip, as.character(Level2), as.character(Level1)),
-         Difference = if_else(flip, -Difference, Difference),
-         lo = if_else(flip, -CI_high, CI_low),
-         hi = if_else(flip, -CI_low, CI_high),
-         z = if_else(flip, -z, z),
-         benefit = if_else(prequestion == as.character(topic), "Specific", "General"),
-         p_test = if_else(benefit == "Specific", pnorm(z, lower.tail = FALSE), p),
-         p_type = if_else(benefit == "Specific", "one-sided", "two-sided")) |>
-  select(topic, prequestion, benefit, Difference, SE, lo, hi, z, p_test, p_type)
-
-test_con |>
-  arrange(desc(benefit), topic) |>
-  transmute(Benefit = benefit, Topic = topic,
-            Contrast = paste(prequestion, "− Control"),
-            `Difference (prop.)` = Difference, SE,
-            `95% CI` = fmt_ci(lo, hi, 2),
-            z, p = format_p(p_test, name = NULL, digits = 3), `p type` = p_type) |>
-  kable(digits = 3, caption = "Final test: prequestion condition vs. Control on each topic")
+```{r}
+#| label: fit
+#| results: hide
+m_test  <- list(final_test = fit_betabin("status + topic", "bayes_status_final_test_bb", test_items))
+m_topic <- list(final_test = fit_betabin("condition * topic", "bayes_cond_topic_final_test_bb",
+                                         test_items_cond, re = re_test_cond))
 ```
 
 ```{r}
-#| label: fig-test
-#| fig-cap: "Final test performance. Small points are participants' proportion of points earned on each topic. Large points are model-estimated means ± 95% CI."
-#| fig-width: 8
-#| fig-height: 4.5
-test_means <- as.data.frame(est_means(m_test, by = c("condition", "topic")))
+#| label: diagnostics
+diag_tab <- bind_rows(diag_model(m_test$final_test, "final_test"),
+                      diag_model(m_topic$final_test, "final_test (Group × Topic)"))
+diag_tab
+```
 
-ggplot(test_dat, aes(condition, prop, colour = topic)) +
-  geom_point(position = position_jitterdodge(jitter.width = 0.15, jitter.height = 0.01,
-                                             dodge.width = 0.6, seed = 1),
-             size = 1.2, alpha = 0.35) +
-  geom_pointrange(data = test_means,
-                  aes(y = Probability, ymin = CI_low, ymax = CI_high, fill = topic),
-                  position = position_dodge(width = 0.6), shape = 21, colour = "grey20",
-                  size = 0.7, linewidth = 0.8) +
-  scale_colour_manual(values = topic_cols, name = "Question topic") +
-  scale_fill_manual(values = topic_cols, name = "Question topic") +
-  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
-  labs(x = "Prequestion condition", y = "Points earned") +
-  theme(legend.position = "top")
+### Choice of model: posterior predictive checks
+
+Questions are worth 1–4 points, so a score can only take a few values (0, .25, .33, .5,
+.67, .75, 1). The beta-binomial is compared with a binomial model (no overdispersion) and an
+ordered beta model of the proportion of points, all with the same predictors and random
+effects, by how well each reproduces how often each score occurred. (LOO cannot compare
+them, because a model of counts and a model of proportions put their likelihoods on
+different scales.)
+
+```{r}
+#| label: model-choice
+#| results: hide
+m_bin <- fit_brm(as.formula(paste("points | trials(max_points) ~ status + topic +", re_test)),
+                 test_items, binomial(),
+                 c(prior_string(sprintf("normal(0, %s)", s_logit), class = "b"),
+                   prior(normal(0, 1.5), class = "Intercept"), prior(student_t(3, 0, 1), class = "sd"),
+                   prior(lkj(2), class = "cor")),
+                 "bayes_status_final_test_binomial")
+m_ob <- fit_ordbeta("status + topic", "bayes_status_final_test_ordbeta",
+                    mutate(test_items, prop = points / max_points))
 ```
 
 ```{r}
-#| label: test-writeup-helpers
-T_txt <- function(tp, cond) {
-  r <- filter(test_con, topic == tp, prequestion == cond)
-  one <- r$p_type == "one-sided"
-  sprintf("%s percentage points, %s, *z* = %s, %s",
-          apa_num(100 * r$Difference, 1),
-          ci_part(100 * r$Difference, 100 * r$SE, 100 * r$lo, 100 * r$hi, one, Inf, 1),
-          apa_num(r$z), p_part(r$p_test, r$z, Inf, one))
-}
-T_sig <- function(tp, cond) filter(test_con, topic == tp, prequestion == cond)$p_test < .05
-TO_txt <- function(term) {
-  r <- filter(test_omni, Parameter == term)
-  sprintf("χ²(%d) = %s, %s", r$df, apa_num(r$stat), sub("^p", "*p*", apa_p(r$p)))
-}
-TO_sig <- function(term) filter(test_omni, Parameter == term)$p < .05
+#| label: model-choice-table
+set.seed(2026)
+nd <- 1000
+obs_prop <- test_items$points / test_items$max_points
+max_mat <- matrix(test_items$max_points, nd, nrow(test_items), byrow = TRUE)
+yrep <- list(`Beta-binomial` = posterior_predict(m_test$final_test, ndraws = nd) / max_mat,
+             Binomial = posterior_predict(m_bin, ndraws = nd) / max_mat,
+             `Ordered beta` = posterior_predict(m_ob, ndraws = nd))
+score_fit <- imap(yrep, \(y, nm) score_freq(y, obs_prop) |> mutate(model = nm)) |> bind_rows()
+# share of predicted responses that are not possible scores (between the possible values)
+impossible <- map_dbl(yrep, \(y) mean(!(round(y, 2) %in% round(unique(obs_prop), 2))))
+score_fit |>
+  select(score, observed, model, predicted) |>
+  pivot_wider(names_from = model, values_from = predicted) |>
+  kable(digits = 3, caption = "Share of responses at each score: observed and predicted (posterior mean)")
+impossible
 ```
 
-**Results.** Final test scores (`r n_distinct(test_dat$participant)` participants) were
-analysed with a binomial GLMM of points earned out of 12 per topic. The final model used
-the random-effects structure "`r attr(m_test, "re_used")`". The Condition × Topic interaction
-was `r yn(TO_sig("condition:topic"))`, `r TO_txt("condition:topic")`.
-
-*Specific benefit.* On Polio questions, the Polio condition scored
-`r if (filter(test_con, topic == "Polio", prequestion == "Polio")$Difference > 0) "higher" else "lower"`
-than Control, `r T_txt("Polio", "Polio")`, a `r yn(T_sig("Polio", "Polio"))` difference.
-On TB questions, the TB condition scored
-`r if (filter(test_con, topic == "TB", prequestion == "TB")$Difference > 0) "higher" else "lower"`
-than Control, `r T_txt("TB", "TB")`, a `r yn(T_sig("TB", "TB"))` difference.
-
-*General benefit.* On the non-prequestioned topic, the difference from Control was
-`r yn(T_sig("TB", "Polio"))` for the Polio condition on TB questions,
-`r T_txt("TB", "Polio")`, and `r yn(T_sig("Polio", "TB"))` for the TB condition on
-Polio questions, `r T_txt("Polio", "TB")` (@fig-test).
-
-## Random-effects selection
-
 ```{r}
-#| label: re-selection-test
-re_tabs_test <- re_selection_tables(list(`Final test` = m_test))
-show_re_selection(re_tabs_test)
+#| label: fig-ppc
+#| fig-width: 10
+#| fig-height: 4
+ppc_scores(m_test$final_test, "Status model") + ppc_scores(m_topic$final_test, "Group × Topic model")
 ```
 
-## Session info
+## Status models: prequestioned and non-prequestioned vs. no-prequestion
 
 ```{r}
-#| label: session
-sessionInfo()
+#| label: status
+bf_tab <- bf_table(m_test)
+est_tab <- contrasts_by(m_test)
+means_tab <- means_by(m_test, "status")
+means_draws <- mean_draws_by(m_test, "status")
+bf_tab |> transmute(comparison, BF10, BF01) |> kable(digits = 2)
+est_tab
+means_tab
+```
+
+## Group × Topic
+
+```{r}
+#| label: group-topic
+# proportion of points: Bayes factors on the response scale, the scale of the estimates
+bf_topic_tab <- bf_table(m_topic, topic_draws, response_scale = "final_test")
+est_topic_tab <- topic_estimates(m_topic)
+means_topic_tab <- means_by(m_topic, c("condition", "topic")) |> add_status()
+means_topic_draws <- mean_draws_by(m_topic, c("condition", "topic")) |> add_status()
+bf_topic_tab |> transmute(comparison, BF10, BF01) |> kable(digits = 2)
+est_topic_tab
+means_topic_tab
+```
+
+## Prior sensitivity
+
+```{r}
+#| label: priorsense
+sens_tab <- sens_table(c(m_test, set_names(m_topic, "final_test (Group × Topic)")))
+sens_tab
+```
+
+## Results file
+
+```{r}
+#| label: save-results
+save_results(list(diag = diag_tab, bf = bf_tab, est = est_tab, means = means_tab,
+                  means_draws = means_draws, bf_topic = bf_topic_tab, est_topic = est_topic_tab,
+                  means_topic = means_topic_tab, means_topic_draws = means_topic_draws,
+                  score_fit = score_fit, score_impossible = impossible,
+                  sens = sens_tab),
+             here("analysis", "results_final_test.rds"))
 ```

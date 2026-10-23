@@ -188,7 +188,7 @@ match_et_ids <- function(scored, et_ids) {
 # Eye-tracking participants and their conditions, from the full Tobii Pro Lab fixation
 # export (data/raw/tobii/fixations.tsv, all 160 recorded participants)
 load_et_ids <- function() {
-  read_tsv("data/raw/tobii/fixations.tsv", show_col_types = FALSE,
+  read_tsv(here::here("data", "raw", "tobii", "fixations.tsv"), show_col_types = FALSE,
            col_select = c(Participant, Group)) |>
     distinct(et_id = Participant, et_group = Group) |>
     mutate(id_norm = norm_id(et_id))

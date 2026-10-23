@@ -1,0 +1,135 @@
+---
+title: "Power Analysis (Pilot Data)"
+subtitle: "Simulation-based power for the specific benefit of prequestions on the final test"
+author: "Jason Geller"
+date: "2021-12-21"
+format:
+  html:
+    toc: true
+    code-fold: show
+    code-tools: true
+    embed-resources: true
+bibliography: ../manuscript/references.bib
+execute:
+  warning: false
+  message: false
+params:
+  # Number of simulated data sets per sample size (10,000 in the reported analysis; use
+  # e.g. 200 for a quick check)
+  n_sim: 10000
+---
+
+## What this document does
+
+The sample size was based on a simulation-based power analysis for the specific benefit of
+prequestions on the final test, using the `mixedpower` package [@kumle2021] with pilot data
+collected in the lab. A recent meta-analysis reported a medium-sized specific benefit
+(*g* = 0.54; @sthilaire2023), which corresponds to an odds ratio of 2.66 and a log odds of
+0.98. This was used as the smallest effect size of interest (SESOI) for the effect of
+Condition (prequestioned vs. non-prequestioned topic) in binomial mixed models of the points
+earned on each topic, fitted separately to the pilot participants given Polio and TB
+prequestions.
+
+The simulations indicated that 45 participants per group give 90% power to detect an effect
+of this size. Because the study has three groups rather than two and also analyses eye
+movements, we planned to test 135 participants (45 per group).
+
+This document is not part of the analysis pipeline (`_targets.R`): it reproduces the
+sample-size planning that preceded data collection. It is rendered on its own, from the
+project root: `quarto render power/power_analysis.qmd`.
+
+**Packages.** `mixedpower` is installed from GitHub, not CRAN, and `hypr` [@rabe2020] (for the
+contrast coding) from CRAN; install them once before rendering:
+
+```r
+install.packages(c("remotes", "hypr"))
+remotes::install_github("DejanDraschkow/mixedpower")
+```
+
+## Setup
+
+```{r}
+#| label: setup
+library(here)
+library(tidyverse)
+library(lme4)
+library(hypr)         # contrast coding
+library(mixedpower)   # simulation-based power for (G)LMMs (Kumle et al., 2021)
+```
+
+## Pilot data
+
+Each pilot participant answered the ten final-test questions, five per topic; each topic was
+worth 12 points.
+
+```{r}
+#| label: data
+scored <- read_csv(here("power", "pilot_reading1.csv"), show_col_types = FALSE) |>
+  select(Participant, Group, Condition, poin, Text, Acc)
+
+# Participants given prequestions (Polio or TB group)
+scored_pbtb <- scored |>
+  filter(Group %in% c("TB", "Polio")) |>
+  mutate(Condition = factor(Condition), Group = factor(Group))
+
+# Condition (question topic): TB vs. Polio; Group: Polio vs. TB
+contrasts(scored_pbtb$Condition) <- contr.hypothesis(hypr(TB ~ Polio, levels = c("Polio", "TB")))
+contrasts(scored_pbtb$Group) <- contr.hypothesis(hypr(Polio ~ TB, levels = c("Polio", "TB")))
+
+# Points earned per participant and topic (out of 12), separately for each group
+by_topic <- \(grp) scored_pbtb |>
+  filter(Group == grp) |>
+  group_by(Group, Participant, Condition) |>
+  summarise(score_count = sum(Acc), total = 12, .groups = "drop")
+s <- by_topic("TB")
+d <- by_topic("Polio")
+
+count(scored_pbtb, Group) |> mutate(participants = n / 10)
+```
+
+## Models
+
+Binomial mixed models of the points earned on each topic, with random intercepts for
+participants, fitted separately to the TB and Polio groups.
+
+```{r}
+#| label: models
+model_tb <- glmer(cbind(score_count, total - score_count) ~ Condition + (1 | Participant),
+                  family = binomial, data = s)
+model_po <- glmer(cbind(score_count, total - score_count) ~ Condition + (1 | Participant),
+                  family = binomial, data = d)
+summary(model_po)$coefficients
+summary(model_tb)$coefficients
+```
+
+## Simulation
+
+The SESOI replaces the model's estimates: −0.25 for the intercept and 0.98 (log odds; the
+meta-analytic *g* = 0.54) for the Condition effect. Power is estimated for 30, 40, and 50
+participants, with a critical value of |*z*| = 1.96.
+
+```{r}
+#| label: simulation
+SESOI <- c(-0.25, 0.98)   # intercept, Condition (log odds)
+
+power_po <- mixedpower(model = model_po, data = d, fixed_effects = c("Condition"),
+                       simvar = "Participant", steps = c(30, 40, 50), critical_value = 1.96,
+                       SESOI = SESOI, n_sim = params$n_sim, databased = FALSE)
+power_tb <- mixedpower(model = model_tb, data = s, fixed_effects = c("Condition"),
+                       simvar = "Participant", steps = c(30, 40, 50), critical_value = 1.96,
+                       SESOI = SESOI, n_sim = params$n_sim, databased = FALSE)
+power_po
+power_tb
+```
+
+```{r}
+#| label: fig-power
+#| fig-cap: "Estimated power by number of participants, Polio and TB groups"
+multiplotPower(power_po)
+multiplotPower(power_tb)
+```
+
+## References
+
+::: {#refs}
+:::

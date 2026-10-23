@@ -27,7 +27,7 @@ stopifnot(params$measures == "derived")
 #               later text; NA if no first pass (or the page ended during it)
 #   regressed_in  second-pass regression: whether the reader came back to the sentence
 #               from later text after first-pass reading
-measures_src <- read_tsv("data/derived/et_measures.tsv", show_col_types = FALSE) |>
+measures_src <- read_tsv(here::here("data", "derived", "et_measures.tsv"), show_col_types = FALSE) |>
   transmute(participant, group, type, aoi, number_of_units, sentence_index,
             total = total_duration,
             first_pass = first_pass_duration,
@@ -111,7 +111,7 @@ dvs <- tribble(
 # derive_et_measures.R. P101 has no fixations on page 3 and is excluded here. (P01's
 # page 2 is included: P01 was re-exported with page-2 sentence labels; see
 # derive_et_measures.R.)
-pages_source <- read_tsv("data/derived/et_measures.tsv", show_col_types = FALSE)
+pages_source <- read_tsv(here::here("data", "derived", "et_measures.tsv"), show_col_types = FALSE)
 pages_per_participant <- pages_source |>
   mutate(group = recode(group, Po = "Polio")) |>
   group_by(participant, group) |>
@@ -136,18 +136,23 @@ excluded_so_far <- as.character(excluded_incomplete$participant)
 # values who were not flagged are kept (the criterion cannot be checked for them). The
 # sheet uses the session ID; four eye-tracking recordings carry a suffix.
 calib_id_map <- c(P28PO = "P28", P87a = "P87", P104po = "P104", P141a = "P141")
-calib <- read_tsv("data/raw/calibration/et_run_sheet.tsv",
+calib <- read_tsv(here::here("data", "raw", "calibration", "et_run_sheet.tsv"),
                   col_types = cols(.default = "c")) |>
   transmute(sheet_id = PID,
             accuracy = as.numeric(accuracy_deg), precision = as.numeric(precision_sd_deg),
             rerun_flag = !is.na(Rerun) & str_to_lower(str_trim(Rerun)) == "x")
-# Values missing from the run sheet, supplied by the PI from the lab records (2026-10-15)
+# Values missing from the run sheet, supplied by the PI from the lab records (P66:
+# 2026-10-15; P55, P62, P150: 2026-10-20). P150 has no row in the sheet, so the
+# corrections are full-joined (they add rows for participants missing from the sheet).
 calib_corrections <- tribble(
   ~sheet_id, ~accuracy_fix, ~precision_fix,
-  "P66",     0.76,          0.19
+  "P66",     0.76,          0.19,
+  "P55",     0.46,          0.14,
+  "P62",     0.47,          0.16,
+  "P150",    0.25,          0.17
 )
 calib <- calib |>
-  left_join(calib_corrections, by = "sheet_id") |>
+  full_join(calib_corrections, by = "sheet_id") |>
   mutate(accuracy = coalesce(accuracy, accuracy_fix),
          precision = coalesce(precision, precision_fix)) |>
   select(-accuracy_fix, -precision_fix)
@@ -166,14 +171,14 @@ excluded_so_far <- c(excluded_so_far, as.character(excluded_calibration$particip
 
 # (3) prequestion-condition participants need prequestion (prior-knowledge) data;
 # scores come from grade_prequestions.R
-preq_scores <- read_csv("data/derived/preq_scored_participants.csv", show_col_types = FALSE)
+preq_scores <- read_csv(here::here("data", "derived", "preq_scored_participants.csv"), show_col_types = FALSE)
 excluded_no_pretest <- participants_all |>
   filter(!participant %in% excluded_so_far, condition != "Control",
          !participant %in% preq_scores$et_id)
 excluded_so_far <- c(excluded_so_far, as.character(excluded_no_pretest$participant))
 
 # (4) every participant needs final test data; scores come from grade_test.R
-test_scores <- read_csv("data/derived/test_scored_topics.csv", show_col_types = FALSE)
+test_scores <- read_csv(here::here("data", "derived", "test_scored_topics.csv"), show_col_types = FALSE)
 excluded_no_test <- participants_all |>
   filter(!participant %in% excluded_so_far, !participant %in% test_scores$et_id)
 excluded_so_far <- c(excluded_so_far, as.character(excluded_no_test$participant))
@@ -231,5 +236,18 @@ dat_rel <- dat |>
                             levels = c("Prequestioned", "Non-prequestioned")),
          rel_c = if_else(relevance == "Prequestioned", 0.5, -0.5)) |>
   droplevels()
+
+# ---- Sentence status for the reader (all three conditions) -------------------------------
+# Prequestioned: Polio sentences in the Polio condition, TB sentences in the TB condition;
+# Non-prequestioned: the other topic in those conditions; Control: all sentences read by
+# Control readers. Topic is balanced across the three levels. Numeric codes (centred, as
+# for Condition) are used for by-sentence status slopes.
+dat_status <- dat |>
+  mutate(status = case_when(condition == "Control" ~ "Control",
+                            as.character(topic) == as.character(condition) ~ "Prequestioned",
+                            TRUE ~ "Non-prequestioned"),
+         status = factor(status, levels = c("Prequestioned", "Non-prequestioned", "Control")),
+         stat_pre = (status == "Prequestioned") - 1/3,
+         stat_non = (status == "Non-prequestioned") - 1/3)
 
 n_total <- sum(n_by_cond$n)

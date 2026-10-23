@@ -1,109 +1,133 @@
 ---
-title: "Prequestion Analyses"
-subtitle: "Prequestions and Attention: Condition (Control / Polio / TB prequestions) × Sentence Topic (Polio / TB)"
+title: "Prequestion Performance"
+subtitle: "Bayesian beta-binomial model of the points earned on each prequestion"
 author: "Jason Geller"
 date: today
 format:
   html:
     toc: true
-    toc-depth: 3
-    code-fold: true
+    code-fold: show
     code-tools: true
     embed-resources: true
     df-print: paged
 execute:
   warning: false
   message: false
-  cache: false
-# R code runs from the project root (one level up), so paths such as data/... work
-knitr:
-  opts_knit:
-    root.dir: ".."
+params:
+  # Sampler settings. For quick checks use e.g. chains = 2, iter = 1000.
+  chains: 4
+  iter: 11000      # 4 chains x 10,000 post-warmup draws (40,000, for stable Bayes factors)
+  warmup: 1000
+  adapt_delta: 0.95
+  refit: false     # true: refit even if a cached fit exists
+  measures: derived  # eye-movement measures from derive_et_measures.R (R/data.R)
 ---
 
-## Overview
+## What this document does
 
-Performance on the prequestions, which participants in the Polio and TB conditions
-answered before reading (five questions on their topic, 12 points). Responses were
-scored by `grade_prequestions.R` (rules in `scoring_rubric.R`). Sample and exclusions as
-in `R/data.R`.
+Participants in the two prequestion conditions answered five prequestions on their topic
+before reading (Polio or TB). This document describes how much they knew and compares the
+two conditions. Each prequestion is scored as the points earned out of its maximum (1–4
+points) and modelled with a **beta-binomial** model (points out of the question's
+maximum, with overdispersion), with random intercepts for participants and questions.
+Condition varies between participants and between questions (each condition answered its
+own five questions), so no random slopes are possible.
+
+The comparison TB − Polio is summarized by the posterior mean, 95% credible interval and
+probability of direction (pd) on the response scale (the proportion of a question's
+points), averaged over the sample. It is **described, not tested**: each condition answered
+its own five questions, so condition is confounded with the set of questions, and no
+comparison can separate prior knowledge from question difficulty. (A Savage–Dickey Bayes
+factor would depend on how the question random effects enter the comparison: the
+response-scale contrast, the link-scale contrast averaged over the sample, and the
+population-level coefficient disagree.) Shared code (priors,
+fitting, Bayes factors) is in `R/bayes_helpers.R`; the fit is cached in
+`analysis/brms_cache/`.
+
+## Setup
 
 ```{r}
 #| label: setup
-# Shared setup and data (R/setup.R, R/data.R); run from the project root
-if (!exists("dat")) {
-  source("R/setup.R")
-  source("R/data.R")
+library(here)
+fit_settings <- list(chains = 4, iter = 11000, warmup = 1000, adapt_delta = 0.95, refit = FALSE)
+if (exists("params")) {
+  fit_settings <- modifyList(fit_settings, params[intersect(names(params), names(fit_settings))])
 }
+source(here("R", "setup.R"))
+source(here("R", "data.R"))
+source(here("R", "bayes_helpers.R"))
 ```
 
-## Prequestion scores
+## Descriptives
 
 ```{r}
-#| label: preq-perf
-# Prequestion performance (data/derived/preq_scored_participants.csv, from grade_prequestions.R)
-# for the analysed participants
-preq_perf <- read_csv("data/derived/preq_scored_participants.csv", show_col_types = FALSE) |>
+#| label: descriptives
+# Participant-level scores (grade_prequestions.R), analysed participants
+preq_perf <- read_csv(here("data", "derived", "preq_scored_participants.csv"), show_col_types = FALSE) |>
   filter(et_id %in% levels(dat$participant)) |>
-  transmute(participant = et_id, condition = recode(et_group, Po = "Polio"), topic,
+  transmute(participant = et_id, condition = recode(et_group, Po = "Polio"),
             pre = points / max_points, attempted = n_answered / n_questions)
-stopifnot(n_distinct(preq_perf$participant) ==
-            sum(n_by_cond$n[n_by_cond$condition != "Control"]))
-preq_by_cond <- preq_perf |>
+preq_perf |>
   group_by(condition) |>
-  summarise(n = n(), pre_m = mean(pre), pre_sd = sd(pre), att_m = mean(attempted),
-            .groups = "drop")
-
-kable(preq_by_cond, digits = 3,
-      caption = "Prequestion scores (proportion of the 12 points; attempted = proportion of prequestions answered)")
+  summarise(n = n(), mean_score = mean(pre), sd_score = sd(pre), attempted = mean(attempted)) |>
+  kable(digits = 3, caption = "Prequestion scores (proportion of the points) and proportion of prequestions attempted")
 ```
 
-## Prequestion accuracy by condition
+## Model
 
 ```{r}
-#| label: preq-model
-# Prequestion accuracy, TB vs. Polio condition: binomial mixed model of points earned on
-# each prequestion (out of the question's maximum), analysed participants only, with
-# random intercepts for participants and questions (each condition answered its own five
-# questions, which differ in difficulty). This is the maximal random-effects structure:
-# condition varies between participants and between questions, so no random slopes are
-# possible. Means and the difference are on the response scale (percentage points),
-# averaging model predictions over all participants and all ten questions
-# (estimate = "average", as elsewhere).
-preq_items <- read_csv("data/derived/preq_scored_items.csv", show_col_types = FALSE) |>
+#| label: fit
+#| results: hide
+preq_items <- read_csv(here("data", "derived", "preq_scored_items.csv"), show_col_types = FALSE) |>
   filter(et_id %in% levels(dat$participant)) |>
   transmute(participant = factor(et_id),
-            condition = factor(recode(et_group, Po = "Polio"), levels = c("Polio", "TB")),
+            condition = factor(recode(et_group, Po = "Polio"), levels = c("TB", "Polio")),
             question = factor(questnum), points, max_points)
-preq_glmm <- glmer(cbind(points, max_points - points) ~ condition + (1 | participant) +
-                     (1 | question), data = preq_items, family = binomial,
-                   control = glmerControl(optimizer = "bobyqa"))
-preq_cond_means <- as.data.frame(estimate_means(preq_glmm, by = "condition",
-                                                backend = "marginaleffects", estimate = "average"))
-preq_cond_diff <- as.data.frame(estimate_contrasts(preq_glmm, contrast = "condition",
-                                                   backend = "marginaleffects", estimate = "average"))
-stopifnot(as.character(preq_cond_diff$Level1) == "TB")
+contrasts(preq_items$condition) <- contr.equalprior_pairs
 
-# text helpers (used by the manuscript)
-pq_pct <- \(x) paste0(fmt_num(100 * x, 1), "%")
-PQ_diff <- with(preq_cond_diff, sprintf("%s percentage points, 95%% CI [%s, %s], *z* = %s, %s",
-                                        fmt_num(100 * Difference, 1), fmt_num(100 * CI_low, 1),
-                                        fmt_num(100 * CI_high, 1), fmt_num(z, 2),
-                                        sub("^p", "*p*", apa_p(p))))
-PQ_mean <- \(cnd) pq_pct(filter(preq_cond_means, condition == cnd)$Probability)
-PQ <- function(cnd, col) pq_pct(filter(preq_by_cond, condition == cnd)[[col]])
-
-preq_cond_means |>
-  transmute(Condition = condition, `Estimated score` = pq_pct(Probability),
-            `95% CI` = fmt_ci(100 * CI_low, 100 * CI_high, 1)) |>
-  kable(caption = "Prequestion score by condition (binomial GLMM, participant and question random intercepts)")
+m_preq <- fit_betabin("condition", "bayes_preq_betabin", preq_items,
+                      re = "(1 | participant) + (1 | question)", cor = FALSE)
 ```
 
-TB − Polio: `r PQ_diff`.
-
-## Session info
+```{r}
+#| label: diagnostics
+diag_tab <- diag_model(m_preq, "prequestions")
+diag_tab
+```
 
 ```{r}
-#| label: session
-sessionInfo()
+#| label: fig-ppc
+#| fig-width: 7
+#| fig-height: 4
+ppc_scores(m_preq, "Prequestions: observed and predicted scores")
+```
+
+## TB − Polio
+
+```{r}
+#| label: comparison
+preq_means <- resp_means(m_preq, "condition", predict = "mu")
+preq_diff <- estimate_contrasts(m_preq, contrast = "condition", comparison = "revpairwise",
+                                predict = "mu", backend = "marginaleffects",
+                                estimate = "average", centrality = "mean") |>
+  as.data.frame()
+preq_means
+preq_diff
+```
+
+## Prior sensitivity
+
+```{r}
+#| label: priorsense
+sens_tab <- sens_table(list(prequestions = m_preq))
+sens_tab
+```
+
+## Results file
+
+```{r}
+#| label: save-results
+save_results(list(preq_means = preq_means, preq_diff = preq_diff,
+                  diag = diag_tab, sens = sens_tab),
+             here("analysis", "results_prequestions.rds"))
 ```

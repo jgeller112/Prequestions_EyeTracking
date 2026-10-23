@@ -106,14 +106,13 @@ library(png)
 
 # ---- Settings -----------------------------------------------------------------------
 
-# Full Tobii Pro Lab fixation export, all recorded participants (160). It supersedes
-# data/raw/tobii/unused/PreQ_fix.tsv (an earlier export of 143 participants, kept unchanged).
-fix_file   <- "data/raw/tobii/fixations.tsv"
-sentences_file <- "stimuli/sentences.tsv"
-out_file   <- "data/derived/et_measures.tsv"
-fixations_file <- "data/derived/fixations.tsv"
-regions_file   <- "data/derived/sentence_regions.tsv"
-check_dir  <- "data/derived/et_checks"
+# Full Tobii Pro Lab fixation export, all recorded participants (161).
+fix_file   <- here::here("data", "raw", "tobii", "fixations.tsv")
+sentences_file <- here::here("stimuli", "sentences.tsv")
+out_file   <- here::here("data", "derived", "et_measures.tsv")
+fixations_file <- here::here("data", "derived", "fixations.tsv")
+regions_file   <- here::here("data", "derived", "sentence_regions.tsv")
+check_dir  <- here::here("data", "derived", "et_checks")
 
 # Text layout (Step 1). Verified in Step 2 against the line lengths in the page images.
 wrap_width   <- 79   # maximum characters per line
@@ -137,7 +136,7 @@ paragraphs <- list(
 
 # Page images (Step 2 and the check plots): full-resolution screenshots, 1920 x 1080 px,
 # exported from Tobii Pro Lab (see stimuli/pages/README.md)
-page_image <- function(p) sprintf("stimuli/pages/page%d_full.png", p)
+page_image <- function(p) here::here("stimuli", "pages", sprintf("page%d_full.png", p))
 
 # Image analysis (Step 2): pixels darker than this (0 = black, 1 = white) count as ink.
 # The background grey is ~0.83.

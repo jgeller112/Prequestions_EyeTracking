@@ -6,12 +6,12 @@
 #
 # Rubric and helpers: scoring_rubric.R
 
-source("scripts/scoring_rubric.R")
+source(here::here("scripts", "scoring_rubric.R"))
 
-key <- read_csv("stimuli/answer_key.csv", show_col_types = FALSE)
+key <- read_csv(here::here("stimuli", "answer_key.csv"), show_col_types = FALSE)
 et_ids <- load_et_ids()
 
-raw <- read_psychopy("data/raw/psychopy/prequestions") |>
+raw <- read_psychopy(here::here("data", "raw", "psychopy", "prequestions")) |>
   filter(!str_squish(participant) %in% test_sessions)
 
 scored_all <- score_responses(raw, key) |>
@@ -38,8 +38,8 @@ participants <- scored |>
             .groups = "drop") |>
   mutate(prop_correct = points / max_points)
 
-write_csv(scored, "data/derived/preq_scored_items.csv")
-write_csv(participants, "data/derived/preq_scored_participants.csv")
+write_csv(scored, here::here("data", "derived", "preq_scored_items.csv"))
+write_csv(participants, here::here("data", "derived", "preq_scored_participants.csv"))
 
 # ---- Report ----------------------------------------------------------------
 cat("\nScored", nrow(participants), "pretest sessions\n")

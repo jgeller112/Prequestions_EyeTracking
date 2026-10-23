@@ -1,11 +1,9 @@
-# Codebook: `data/raw/tobii/fixations.tsv` (and `data/raw/tobii/unused/PreQ_fix.tsv`)
+# Codebook: `data/raw/tobii/fixations.tsv`
 
 **What it is.** Raw fixation export from Tobii Pro Lab: one row per fixation, for every
-recording × text page (TOI). `data/raw/tobii/fixations.tsv` contains all 160 recorded participants
+recording × text page (TOI). `data/raw/tobii/fixations.tsv` contains all 161 recorded participants
 and is the file used (read by `derive_et_measures.R`; its participant list is also used
-by `scoring_rubric.R` to match the PsychoPy files). `data/raw/tobii/unused/PreQ_fix.tsv` is an
-earlier export of 143 participants with the same columns; it is kept unchanged but not
-used. Never edited; exclusions are applied in code.
+by `scoring_rubric.R` to match the PsychoPy files). Never edited; exclusions are applied in code.
 
 **Format.** Tab-separated, UTF-8, header row; 17 columns.
 
