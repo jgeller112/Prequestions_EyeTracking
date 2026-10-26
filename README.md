@@ -61,7 +61,10 @@ reused unless a model's data, formula or priors change. The fitted models are no
 repository (about 3 GB): after cloning, `tar_make()` fits them, together with the prior-only
 models used for the Bayes factors. The results files the manuscript reads
 (`analysis/results_*.rds`) are included, so the manuscript can be rendered without fitting
-anything. Optionally, `Rscript scripts/export_brms_cache.R` saves the cached fits to `models/`
+anything. The prior-width sensitivity analysis (Appendix E) is not part of `tar_make()`
+because it refits every model twice (about 2.5 hours): run `Rscript scripts/bf_sensitivity.R`
+after `tar_make()`; it writes `analysis/results_bf_sensitivity.rds`, which is included.
+Optionally, `Rscript scripts/export_brms_cache.R` saves the cached fits to `models/`
 as `.qs2` files split into parts smaller than 90 MB (not tracked by git), from which
 `R/bayes_helpers.R` restores any fit missing from the cache.
 
@@ -124,6 +127,7 @@ scripts/
   split_qs2.R                  splits .qs2 files into < 90 MB parts and recombines them
   make_ra_scoring_sheet.R      blind scoring sheet for a second rater (writes scoring/)
   rater_agreement.R            step 6: agreement between the automated scores and the second rater
+  bf_sensitivity.R             Bayes factors with the effect priors halved and doubled (Appendix E)
 R/
   setup.R                      shared: packages, colours, text helpers
   data.R                       shared: import, exclusions, calibration, analysis data sets
