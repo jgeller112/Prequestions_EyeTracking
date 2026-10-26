@@ -44,6 +44,10 @@ q10_parts <- function(x) {
     nums <- str_extract_all(x, "[0-9]+(\\.[0-9]+)?(k\\b)?")[[1]]
     if (length(nums) >= 2) parts <- nums[1:2]
   }
+  if (length(parts) < 2) {                                    # "hundreds of thousands thousands"
+    m <- str_match(str_squish(x), "^(.*?thousands?)\\s+(\\S.*)$")
+    if (!is.na(m[1, 1])) parts <- m[1, 2:3]
+  }
   if (length(parts) < 2) return(c(from = "other", to = "other"))
   c(from = classify_amount(parts[1]), to = classify_amount(parts[2]))
 }
@@ -69,6 +73,7 @@ rubric <- list(
              diet        = \(x) str_detect(x, "diet|nutri")),
 
   # Q5: chronic cough with blood-tinged sputum, fever, night sweats, weight loss
+  #     (any mention of sweating is credited for night sweats)
   `5` = list(cough        = \(x) str_detect(x, "coug|blood.*(sput|spit|phlegm|flegm|mucus|mucous|septum|suptum|saliva)|(sput|spit|phlegm|mucus).*blood|red mucus"),
              fever        = \(x) str_detect(x, "fever|temperature"),
              night_sweats = \(x) str_detect(x, "sweat"),
@@ -83,7 +88,7 @@ rubric <- list(
   `7` = list(antibiotics = \(x) str_detect(x, "anti-?biotic|anti-?bacterial"),
              # "two" must refer to antibiotics/drugs/courses, not e.g. "2 weeks" or "2 vaccines"
              two         = \(x) str_detect(x, paste0("(\\btwo\\b|\\b2\\b|double|multi(ple)?)[- ]?([a-z]+[- ]){0,3}",
-                                                  "(anti-?biotic|drug|medication|round|course|kind|type|dose|part|stage)")),
+                                                  "(anti-?biotic|anti-?bod(y|ies)|drug|medication|round|course|kind|type|dose|part|stage)")),
              long_term   = \(x) str_detect(x, "long|extend|extensive|prolonged|over time|months")),
 
   # Q8: no ("Only people with active, not latent, TB can transmit the disease")

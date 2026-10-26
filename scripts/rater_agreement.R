@@ -1,7 +1,7 @@
 # Agreement between the automated scores and an independent human rater
 #
-# Reads the rater's returned blind scoring sheet (data/raw/rater/) and the key written by
-# scripts/make_ra_scoring_sheet.R (scoring/ra_scoring_key.csv), and writes
+# Reads the rater's returned blind scoring sheets (data/raw/rater/) and the keys written by
+# scripts/make_ra_scoring_sheet.R (scoring/ra_scoring_key*.csv), and writes
 #   data/derived/rater_agreement.rds      agreement statistics (overall, by phase, by
 #                                         question, per-participant final-test totals)
 #   data/derived/rater_disagreements.csv  every response the two scorings disagree on
@@ -14,9 +14,17 @@ library(readr)
 library(dplyr)
 library(openxlsx)
 
-ra <- read.xlsx(here::here("data", "raw", "rater", "ra_scoring_sheet_scored.xlsx"), "Scoring") |>
+# One key per batch sent to the rater (scoring/ra_scoring_key.csv, ra_scoring_key_2.csv, ...);
+# the returned sheet of each batch is data/raw/rater/ra_scoring_sheet[_2, ...]_scored.xlsx.
+# Batches not yet returned are left out (with a message).
+keys <- list.files(here::here("scoring"), pattern = "^ra_scoring_key(_[0-9]+)?[.]csv$")
+returned <- here::here("data", "raw", "rater",
+                       sub("^ra_scoring_key(.*)[.]csv$", "ra_scoring_sheet\\1_scored.xlsx", keys))
+if (any(!file.exists(returned)))
+  message("Not yet returned by the rater (left out): ", paste(basename(returned[!file.exists(returned)]), collapse = ", "))
+key <- bind_rows(lapply(here::here("scoring", keys[file.exists(returned)]), read_csv, show_col_types = FALSE))
+ra <- bind_rows(lapply(returned[file.exists(returned)], \(f) read.xlsx(f, "Scoring"))) |>
   transmute(item_id = Item.ID, ra = Score, response_ra = Response)
-key <- read_csv(here::here("scoring", "ra_scoring_key.csv"), show_col_types = FALSE)
 d <- inner_join(key, ra, by = "item_id")
 stopifnot(nrow(d) == nrow(key), nrow(d) == nrow(ra), !anyNA(d$ra),
           all(d$ra >= 0 & d$ra <= d$max_points),

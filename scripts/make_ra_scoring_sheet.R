@@ -9,16 +9,30 @@
 #                                    participant, phase and automated score, for computing
 #                                    agreement once the sheet is returned.
 #
+# Batches: when a key already exists (the rater has been sent a sheet), the script writes a
+# new batch with only the responses not yet in any key, e.g. from participants tested later:
+# scoring/ra_scoring_sheet_2.xlsx and scoring/ra_scoring_key_2.csv, with item IDs continuing
+# from the last batch. Earlier batches are never rewritten.
+#
 # Responses that were blank or "I don't know" (and similar) score 0 by rule and are not
-# included. Run from the project root: Rscript scripts/make_ra_scoring_sheet.R
+# included. Run: Rscript scripts/make_ra_scoring_sheet.R
 
 library(readr)
 library(dplyr)
+library(purrr)
 library(openxlsx)
 
 set.seed(2026)
 
 answer_key <- read_csv(here::here("stimuli", "answer_key.csv"), show_col_types = FALSE)
+
+# Keys of the batches already sent to the rater
+old_keys <- list.files(here::here("scoring"), pattern = "^ra_scoring_key(_[0-9]+)?[.]csv$",
+                       full.names = TRUE)
+sent <- map_dfr(old_keys, \(f) read_csv(f, show_col_types = FALSE, col_types = cols(.default = "c")))
+batch <- length(old_keys) + 1
+suffix <- if (batch == 1) "" else paste0("_", batch)
+first_id <- if (batch == 1) 1 else max(as.integer(sub("^R", "", sent$item_id))) + 1
 
 responses <- bind_rows(
   Prequestion = read_csv(here::here("data", "derived", "preq_scored_items.csv"), show_col_types = FALSE),
@@ -26,9 +40,13 @@ responses <- bind_rows(
   .id = "phase"
 ) |>
   filter(!blank) |>
+  # only responses not yet sent (none are sent before the first batch)
+  anti_join(mutate(sent, questnum = as.numeric(questnum)),
+            by = c("phase", "et_id" = "participant", "questnum")) |>
   left_join(select(answer_key, questnum, Question), by = "questnum") |>
   slice_sample(prop = 1) |>                        # random order: phase and participant mixed
-  mutate(item_id = sprintf("R%04d", row_number()))
+  mutate(item_id = sprintf("R%04d", first_id - 1 + row_number()))
+if (nrow(responses) == 0) stop("No new responses: every non-blank response is already in a batch")
 
 # Elements credited for each question (as in the manuscript's Appendix A)
 credited <- c(
@@ -36,7 +54,7 @@ credited <- c(
   `2`  = "A negative answer: \"no\", \"no cure\", or \"not a cure\".",
   `3`  = "One point each for Nigeria, India, Pakistan, and Afghanistan.",
   `4`  = "One point each for antibiotics; analgesics or pain relief; exercise (including physical activity or therapy); and diet or nutrition. \"Antibiotic resistance\" alone is not credited.",
-  `5`  = "One point each for cough (or blood-tinged sputum/phlegm); fever (or temperature); night sweats; and weight loss.",
+  `5`  = "One point each for cough (or blood-tinged sputum/phlegm); fever (or temperature); sweats (including night sweats); and weight loss.",
   `6`  = "10% (or \"ten percent\", 1/10); not credited if stated as \"less than\" or \"under\" 10%.",
   `7`  = "One point each for antibiotics (or antibacterials); two (two drugs, courses, rounds, or types); and long-term (long, extended, prolonged, or months).",
   `8`  = "A negative answer (\"no\").",
@@ -95,12 +113,14 @@ for (i in seq_len(nrow(sheet))) {
 }
 
 dir.create(here::here("scoring"), showWarnings = FALSE)
-saveWorkbook(wb, here::here("scoring", "ra_scoring_sheet.xlsx"), overwrite = TRUE)
+sheet_file <- paste0("ra_scoring_sheet", suffix, ".xlsx")
+key_file <- paste0("ra_scoring_key", suffix, ".csv")
+saveWorkbook(wb, here::here("scoring", sheet_file))   # never overwrites an earlier batch
 
 responses |>
   transmute(item_id, phase, participant = et_id, questnum, max_points,
             auto_points = points, response) |>
-  write_csv(here::here("scoring", "ra_scoring_key.csv"))
+  write_csv(here::here("scoring", key_file))
 
-message(sprintf("Wrote scoring/ra_scoring_sheet.xlsx (%d responses) and scoring/ra_scoring_key.csv",
-                nrow(sheet)))
+message(sprintf("Batch %d: wrote scoring/%s (%d responses) and scoring/%s",
+                batch, sheet_file, nrow(sheet), key_file))

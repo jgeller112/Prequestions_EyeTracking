@@ -25,7 +25,7 @@ R0807,Final test,6,1,10%,1,0
 R1606,Final test,7,3,There are two medications,1,2
 R1598,Final test,7,3,Vaccination,0,1
 R0671,Final test,7,3,antibiotics over the course of 2 weeks,1,2
-R1002,Final test,7,3,two antibodies working with each other,0,2
+R1002,Final test,7,3,two antibodies working with each other,1,2
 R0656,Final test,9,3,"coughing, sneezing, breathing",2,3
 R0672,Final test,10,2,"100,00 to 1,000",1,2
 R0047,Final test,10,2,1000 to 500,1,0

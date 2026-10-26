@@ -554,7 +554,7 @@ P15_preQ_test_2024-11-15_13h37.46.576.csv,P15,Control,ethiopia,3,Polio,4,"Nigeri
 P15_preQ_test_2024-11-15_13h37.46.576.csv,P15,Control,10%,1,Polio,1,17%,0,,FALSE,P15,P15,Control
 P15_preQ_test_2024-11-15_13h37.46.576.csv,P15,Control,17%,6,TB,1,10%,0,,FALSE,P15,P15,Control
 P15_preQ_test_2024-11-15_13h37.46.576.csv,P15,Control,"coughing, vomiting, blood",5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P15,P15,Control
-P15_preQ_test_2024-11-15_13h37.46.576.csv,P15,Control,two antibodies working with each other,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P15,P15,Control
+P15_preQ_test_2024-11-15_13h37.46.576.csv,P15,Control,two antibodies working with each other,7,TB,3,a long-term course of two antibiotics to kill the bacteria.,1,two,FALSE,P15,P15,Control
 P15_preQ_test_2024-11-15_13h37.46.576.csv,P15,Control,vaccines,4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P15,P15,Control
 P15_preQ_test_2024-11-15_13h37.46.576.csv,P15,Control,"through spit, cough, sneeze",9,TB,3,"cough, sneeze, or spit",3,"cough, sneeze, spit",FALSE,P15,P15,Control
 P15_preQ_test_2024-11-15_13h37.46.576.csv,P15,Control,no,8,TB,1,no,1,no,FALSE,P15,P15,Control
@@ -813,7 +813,7 @@ P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,no,2,Polio,1,no,1,no,FALSE
 P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,"quarantine, vaccine",7,TB,3,a long-term course of two antibiotics to kill the bacteria.,0,,FALSE,P191,P191,Po
 P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,Yes,8,TB,1,no,0,,FALSE,P191,P191,Po
 P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,Cough,5,TB,4,"a chronic cough with blood-tinged sputum, fever, night sweats, and weight loss",1,cough,FALSE,P191,P191,Po
-P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,hundreds of thousands thousands,10,Polio,2,many hundreds of thousands to around a thousand,0,,FALSE,P191,P191,Po
+P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,hundreds of thousands thousands,10,Polio,2,many hundreds of thousands to around a thousand,2,"from_hundreds_of_thousands, to_about_a_thousand",FALSE,P191,P191,Po
 P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,Didn't say,3,Polio,4,"Nigeria, India, Pakistan, and Afghanistan",0,,FALSE,P191,P191,Po
 P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,cough,9,TB,3,"cough, sneeze, or spit",1,cough,FALSE,P191,P191,Po
 P191_preQ_test_2026-10-21_14h19.32.837.csv,P191,polio,"only prevention, vaccines",4,Polio,4,"antibiotics to prevent infections in weakened muscles, analgesics for pain, moderate exercise, and a nutritious diet",0,,FALSE,P191,P191,Po

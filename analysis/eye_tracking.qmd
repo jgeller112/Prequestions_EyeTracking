@@ -33,9 +33,9 @@ scale; the manuscript reports ms/word). Measures and models:
 | Measure | Family (link) | Prior SD *s* of every pairwise difference |
 |---|---|---|
 | Total gaze duration | ex-Gaussian (`cogmod::cogmod_exgaussian`; μ identity, σ and τ softplus); Status/Group and Topic on μ and τ | μ: 0.1 s/word; τ: 0.5 |
-| Re-reading duration (0 when not re-read) | hurdle Gamma (Gamma: log; hurdle: logit) | Gamma: 0.5; hurdle: 1.5 |
+| Re-reading time (after moving on to later text; sentences re-read only) | Gamma (log) | 0.5 |
 | Second-pass regression (looked back to from later text, 0/1) | Bernoulli (logit) | 1.5 |
-| First-pass duration | Gamma (log) | 0.5 |
+| First-pass reading time (selective go-past time) | ex-Gaussian, as for total gaze duration | μ: 0.1 s/word; τ: 0.5 |
 
 Two sets of models, as for the final test: **status models** (Prequestioned,
 Non-prequestioned, no-prequestion + Topic; comparisons with no-prequestion) and **Group × Topic models**
@@ -49,10 +49,20 @@ cached fits as described in `R/bayes_helpers.R`.
 **Why cogmod only for total gaze duration.** cogmod's ex-Gaussian is the classical μ, σ, τ
 parameterisation, as preregistered. cogmod's other duration families are response-time
 models (e.g. `cogmod_gamma()` is a shifted Gamma parameterised by shape and scale), whose
-parameters are not mean reading time. First-pass and re-reading duration use brms's
-mean-parameterised Gamma, so their effects are effects on mean reading time. The
-ex-Gaussian could not be estimated for them (σ collapsed: both include many single brief
-fixations).
+parameters are not mean reading time. Re-reading time uses brms's mean-parameterised Gamma, so its effects are effects on mean
+reading time. The ex-Gaussian could not be estimated for re-reading time (σ collapsed: many
+single brief fixations).
+
+**First-pass reading time.** The preregistered first-pass duration (from first entering
+the sentence until first leaving it) is bimodal: about half of first passes are cut short
+after a few fixations by a brief return to the preceding line, so it mixes complete first
+readings (median about 3 s) with interrupted ones (median about 0.4 s), and no single
+distribution (ex-Gaussian, Gamma, lognormal) describes it. First-pass reading is
+therefore measured as selective go-past time (`go_past`): fixations on the sentence from
+first entering it until the reader first moves on to later text, so brief returns to
+earlier text do not end it and time spent on earlier text is not counted. Its distribution
+is unimodal and the ex-Gaussian describes it closely, so it is analysed like total gaze
+duration (μ and τ). The model key remains `first_pass`.
 
 *Naming:* the paper calls the group without prequestions the **no-prequestion** condition; in the data and code it is labelled `Control`.
 
@@ -74,11 +84,11 @@ source(here("R", "bayes_helpers.R"))
 
 ```{r}
 #| label: data
-# Durations in s/word; re-reading duration is 0 for fixated sentences that were never
-# re-read (hurdle model)
+# Durations in s/word; re-reading time is NA for sentences not re-read after the reader
+# moved on (whether they were re-read is the look-back measure)
 et <- dat_status |>
-  mutate(across(c(total_fix, first_pass, reread_time), \(x) x / 1000),
-         reread_time = if_else(reread_any == 0, 0, reread_time)) |>
+  mutate(first_pass = go_past,   # first-pass reading = selective go-past time (see above)
+         across(c(total_fix, first_pass, reread_time), \(x) x / 1000)) |>
   select(participant, sentence, condition, topic, status,
          total_fix, first_pass, reread_time, regressed_in)
 et_dv <- \(dv) equal_prior(droplevels(et[!is.na(et[[dv]]), ]))
@@ -100,14 +110,17 @@ m_et <- list(
     et_dv("total_fix"),
     cogmod_exgaussian(),   # cogmod's default links: identity for mu, softplus for sigma and tau
     pr_exg, "bayes_status_total_fix", stanvars = cogmod_exgaussian_stanvars()),
-  reread_time = fit_brm(bf(as.formula(paste("reread_time ~ status + topic +", re_et)),
-                           as.formula(paste("hu ~ status + topic +", re_et))),
-                        et_dv("reread_time"), hurdle_gamma(), pr_hurdle,
-                        "bayes_status_reread_hurdle"),
+  reread_time = fit_brm(as.formula(paste("reread_time ~ status + topic +", re_et)),
+                        et_dv("reread_time"), Gamma(link = "log"), pr_gamma,
+                        "bayes_status_reread_after"),
   regressed_in = fit_brm(as.formula(paste("regressed_in ~ status + topic +", re_et)),
                          et_dv("regressed_in"), bernoulli(), pr_logit, "bayes_status_regressed_in"),
-  first_pass = fit_brm(as.formula(paste("first_pass ~ status + topic +", re_et)),
-                       et_dv("first_pass"), Gamma(link = "log"), pr_gamma, "bayes_status_first_pass")
+  first_pass = fit_brm(
+    bf(as.formula(paste("first_pass ~ status + topic +", re_et)),
+       sigma ~ 1 + (1 | participant),
+       as.formula(paste("tau ~ status + topic +", re_et))),
+    et_dv("first_pass"), cogmod_exgaussian(), pr_exg, "bayes_status_go_past_exg",
+    stanvars = cogmod_exgaussian_stanvars())
 )
 
 m_topic <- list(
@@ -117,16 +130,18 @@ m_topic <- list(
        as.formula(paste("tau ~ condition * topic +", re_et_cond))),
     et_dv_cond("total_fix"), cogmod_exgaussian(), pr_exg, "bayes_cond_topic_total_fix",
     stanvars = cogmod_exgaussian_stanvars()),
-  reread_time = fit_brm(bf(as.formula(paste("reread_time ~ condition * topic +", re_et_cond)),
-                           as.formula(paste("hu ~ condition * topic +", re_et_cond))),
-                        et_dv_cond("reread_time"), hurdle_gamma(), pr_hurdle,
-                        "bayes_cond_topic_reread_hurdle"),
+  reread_time = fit_brm(as.formula(paste("reread_time ~ condition * topic +", re_et_cond)),
+                        et_dv_cond("reread_time"), Gamma(link = "log"), pr_gamma,
+                        "bayes_cond_topic_reread_after"),
   regressed_in = fit_brm(as.formula(paste("regressed_in ~ condition * topic +", re_et_cond)),
                          et_dv_cond("regressed_in"), bernoulli(), pr_logit,
                          "bayes_cond_topic_regressed_in"),
-  first_pass = fit_brm(as.formula(paste("first_pass ~ condition * topic +", re_et_cond)),
-                       et_dv_cond("first_pass"), Gamma(link = "log"), pr_gamma,
-                       "bayes_cond_topic_first_pass")
+  first_pass = fit_brm(
+    bf(as.formula(paste("first_pass ~ condition * topic +", re_et_cond)),
+       sigma ~ 1 + (1 | participant),
+       as.formula(paste("tau ~ condition * topic +", re_et_cond))),
+    et_dv_cond("first_pass"), cogmod_exgaussian(), pr_exg, "bayes_cond_topic_go_past_exg",
+    stanvars = cogmod_exgaussian_stanvars())
 )
 ```
 

@@ -1000,7 +1000,7 @@ R0998,Prequestion,P53,5,4,2,"cough, fever, headache, body ache, chills"
 R0999,Final test,P151,9,3,2,"coughing, sneezing"
 R1000,Final test,P85,4,4,1,antibiotics
 R1001,Prequestion,P158,5,4,1,"coughing, shortness of breath, excess mucus, etc"
-R1002,Final test,P15,7,3,0,two antibodies working with each other
+R1002,Final test,P15,7,3,1,two antibodies working with each other
 R1003,Final test,P74,2,1,1,no
 R1004,Final test,P27,5,4,0,"blood in mouth, headache"
 R1005,Final test,P86,2,1,1,No
@@ -1664,3 +1664,16 @@ R1662,Final test,P153,3,4,1,India and south africa
 R1663,Final test,P74,5,4,2,sweating/coughing/sneezing/heat flashes
 R1664,Final test,P02,7,3,2,"Antibiotics, 2 rounds specifically"
 R1665,Final test,P48,9,3,1,saliva
+R1666,Final test,P191,1,1,1,17
+R1667,Final test,P191,10,2,2,hundreds of thousands thousands
+R1668,Prequestion,P191,10,2,0,500000
+R1669,Final test,P191,7,3,0,"quarantine, vaccine"
+R1670,Prequestion,P191,1,1,0,20
+R1671,Final test,P191,5,4,1,Cough
+R1672,Final test,P191,2,1,1,no
+R1673,Final test,P191,4,4,0,"only prevention, vaccines"
+R1674,Prequestion,P191,4,4,0,"medication, vaccine"
+R1675,Final test,P191,8,1,0,Yes
+R1676,Prequestion,P191,2,1,0,Yes
+R1677,Final test,P191,9,3,1,cough
+R1678,Final test,P191,3,4,0,Didn't say

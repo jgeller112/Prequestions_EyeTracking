@@ -22,10 +22,10 @@ model_dir <- here::here("models")
 # Fits used by the analysis documents (prequestions.qmd, final_test.qmd, eye_tracking.qmd)
 fits <- c(
   # eye movements: status models and Group x Topic models
-  "bayes_status_total_fix", "bayes_status_reread_hurdle", "bayes_status_regressed_in",
-  "bayes_status_first_pass",
-  "bayes_cond_topic_total_fix", "bayes_cond_topic_reread_hurdle",
-  "bayes_cond_topic_regressed_in", "bayes_cond_topic_first_pass",
+  "bayes_status_total_fix", "bayes_status_reread_after", "bayes_status_regressed_in",
+  "bayes_status_go_past_exg",
+  "bayes_cond_topic_total_fix", "bayes_cond_topic_reread_after",
+  "bayes_cond_topic_regressed_in", "bayes_cond_topic_go_past_exg",
   # final test (beta-binomial), and the binomial and ordered beta models it was compared with
   "bayes_status_final_test_bb", "bayes_cond_topic_final_test_bb",
   "bayes_status_final_test_binomial", "bayes_status_final_test_ordbeta",

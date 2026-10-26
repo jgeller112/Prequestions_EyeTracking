@@ -60,7 +60,7 @@ add_status <- \(d) mutate(d, status = factor(case_when(
 
 # ---- Priors (s = prior SD of every pairwise difference, link scale) --------------------
 s_log   <- 0.5     # Gamma durations (log scale) and ex-Gaussian tau (softplus scale)
-s_logit <- 1.5     # binary measures, hurdle, ordered beta (log-odds)
+s_logit <- 1.5     # binary measures, beta-binomial (log-odds)
 s_mu    <- 0.1     # ex-Gaussian mu (s/word)
 
 pr_gamma <- c(prior_string(sprintf("normal(0, %s)", s_log), class = "b"),
@@ -72,12 +72,6 @@ pr_logit <- c(prior_string(sprintf("normal(0, %s)", s_logit), class = "b"),
               prior(normal(0, 1.5), class = "Intercept"),
               prior(student_t(3, 0, 1), class = "sd"),
               prior(lkj(2), class = "cor"))
-# Hurdle Gamma (re-reading duration): Gamma part as pr_gamma; the hurdle (probability of
-# no re-reading, logit) gets the same priors as the binary measures
-pr_hurdle <- c(pr_gamma,
-               prior_string(sprintf("normal(0, %s)", s_logit), class = "b", dpar = "hu"),
-               prior(normal(0, 1.5), class = "Intercept", dpar = "hu"),
-               prior(student_t(3, 0, 1), class = "sd", dpar = "hu"))
 pr_exg <- c(prior_string(sprintf("normal(0, %s)", s_mu), class = "b"),
             prior_string(sprintf("normal(0, %s)", s_log), class = "b", dpar = "tau"),
             prior(normal(0.2, 0.2), class = "Intercept"),                  # s/word
@@ -160,17 +154,10 @@ prior_model <- function(m) {
 
 # ---- What is reported for each model --------------------------------------------------
 # label = c(est = what the estimates predict, bf = what the Bayes factor compares);
-# NA = the expected response (modelbased default). "mu" is each model's main quantity:
-# for the hurdle model of re-reading, the expected re-reading duration including the
-# sentences not re-read (0); its two parts are "duration" (Gamma mean when re-read) and
-# "hu" (probability of not re-reading). re = "NA": Bayes factor at the population level,
-# because on the response scale, averaging over random effects drawn from their priors
-# gives prior draws too extreme for a density estimate (on the link scale the random
-# effects cancel in the differences, so link-scale Bayes factors are population-level too).
+# NA = the expected response (modelbased default). "mu" is each model's main quantity.
 par_spec <- function(nm) switch(nm,
   total_fix   = list(mu = c(est = "mu", bf = "link"), tau = c(est = "tau", bf = "tau")),
-  reread_time = list(mu = c(est = NA, bf = NA, re = "NA"), duration = c(est = "mu", bf = "link"),
-                     hu = c(est = "hu", bf = "hu")),
+  first_pass  = list(mu = c(est = "mu", bf = "link"), tau = c(est = "tau", bf = "tau")),
   # beta-binomial: estimates on the probability of earning a point (mu), i.e. the expected
   # proportion of a question's points, rather than the expected number of points
   final_test   = list(mu = c(est = "mu", bf = "link")),

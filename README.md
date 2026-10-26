@@ -111,7 +111,7 @@ stimuli/
   answer_key.csv               the ten questions, answers and points
   pages/                       screenshots of the four text pages (see its README)
   Prequestion_reading_v2.docx  the text as written
-  tobii_images/                full-resolution page images exported by Tobii Pro Lab (source of pages/)
+  tobii_images/                the four text pages as exported by Tobii Pro Lab, renamed page1-4.png
   udpipe/                      English (EWT) udpipe model, for the syntactic-complexity measures
 
 scripts/

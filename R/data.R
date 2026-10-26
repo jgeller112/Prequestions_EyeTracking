@@ -22,6 +22,9 @@ stopifnot(params$measures == "derived")
 # from the fixation data, data/raw/tobii/fixations.tsv), with common column names:
 #   total       all fixation time on the sentence (ms)
 #   first_pass  first-pass time (ms); NA if the sentence was skipped on first pass
+#   go_past     selective go-past time (ms): fixations on the sentence from first entering
+#               it until the first move to later text (brief returns to earlier text do
+#               not end it, and time on earlier text is not counted); NA if skipped
 #   second_pass time on the sentence after reading started, outside the first pass (ms)
 #   fp_regression  1 if the first exit from the sentence went to earlier text, 0 if to
 #               later text; NA if no first pass (or the page ended during it)
@@ -31,6 +34,8 @@ measures_src <- read_tsv(here::here("data", "derived", "et_measures.tsv"), show_
   transmute(participant, group, type, aoi, number_of_units, sentence_index,
             total = total_duration,
             first_pass = first_pass_duration,
+            go_past = selective_regression_path,
+            landing = landing_duration,
             second_pass = second_pass_duration,
             fp_regression = first_pass_regression,
             regressed_in = regressed_in,
@@ -71,6 +76,11 @@ dat <- measures_src |>
     total_fix   = total,
     second_pass = second_pass,
     first_pass  = first_pass,
+    go_past     = go_past,
+    # re-reading after moving on: time on the sentence after the reader first moved on to
+    # later text (total minus the landing fixations and selective go-past time); NA if
+    # the sentence had no first pass
+    reread_after = total - landing - go_past,
     fp_regression = fp_regression,                        # binary; not length-normalised
     regressed_in     = regressed_in,                      # binary
     fp_forward  = fp_forward,                             # exploratory (popEye)
@@ -80,15 +90,15 @@ dat <- measures_src |>
   )
 
 if (length_norm) {
-  dat <- dat |> mutate(across(c(total_fix, second_pass, first_pass, fp_forward, fp_reread),
+  dat <- dat |> mutate(across(c(total_fix, second_pass, first_pass, go_past, reread_after, fp_forward, fp_reread),
                               ~ .x / n_words))
 }
 
-# Re-reading as a hurdle (zero-inflated) outcome: whether the sentence was re-read at
-# all, and how long it was re-read when it was (second-pass time > 0)
+# Re-reading: whether the sentence was re-read after the reader had moved on to later
+# text, and how long it was re-read when it was
 dat <- dat |>
-  mutate(reread_any  = if_else(is.na(second_pass), NA_integer_, as.integer(second_pass > 0)),
-         reread_time = if_else(second_pass > 0, second_pass, NA_real_))
+  mutate(reread_any  = if_else(is.na(reread_after), NA_integer_, as.integer(reread_after > 0)),
+         reread_time = if_else(reread_after > 0, reread_after, NA_real_))
 
 # Preregistered DVs. `directional`: TRUE = the preregistered prediction gives a
 # direction (longer processing of prequestioned content), so Polio- and TB-condition

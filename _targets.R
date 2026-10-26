@@ -75,7 +75,8 @@ list(
   # Lab run sheet with calibration accuracy and precision (participant names removed)
   tar_target(raw_calibration, "data/raw/calibration/et_run_sheet.tsv", format = "file"),
   # Second rater: blind scoring sheet as returned, and its key (scripts/make_ra_scoring_sheet.R)
-  tar_target(raw_rater, c("data/raw/rater/ra_scoring_sheet_scored.xlsx", "scoring/ra_scoring_key.csv"),
+  tar_target(raw_rater, c(list.files("data/raw/rater", "_scored[.]xlsx$", full.names = TRUE),
+                          list.files("scoring", "^ra_scoring_key.*[.]csv$", full.names = TRUE)),
              format = "file"),
 
   # ---- Code (tracked by content) -----------------------------------------------------
