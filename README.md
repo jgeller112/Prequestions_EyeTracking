@@ -265,8 +265,4 @@ checked with priorsense. Deviations from the preregistration are listed in the m
 
 ## Privacy
 
-Participant IDs are pseudonymous. The original calibration run sheet contained
-participant names; the copy in `data/raw/calibration/` has them removed and was checked
-against every name in the original. Do not add the original sheet to this repository.
-`scoring/ra_scoring_key.csv` links the blind scoring sheet to participant IDs and automated
-scores; do not give it to the second rater.
+Participant IDs are pseudonymous. 
