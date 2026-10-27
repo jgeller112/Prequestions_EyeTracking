@@ -111,6 +111,13 @@ fix_median  <- median(raw_fix_dur$Duration[between(raw_fix_dur$Duration, 80, 100
 max_shift_cm <- 65 * tan(0.5 * pi / 180)
 
 n_dat <- nrow(dat)
+# Observed reading times (ms per word) of the fixated target sentences read without
+# prequestions (no-prequestion condition): mean and SD, to give the scale of the ex-Gaussian
+# components (mean = mu + tau, SD = sqrt(sigma^2 + tau^2))
+rt_desc <- dat |>
+  filter(condition == "Control") |>
+  summarise(total_m = mean(total_fix, na.rm = TRUE), total_sd = sd(total_fix, na.rm = TRUE),
+            srp_m = mean(go_past, na.rm = TRUE), srp_sd = sd(go_past, na.rm = TRUE))
 
 # ---- Drift-correction example and statistics ---------------------------------------------
 # Example reader for the before/after figure: a TB-condition reader on page 2, chosen
@@ -151,7 +158,7 @@ inputs <- list(
   n_recordings = n_recordings, n_excluded = n_excluded, share_assigned = share_assigned,
   share_agree = share_agree, fp_present_derived = fp_present_derived,
   landed_below = landed_below, share_not_reread = share_not_reread,
-  n_not_fixated = n_not_fixated, n_dat = n_dat, share_short = share_short,
+  n_not_fixated = n_not_fixated, n_dat = n_dat, rt_desc = rt_desc, share_short = share_short,
   share_long = share_long, fix_median = fix_median, max_shift_cm = max_shift_cm,
   # drift example
   drift_id = drift_id, fx_drift = fx_drift, drift_stats = drift_stats, drift_ex = drift_ex
