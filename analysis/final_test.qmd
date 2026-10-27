@@ -1,7 +1,7 @@
 ---
 title: "Final Test Performance"
 subtitle: "Bayesian beta-binomial models of the points earned on each question"
-author: "Jason Geller"
+author: "Anonymous Author"
 date: today
 format:
   html:

@@ -1,6 +1,8 @@
 # I Remember That Question: Using Eye Tracking to See How Prequestions Shape Reading
 
-Jason Geller (Boston College). Preregistration: <https://osf.io/8env4>.
+**Anonymized copy for peer review.** Author and institution details are masked; identifying links point to anonymized versions.
+
+Preregistration: <https://osf.io/8env4/overview?view_only=5073f3b1114944c1a6c63339132a5ad5>.
 
 Participants read a four-page text about the Gates Foundation's efforts against polio and
 tuberculosis (TB) while their eye movements were recorded. Before reading, they answered
