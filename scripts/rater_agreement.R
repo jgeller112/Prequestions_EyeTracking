@@ -6,13 +6,14 @@
 #                                         question, per-participant final-test totals)
 #   data/derived/rater_disagreements.csv  every response the two scorings disagree on
 # Agreement: exact agreement and ICC(2,1) (two-way random effects, absolute agreement,
-# single rater; Shrout & Fleiss, 1979), with 95% CIs from 2,000 bootstrap resamples.
+# single rater; Shrout & Fleiss, 1979), with its 95% CI, from the irr package.
 #
 # Run from the project root: Rscript scripts/rater_agreement.R
 
 library(readr)
 library(dplyr)
 library(openxlsx)
+library(irr)
 
 # One key per batch sent to the rater (scoring/ra_scoring_key.csv, ra_scoring_key_2.csv, ...);
 # the returned sheet of each batch is data/raw/rater/ra_scoring_sheet[_2, ...]_scored.xlsx.
@@ -30,20 +31,10 @@ stopifnot(nrow(d) == nrow(key), nrow(d) == nrow(ra), !anyNA(d$ra),
           all(d$ra >= 0 & d$ra <= d$max_points),
           all(d$response == d$response_ra))         # the sheet matches the key row by row
 
-icc21 <- function(x, y) {
-  m <- cbind(x, y); n <- nrow(m); k <- 2
-  gm <- mean(m); rm <- rowMeans(m); cm <- colMeans(m)
-  msr <- k * sum((rm - gm)^2) / (n - 1)
-  msc <- n * sum((cm - gm)^2) / (k - 1)
-  mse <- sum((m - outer(rm, rep(1, k)) - outer(rep(1, n), cm) + gm)^2) / ((n - 1) * (k - 1))
-  (msr - mse) / (msr + (k - 1) * mse + k * (msc - mse) / n)
-}
-summ <- function(x, y, B = 2000) {
-  set.seed(2026)
-  boot <- if (B > 0) replicate(B, { i <- sample(length(x), replace = TRUE); icc21(x[i], y[i]) }) else NA_real_
+summ <- function(x, y) {
+  r <- icc(cbind(x, y), model = "twoway", type = "agreement", unit = "single")
   tibble(n = length(x), exact = mean(x == y), within1 = mean(abs(x - y) <= 1),
-         icc = icc21(x, y), icc_lo = unname(quantile(boot, 0.025, na.rm = TRUE)),
-         icc_hi = unname(quantile(boot, 0.975, na.rm = TRUE)), n_disagree = sum(x != y),
+         icc = r$value, icc_lo = r$lbound, icc_hi = r$ubound, n_disagree = sum(x != y),
          rater_minus_auto = mean(x - y))
 }
 
@@ -56,7 +47,7 @@ agreement <- list(
   overall = summ(d$ra, d$auto_points),
   by_phase = d |> group_by(phase) |> group_modify(\(g, k) summ(g$ra, g$auto_points)) |> ungroup(),
   by_question = d |> group_by(questnum, max_points) |>
-    group_modify(\(g, k) summ(g$ra, g$auto_points, B = 0)) |> ungroup() |>
+    group_modify(\(g, k) summ(g$ra, g$auto_points)) |> ungroup() |>
     select(-icc_lo, -icc_hi),
   totals = summ(totals$ra, totals$auto)
 )

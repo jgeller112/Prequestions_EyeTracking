@@ -1,5 +1,5 @@
 # =====================================================================================
-# Reproducible pipeline for "I Remember That Question: How Prequestions Shape Reading"
+# Reproducible pipeline for "I Remember That Question: Using Eye Tracking to See How Prequestions Shape Reading"
 # (targets, https://docs.ropensci.org/targets/)
 # =====================================================================================
 #

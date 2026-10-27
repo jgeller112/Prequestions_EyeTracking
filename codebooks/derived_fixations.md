@@ -17,5 +17,4 @@ Used for the figures and checks. Produced by the pipeline; do not edit by hand.
 | `line` | integer | Text line the fixation was assigned to (1 = top line of the page). |
 | `sentence_tobii` | integer | Sentence (`Sentence_index`) assigned by Tobii Pro Lab; `NA` = none. |
 | `sentence_corrected` | integer | Sentence assigned after drift correction; `NA` = off the text. |
-| `word` | integer | Word assigned after drift correction (words numbered across the page in reading order); `NA` = off the text. |
 | `reading` | logical | `TRUE` once reading has started on the page (first fixation on sentence 1); `FALSE` = landing fixation. |

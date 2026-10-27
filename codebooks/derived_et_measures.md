@@ -12,26 +12,22 @@ Terms: a *visit* (pass) is a run of consecutive fixations on the same sentence. 
 start* is the first fixation on the page's first sentence; fixations before it are the
 *landing* when the page appears. "Earlier"/"later" = sentence order on the page.
 
+Only the measures reported in the manuscript are included (definitions follow Schotter &
+Dillon, 2025). For every sentence read on first pass,
+`total_duration = landing_duration + selective_regression_path + rereading_duration`, so the
+analysed measures do not overlap.
+
 | Column | Type | Description |
 |---|---|---|
 | `recording`, `participant`, `group`, `toi`, `aoi`, `type`, `sentence_index`, `number_of_units` | | Recording and participant from `data/raw/tobii/fixations.tsv`; sentence text, order, type and word count from `stimuli/sentences.tsv`. `page` = page number (1–4). `type`: `PO`/`TB` target, `Control` = non-target sentence. |
-| `total_duration` | ms | All fixations on the sentence (including landing). = `landing_duration + first_pass_duration + second_pass_duration`. **Analysed: total gaze duration (ex-Gaussian).** |
-| `landing_duration` | ms | Fixations on the sentence before reading started. |
-| `first_pass_duration` | ms | From first entering the sentence until first leaving it; `NA` if a later sentence had already been read (skipped on first pass). **Analysed: first-pass duration.** |
-| `first_pass_regression` | 0/1 | 1 if the first pass ended by moving to an earlier sentence, 0 if to a later one; `NA` if no first pass, if the page ended during it, or for sentence 1 of a page. **Analysed.** |
-| `regression_path` | ms | Go-past time: from first entering the sentence until first fixating a later sentence, including time on earlier sentences. |
-| `selective_regression_path` | ms | Go-past time counting only fixations on the sentence itself. |
-| `rereading_duration` | ms | Tobii-style re-reading: `regression_path - first_pass_duration` if the first pass ended in a regression, else 0. Not analysed. |
-| `second_pass_duration` | ms | Time on the sentence after reading started, outside the first pass (`total - first pass - landing`). **Analysed as re-reading**: whether > 0 (re-read) and, if > 0, its duration. |
-| `n_passes` | count | Visits to the sentence after reading started. |
-| `n_revisits` | count | Returns after the first pass (`n_passes - 1`); `NA` if skipped on first pass. |
-| `revisited` | 0/1 | `n_revisits > 0`. |
-| `n_regressions_in` | count | Returns to the sentence **from later text** after its first pass. |
-| `regressed_in` | 0/1 | `n_regressions_in > 0`. **Analysed: second-pass regressions (exploratory).** |
-| `pe_firstpass_nfix`, `pe_firstpass_duration` | count, ms | First-pass fixations by popEye's definition (the sentence is the furthest one reached; continues after a brief look back). Report only (exploratory). |
-| `pe_firstpass_forward_nfix`, `pe_firstpass_forward_duration` | count, ms | popEye first-pass fixations on a word beyond the furthest word read so far (forward reading). Report only. |
-| `pe_firstpass_reread_nfix`, `pe_firstpass_reread_duration` | count, ms | popEye first-pass fixations on an earlier word (re-reading within the sentence). Report only. |
+| `total_duration` | ms | All fixations on the sentence (including landing). **Analysed: total gaze duration (ex-Gaussian).** |
+| `landing_duration` | ms | Fixations on the sentence before reading started. Used only to compute `rereading_duration`. |
+| `selective_regression_path` | ms | Selective regression-path duration: fixations on the sentence from first entering it until the eyes first move to a later sentence (brief returns to earlier text do not end it; time on earlier text is not counted); `NA` if a later sentence had already been read (skipped on first pass). **Analysed: first-pass reading (ex-Gaussian).** |
+| `rereading_duration` | ms | Time on the sentence after the reader first moved on to later text (`total - landing - selective_regression_path`); `NA` if skipped on first pass. **Analysed: re-reading time (Gamma, when > 0).** |
+| `regressed_in` | 0/1 | 1 if the reader came back to the sentence **from later text** after its first pass; `NA` if skipped on first pass. **Analysed: regressions-in (look-backs).** |
+| `first_pass_duration` | ms | The preregistered first-pass duration: from first entering the sentence until first leaving it; `NA` if skipped on first pass. Not analysed: bimodal (see Methods and Appendix C). |
+| `first_pass_regression` | 0/1 | 1 if the first pass ended by moving to an earlier sentence, 0 if to a later one; `NA` if no first pass, if the page ended during it, or for sentence 1 of a page. Not analysed: documents why first-pass duration was bimodal. |
 | `derived_available` | logical | `TRUE` for every row (all output pages are processed); kept for compatibility. |
 
-`NA` conventions: sentences never fixated have `total_duration = 0`, `n_passes = 0`, and
-`NA` for pass-based measures.
+`NA` conventions: sentences never fixated have `total_duration = 0` and `landing_duration = 0`,
+and `NA` for the other measures.

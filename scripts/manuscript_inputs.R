@@ -84,7 +84,7 @@ share_agree    <- mean(both_labelled$sentence_tobii == both_labelled$sentence_co
 derived_all <- read_tsv(here::here("data", "derived", "et_measures.tsv"), show_col_types = FALSE) |>
   filter(type %in% c("PO", "TB"), total_duration > 0,
          participant %in% levels(dat$participant))
-fp_present_derived <- mean(!is.na(derived_all$first_pass_duration))
+fp_present_derived <- mean(!is.na(derived_all$selective_regression_path))
 # landing: share of pages (analysed participants) on which the first fixation on the text
 # fell below the first sentence
 landed_below <- fx_all |>

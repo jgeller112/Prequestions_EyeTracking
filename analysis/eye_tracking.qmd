@@ -34,8 +34,8 @@ scale; the manuscript reports ms/word). Measures and models:
 |---|---|---|
 | Total gaze duration | ex-Gaussian (`cogmod::cogmod_exgaussian`; μ identity, σ and τ softplus); Status/Group and Topic on μ and τ | μ: 0.1 s/word; τ: 0.5 |
 | Re-reading time (after moving on to later text; sentences re-read only) | Gamma (log) | 0.5 |
-| Second-pass regression (looked back to from later text, 0/1) | Bernoulli (logit) | 1.5 |
-| First-pass reading time (selective go-past time) | ex-Gaussian, as for total gaze duration | μ: 0.1 s/word; τ: 0.5 |
+| Regression-in (look-back: returned to from later text, 0/1) | Bernoulli (logit) | 1.5 |
+| First-pass reading: selective regression-path duration | ex-Gaussian, as for total gaze duration | μ: 0.1 s/word; τ: 0.5 |
 
 Two sets of models, as for the final test: **status models** (Prequestioned,
 Non-prequestioned, no-prequestion + Topic; comparisons with no-prequestion) and **Group × Topic models**
@@ -58,7 +58,7 @@ the sentence until first leaving it) is bimodal: about half of first passes are 
 after a few fixations by a brief return to the preceding line, so it mixes complete first
 readings (median about 3 s) with interrupted ones (median about 0.4 s), and no single
 distribution (ex-Gaussian, Gamma, lognormal) describes it. First-pass reading is
-therefore measured as selective go-past time (`go_past`): fixations on the sentence from
+therefore measured as selective regression-path duration (`go_past`; Schotter & Dillon, 2025): fixations on the sentence from
 first entering it until the reader first moves on to later text, so brief returns to
 earlier text do not end it and time spent on earlier text is not counted. Its distribution
 is unimodal and the ex-Gaussian describes it closely, so it is analysed like total gaze
@@ -87,7 +87,7 @@ source(here("R", "bayes_helpers.R"))
 # Durations in s/word; re-reading time is NA for sentences not re-read after the reader
 # moved on (whether they were re-read is the look-back measure)
 et <- dat_status |>
-  mutate(first_pass = go_past,   # first-pass reading = selective go-past time (see above)
+  mutate(first_pass = go_past,   # first-pass reading = selective regression-path duration
          across(c(total_fix, first_pass, reread_time), \(x) x / 1000)) |>
   select(participant, sentence, condition, topic, status,
          total_fix, first_pass, reread_time, regressed_in)

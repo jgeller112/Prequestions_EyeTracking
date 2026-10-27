@@ -53,52 +53,46 @@
 #           and from that into the sentence it falls on.
 #   Step 5  Decide where reading starts on each page (first fixation on sentence 1).
 #   Step 6  Compute the sentence-level reading measures.
-#   Step 6b First-pass forward reading vs. re-reading within the sentence, copied from
-#           the popEye package (pe_* columns).
 #   Step 7  Save the output and print checks.
 #   Step 8  Save overlay plots for visual checking.
 #
 # MEASURE DEFINITIONS (sentence = one AOI; "earlier"/"later" = sentence order on page)
-#   total_duration           Sum of all fixations on the sentence (whole page visit,
-#                            including any before reading started).
-#                            total_duration = landing_duration + first_pass_duration
-#                                             + second_pass_duration
+# Only the measures reported in the manuscript are computed (definitions follow Schotter
+# & Dillon, 2025). The analysed measures do not overlap:
+#   total_duration = landing_duration + selective_regression_path + rereading_duration
+#   (for every sentence read on first pass).
+#
+#   total_duration           Total gaze duration: sum of all fixations on the sentence
+#                            (whole page visit, including any before reading started).
+#                            Analysed.
 #   landing_duration         Fixations on the sentence before reading started on the page
 #                            (the eyes landing on the page when it appears; Step 5).
-#   first_pass_duration      Sum of fixations from first entering the sentence until
-#                            first leaving it. Only counted if no later sentence had been
-#                            fixated yet; otherwise the sentence was skipped on first
-#                            pass and the value is NA.
-#   first_pass_regression    1 if the eyes leave the first pass to an earlier sentence,
+#                            Used only to compute rereading_duration.
+#   selective_regression_path  Selective regression-path duration (first-pass reading):
+#                            fixations on the sentence from first entering it until the
+#                            eyes first move to a later sentence; brief returns to earlier
+#                            text do not end it, and time on earlier text is not counted.
+#                            NA if the sentence was skipped on first pass (a later
+#                            sentence had already been read). Analysed.
+#   rereading_duration       Re-reading time: time on the sentence after the reader first
+#                            moved on to later text: total_duration - landing_duration -
+#                            selective_regression_path. NA if skipped on first pass.
+#                            Analysed (when > 0).
+#   regressed_in             Regression-in (look-back): 1 if the reader came back to the
+#                            sentence FROM LATER TEXT after first-pass reading had moved
+#                            past it, else 0. Re-entries from earlier text (after
+#                            regressing out of the sentence) are not counted. NA if
+#                            skipped on first pass. Analysed.
+#   first_pass_duration      The preregistered first-pass duration: fixations from first
+#                            entering the sentence until first leaving it. NA if skipped
+#                            on first pass. Not analysed: it was bimodal (see
+#                            first_pass_regression), which the manuscript reports as the
+#                            reason for the deviation to selective_regression_path.
+#   first_pass_regression    1 if the first pass ended by moving to an earlier sentence,
 #                            0 if to a later sentence. NA if there was no first pass, the
 #                            page ended during it, or the sentence is the first on its
-#                            page (there is no earlier text to regress to, so the value
-#                            would always be 0).
-#   regression_path          "Go-past" time: from first entering the sentence until first
-#                            fixating a later sentence, including time spent on earlier
-#                            sentences during regressions.
-#   selective_regression_path  Go-past time counting only fixations on the sentence
-#                            itself.
-#   rereading_duration       regression_path - first_pass_duration if the first pass
-#                            ended in a regression, else 0 (Tobii's definition).
-#   second_pass_duration     Time on the sentence after reading started, outside the
-#                            first pass: total_duration - first_pass_duration -
-#                            landing_duration. For a sentence skipped on first pass, all
-#                            of its reading time (after the landing) counts here.
-#   n_passes                 Number of separate visits to the sentence after reading
-#                            started.
-#   n_revisits               Number of times the reader came back to the sentence after
-#                            its first pass ended (n_passes - 1). NA if the sentence was
-#                            skipped on first pass (it had no first pass to return to).
-#   revisited                1 if n_revisits > 0, else 0 (NA if skipped on first pass).
-#   n_regressions_in         Second-pass regressions: number of times the reader came
-#                            back to the sentence FROM LATER TEXT (a regression into the
-#                            sentence after first-pass reading had moved past it).
-#                            Re-entries from earlier text (after regressing out of the
-#                            sentence) are not counted. NA if skipped on first pass.
-#   regressed_in             1 if n_regressions_in > 0, else 0 (NA if skipped).
-#   pe_firstpass_*           popEye's first-pass measures, split into forward reading
-#                            and re-reading within the sentence (Step 6b).
+#                            page. Only used to describe why first_pass_duration was
+#                            bimodal (interrupted first passes).
 # =====================================================================================
 
 library(tidyverse)
@@ -273,17 +267,6 @@ layout <- map(1:4, \(p) {
   mutate(line = consecutive_id(paragraph, line_in_par)) |>
   ungroup() |>
   select(page, line, col, char, sentence_index)
-
-# Number the words on each page in reading order (a word = a run of non-space characters
-# on a line), continuing across sentences and lines as popEye does (Step 6b).
-layout <- layout |>
-  arrange(page, line, col) |>
-  group_by(page, line) |>
-  mutate(word_start = char != " " & lag(char, default = " ") == " ") |>
-  group_by(page) |>
-  mutate(word_index = if_else(char == " ", NA_integer_, cumsum(word_start))) |>
-  ungroup() |>
-  select(-word_start)
 
 # Sanity check: every sentence's letters are laid out exactly once
 letter_check <- layout |>
@@ -491,7 +474,7 @@ fix <- fix |>
 # earlier letter). Fixations more than `edge_tolerance_chars` beyond either end of the
 # line, or in chains more than half a line from any text line, are off the text.
 
-# `what` = which property of the nearest letter to return (its sentence or its word)
+# `what` = which property of the nearest letter to return (its sentence)
 nearest_letter <- function(page, line, col, what) {
   letters <- layout |>
     filter(page == !!page, line == !!line, char != " ") |>
@@ -500,7 +483,6 @@ nearest_letter <- function(page, line, col, what) {
   letters[[what]][idx]
 }
 sentence_at <- function(page, line, col) nearest_letter(page, line, col, "sentence_index")
-word_at     <- function(page, line, col) nearest_letter(page, line, col, "word_index")
 
 fix <- fix |>
   left_join(line_lengths, by = c("page", "line")) |>
@@ -512,12 +494,7 @@ fix <- fix |>
   mutate(sentence_corrected = if_else(
     on_text,
     sentence_at(first(page), first(line), pmin(pmax(col, first_col), last_col)),
-    NA_real_),
-    # word number on the page (used only for popEye's forward / re-reading split, Step 6b)
-    word_corrected = if_else(
-      on_text,
-      word_at(first(page), first(line), pmin(pmax(col, first_col), last_col)),
-      NA_integer_)) |>
+    NA_real_)) |>
   ungroup()
 
 # Tobii's own label, as a sentence number, for comparison
@@ -566,38 +543,31 @@ measures_one_page <- function(d) {
 
   map(sort(unique(d$sentence_corrected)), \(k) {
     first_visit <- which(visits$s == k)[1]
-    n_passes <- sum(visits$s == k)
 
     # Skipped on first pass: never visited after reading started, or a later sentence
     # had already been read when it was first visited
     if (is.na(first_visit) || visits$furthest_before[first_visit] > k) {
       return(tibble(sentence_index = k, first_pass_duration = NA_real_,
-                    first_pass_regression = NA_integer_, regression_path = NA_real_,
-                    selective_regression_path = NA_real_, n_passes = n_passes,
-                    n_revisits = NA_integer_, n_regressions_in = NA_integer_))
+                    first_pass_regression = NA_integer_,
+                    selective_regression_path = NA_real_, regressed_in = NA_integer_))
     }
 
     next_s <- if (first_visit < nrow(visits)) visits$s[first_visit + 1] else NA
-    # go-past window: from the first visit up to (not including) the first visit to a
-    # later sentence, or to the end of the page
+    # regression-path window: from the first visit up to (not including) the first visit
+    # to a later sentence, or to the end of the page
     first_later <- which(visits$s > k & seq_len(nrow(visits)) > first_visit)[1]
     window <- first_visit:(if (is.na(first_later)) nrow(visits) else first_later - 1)
+    # later visits to the sentence
+    later_visits <- which(visits$s == k & seq_len(nrow(visits)) > first_visit)
 
     tibble(sentence_index = k,
            first_pass_duration = visits$dur[first_visit],
            # no earlier text exists for sentence 1, so a regression is impossible there
            first_pass_regression = if (is.na(next_s) || k == 1) NA_integer_ else
              as.integer(next_s < k),
-           regression_path = sum(visits$dur[window]),
            selective_regression_path = sum(visits$dur[window][visits$s[window] == k]),
-           n_passes = n_passes,
-           # visits after the first pass = returns to the sentence
-           n_revisits = n_passes - 1L,
-           # returns that arrive from a later sentence = regressions into the sentence
-           n_regressions_in = {
-             later_visits <- which(visits$s == k & seq_len(nrow(visits)) > first_visit)
-             sum(visits$s[later_visits - 1] > k)
-           })
+           # a later visit that arrives from a later sentence = a regression into it
+           regressed_in = as.integer(any(visits$s[later_visits - 1] > k)))
   }) |>
     bind_rows() |>
     full_join(total, by = "sentence_index")
@@ -607,135 +577,8 @@ derived <- fix_text |>
   group_by(recording, page) |>
   group_modify(\(d, key) measures_one_page(d)) |>
   ungroup() |>
-  mutate(
-    rereading_duration = case_when(
-      is.na(first_pass_duration)    ~ NA_real_,
-      first_pass_regression %in% 1L ~ regression_path - first_pass_duration,
-      TRUE                          ~ 0
-    ),
-    # time outside the first pass, excluding the landing glances before reading started
-    second_pass_duration = total_duration - coalesce(first_pass_duration, 0) - landing_duration,
-    revisited = as.integer(n_revisits > 0),
-    regressed_in = as.integer(n_regressions_in > 0)
-  )
-
-
-# =====================================================================================
-# Step 6b. First-pass forward reading vs. re-reading (copied from popEye)
-# =====================================================================================
-# A line-by-line copy of the rules in popEye's ComputeSentenceMeasures() (Schroeder,
-# popEye 0.8.3, https://github.com/sascha2schroeder/popEye), applied to each reader x
-# page. The only change: popEye uses every fixation on the text, whereas here only
-# fixations after reading started (Step 5) are used. popEye has no page-landing
-# correction, so with every fixation, a landing partway down the page would make all
-# reading of the sentences above it count as look-back rather than first pass.
-#
-# The rules, in popEye's order:
-#   (1) Two-fixation exception rule: when the eyes move into another sentence and come
-#       back to the previous sentence within one or two fixations, those fixations are
-#       reassigned to the previous sentence.
-#   (2) First pass: a fixation is first pass if its sentence is the same as or later
-#       than the previous fixation's, and the sentence is either new or the sentence
-#       most recently entered for the first time. A fixation that moves back to an
-#       earlier sentence is not first pass. NOTE: this differs from first_pass_duration
-#       (Step 6): popEye's first pass includes returning to the sentence after a brief
-#       look back, as long as no later sentence has been entered in between.
-#   (3) Forward vs. re-reading: a fixation on a word beyond the furthest word reached so
-#       far on the page is forward (1); on a word before it, re-reading (0). A
-#       refixation of the furthest word itself is left unclassified (NA) and counts as
-#       neither, as in popEye.
-#   (4) Return sweeps: after a fixation that moves down to a new line, the next 3
-#       fixations are forward.
-#   (5) Sentence starts: after a fixation that enters a later sentence (before rule
-#       1), the next 2 fixations are forward.
-#   (6) Per sentence: number and summed duration of first-pass fixations, of
-#       first-pass forward fixations, and of first-pass re-reading fixations.
-#
-# COLUMNS (ms and counts; NA if the sentence was not fixated after reading started)
-#   pe_firstpass_nfix / _duration          all first-pass fixations (popEye's definition)
-#   pe_firstpass_forward_nfix / _duration  first-pass forward fixations
-#   pe_firstpass_reread_nfix / _duration   first-pass re-reading fixations
-#   (forward + re-reading can be less than first pass, because of rule 3's NA)
-
-pe_first_pass_one_page <- function(d) {
-  # d: on-text fixations of one reader on one page after reading started, in time order
-  s_raw <- d$sentence_corrected      # sentence before the exception rule (rule 5)
-  s     <- s_raw
-  w     <- d$word_corrected
-  n     <- length(s)
-
-  # (1) exception rule (popEye loops over fixations 2 .. n-2)
-  if (n >= 4) {
-    for (j in 2:(n - 2)) {
-      if (s[j] != s[j - 1] && (s[j + 1] == s[j - 1] || s[j + 2] == s[j - 1])) {
-        s[j] <- s[j - 1]
-      }
-    }
-  }
-
-  # (2) first pass and (3) forward
-  firstpass <- integer(n)
-  forward   <- rep(NA_integer_, n)
-  firstpass[1] <- 1L
-  forward[1]   <- 1L
-  mem      <- s[1]     # sentences in the order they were first entered
-  word_max <- w[1]     # furthest word reached so far
-  if (n >= 2) {
-    for (j in 2:n) {
-      if (s[j] >= s[j - 1]) {
-        if (s[j] %in% mem) {
-          firstpass[j] <- as.integer(s[j] == tail(mem, 1))
-        } else {
-          mem <- c(mem, s[j])
-          firstpass[j] <- 1L
-        }
-      } else {
-        firstpass[j] <- 0L
-      }
-      if (w[j] > word_max) {
-        word_max <- w[j]
-        forward[j] <- 1L
-      } else if (w[j] < word_max) {
-        forward[j] <- 0L
-      }                                  # equal: stays NA
-    }
-  }
-
-  # (4) return sweeps (popEye: fixations 1 .. n-3; the line change of fixation 1 is 0)
-  line_change <- c(0, diff(d$line))
-  if (n >= 4) {
-    for (i in 1:(n - 3)) {
-      if (line_change[i] > 0) forward[(i + 1):(i + 3)] <- 1L
-    }
-  }
-  # (5) sentence starts (popEye: fixations 2 .. n-3, using the sentence before rule 1)
-  if (n >= 5) {
-    for (i in 2:(n - 3)) {
-      if (s_raw[i] > s_raw[i - 1]) forward[(i + 1):(i + 2)] <- 1L
-    }
-  }
-
-  # (6) per sentence
-  tibble(sentence_index = s, dur = d$duration, fp = firstpass == 1L,
-         fwd = forward %in% 1L, rr = forward %in% 0L) |>
-    group_by(sentence_index) |>
-    summarise(pe_firstpass_nfix             = sum(fp),
-              pe_firstpass_duration         = sum(dur[fp]),
-              pe_firstpass_forward_nfix     = sum(fp & fwd),
-              pe_firstpass_forward_duration = sum(dur[fp & fwd]),
-              pe_firstpass_reread_nfix      = sum(fp & rr),
-              pe_firstpass_reread_duration  = sum(dur[fp & rr]),
-              .groups = "drop")
-}
-
-pe_derived <- fix_text |>
-  filter(reading) |>
-  group_by(recording, page) |>
-  group_modify(\(d, key) pe_first_pass_one_page(d)) |>
-  ungroup()
-
-derived <- derived |>
-  left_join(pe_derived, by = c("recording", "page", "sentence_index"))
+  # time on the sentence after the reader first moved on to later text
+  mutate(rereading_duration = total_duration - landing_duration - selective_regression_path)
 
 
 # =====================================================================================
@@ -761,11 +604,11 @@ out <- labelled_pages |>
     derived_available = paste(recording, page) %in%
       paste(labelled_pages$recording, labelled_pages$page),
     total_duration = if_else(derived_available, replace_na(total_duration, 0), NA_real_),
-    n_passes = if_else(derived_available, replace_na(n_passes, 0L), NA_integer_),
-    landing_duration = if_else(derived_available, replace_na(landing_duration, 0), NA_real_),
-    second_pass_duration = if_else(derived_available, replace_na(second_pass_duration, 0),
-                                   NA_real_)
-  )
+    landing_duration = if_else(derived_available, replace_na(landing_duration, 0), NA_real_)
+  ) |>
+  select(recording:number_of_units, total_duration, landing_duration,
+         selective_regression_path, rereading_duration, regressed_in,
+         first_pass_duration, first_pass_regression, derived_available)
 
 write_tsv(out, out_file)
 
@@ -775,7 +618,7 @@ fix |>
             by = c("recording", "page", "event_index")) |>
   transmute(recording, participant, page, event_index, duration,
             x = fixation_point_x, y_recorded = fixation_point_y, y_corrected,
-            line, sentence_tobii, sentence_corrected, word = word_corrected,
+            line, sentence_tobii, sentence_corrected,
             reading = replace_na(reading, FALSE)) |>
   write_tsv(fixations_file)
 

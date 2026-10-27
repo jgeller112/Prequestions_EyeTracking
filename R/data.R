@@ -5,7 +5,6 @@
 # Objects used by the analyses:
 #   dat         one row per analysed participant x target sentence, all conditions
 #   dat_rel     dat in the Polio and TB conditions, with relevance (prequestioned or not)
-#   dvs         the eye-movement measures analysed with GLMMs
 #   excluded_*  the participants excluded at each step (with reasons)
 #   calib_*     calibration accuracy and precision
 #   test_scores, preq_scores   scored final test and prequestions (by topic / participant)
@@ -19,45 +18,30 @@ if (!exists("params")) params <- list(measures = "derived")
 stopifnot(params$measures == "derived")
 
 # Sentence-level measures (data/derived/et_measures.tsv, written by derive_et_measures.R
-# from the fixation data, data/raw/tobii/fixations.tsv), with common column names:
-#   total       all fixation time on the sentence (ms)
-#   first_pass  first-pass time (ms); NA if the sentence was skipped on first pass
-#   go_past     selective go-past time (ms): fixations on the sentence from first entering
-#               it until the first move to later text (brief returns to earlier text do
-#               not end it, and time on earlier text is not counted); NA if skipped
-#   second_pass time on the sentence after reading started, outside the first pass (ms)
-#   fp_regression  1 if the first exit from the sentence went to earlier text, 0 if to
-#               later text; NA if no first pass (or the page ended during it)
-#   regressed_in  second-pass regression: whether the reader came back to the sentence
-#               from later text after first-pass reading
+# from the fixation data, data/raw/tobii/fixations.tsv), with common column names; only
+# the measures analysed in the manuscript (definitions in derive_et_measures.R):
+#   total         total gaze duration: all fixation time on the sentence (ms)
+#   go_past       selective regression-path duration (first-pass reading; ms): fixations
+#                 on the sentence from first entering it until the first move to later
+#                 text; NA if the sentence was skipped on first pass
+#   reread_after  re-reading time: time on the sentence after the reader first moved on to
+#                 later text (total minus the landing fixations and go_past; ms); NA if
+#                 skipped on first pass
+#   regressed_in  regression-in (look-back): whether the reader came back to the sentence
+#                 from later text after first-pass reading
 measures_src <- read_tsv(here::here("data", "derived", "et_measures.tsv"), show_col_types = FALSE) |>
   transmute(participant, group, type, aoi, number_of_units, sentence_index,
             total = total_duration,
-            first_pass = first_pass_duration,
             go_past = selective_regression_path,
-            landing = landing_duration,
-            second_pass = second_pass_duration,
-            fp_regression = first_pass_regression,
-            regressed_in = regressed_in,
-            # popEye's first pass split into forward reading and re-reading within
-            # the sentence (derive_et_measures.R, Step 6b; exploratory)
-            fp_forward = pe_firstpass_forward_duration,
-            fp_reread = pe_firstpass_reread_duration)
-
-# A first-pass regression is impossible from the first sentence on a page (there is no
-# earlier text), so the value there is always 0; it is treated as missing for both
-# measure sources (derive_et_measures.R already does this)
-measures_src <- measures_src |>
-  mutate(fp_regression = if_else(sentence_index == 1, NA_integer_, as.integer(fp_regression)))
+            reread_after = rereading_duration,
+            regressed_in = regressed_in)
 
 # Only sentences that were fixated are analysed. A sentence that was never fixated has no
-# reading time, so its total and second-pass durations (0 in the derived file) are set to
-# missing; its first-pass measures and regressed_in are already missing. It therefore
-# drops out of every model, including whether it was re-read.
+# reading time, so its total duration (0 in the derived file) is set to missing; its other
+# measures are already missing. It therefore drops out of every model.
 measures_src <- measures_src |>
-  mutate(fixated     = total > 0,
-         total       = if_else(fixated, total, NA_real_),
-         second_pass = if_else(fixated, second_pass, NA_real_))
+  mutate(fixated = total > 0,
+         total   = if_else(fixated, total, NA_real_))
 
 # `group` is a reserved name in marginaleffects (used by modelbased), so it is
 # renamed to `condition`
@@ -74,23 +58,15 @@ dat <- measures_src |>
     cond_polio  = (condition == "Polio") - 1/3,
     cond_tb     = (condition == "TB") - 1/3,
     total_fix   = total,
-    second_pass = second_pass,
-    first_pass  = first_pass,
     go_past     = go_past,
-    # re-reading after moving on: time on the sentence after the reader first moved on to
-    # later text (total minus the landing fixations and selective go-past time); NA if
-    # the sentence had no first pass
-    reread_after = total - landing - go_past,
-    fp_regression = fp_regression,                        # binary; not length-normalised
-    regressed_in     = regressed_in,                      # binary
-    fp_forward  = fp_forward,                             # exploratory (popEye)
-    fp_reread   = fp_reread,                              # exploratory (popEye)
+    reread_after = reread_after,
+    regressed_in = regressed_in,                          # binary; not length-normalised
     sentence    = factor(aoi),
     n_words     = number_of_units   # words per sentence (Tobii "Number of units")
   )
 
 if (length_norm) {
-  dat <- dat |> mutate(across(c(total_fix, second_pass, first_pass, go_past, reread_after, fp_forward, fp_reread),
+  dat <- dat |> mutate(across(c(total_fix, go_past, reread_after),
                               ~ .x / n_words))
 }
 
@@ -99,22 +75,6 @@ if (length_norm) {
 dat <- dat |>
   mutate(reread_any  = if_else(is.na(reread_after), NA_integer_, as.integer(reread_after > 0)),
          reread_time = if_else(reread_after > 0, reread_after, NA_real_))
-
-# Preregistered DVs. `directional`: TRUE = the preregistered prediction gives a
-# direction (longer processing of prequestioned content), so Polio- and TB-condition
-# contrasts are one-sided; FALSE = no direction preregistered, all contrasts two-sided.
-# Binomial DVs are reported in percent (means) and percentage points (differences).
-# `level`: global (late) vs. local (early) measure.
-# Total gaze duration is not in this table: it is analysed with the preregistered
-# ex-Gaussian model in its own section below.
-# Families: "gamma" = Gamma GLMM with log link (durations); "binomial" = logistic GLMM.
-dvs <- tribble(
-  ~dv,             ~label,                                    ~level,   ~unit,     ~family,    ~directional,
-  "reread_any",    "Re-reading: probability of re-reading",   "Global", "%",       "binomial", TRUE,
-  "reread_time",   "Re-reading: duration when re-read",       "Global", dur_unit,  "gamma",    TRUE,
-  "first_pass",    "First-pass duration",                     "Local",  dur_unit,  "gamma",    TRUE,
-  "fp_regression", "First-pass regression",                   "Local",  "%",       "binomial", FALSE
-)
 
 # ---- Exclusions ------------------------------------------------------------------------
 # Pages with eye-tracking data = pages with recorded fixations that were processed by

@@ -1,11 +1,13 @@
 ---
-title: "I Remember That Question: How Prequestions Shape Reading"
+title: "I Remember That Question: Using Eye Tracking to See How Prequestions Shape Reading"
 shorttitle: "Prequestions and Eye-Tracking"
 author:
   - name: Jason Geller
     corresponding: true
     email: drjasongeller@gmail.com
-    roles: [conceptualization, writing, editing, formal analysis]
+    roles: [conceptualization, methodology, software, validation, formal analysis, investigation,
+            data curation, writing – original draft, writing – review & editing, visualization,
+            project administration]
     affiliations:
       - id: 1
         name: "Boston College"
@@ -20,11 +22,14 @@ author-note:
     data-sharing: "All data (raw and processed), materials, analysis scripts and code, and the source of this manuscript are available at https://github.com/jgeller112/Prequestions_EyeTracking."
     conflict-of-interest: The author has no conflicts of interest to disclose.
     gratitude: "I thank Shana Carpenter for help with the materials and with conceptualizing the study."
-abstract: "Answering questions before learning (prequestions) improves memory for the information the questions address, but how it does so is unclear. A common proposal is that prequestions direct attention to that information. We tested this attention-based account by recording eye movements while participants read a text about polio and tuberculosis (TB) after answering prequestions about polio, prequestions about TB, or no prequestions. Because the two prequestion groups were asked about different topics, every target sentence was read both with and without prequestions. On a later test, prequestions improved memory for the prequestioned information but not for the rest of the text. Eye movements showed the same specificity. Ex-Gaussian models, which separate typical reading time from occasional unusually long readings, showed that prequestions did not change the typical reading time of the sentences that answered them, either during first-pass reading or overall. Instead, these sentences received more unusually long readings, were looked back to more often from later text, and were re-read for longer when readers returned to them. Sentences that did not answer a prequestion were read as they were without prequestions. Prequestions thus guide attention selectively, but not simply by heightening it: readers pause on some answers and return to them later, consistent with additional processing triggered when they recognize an answer to a prequestion."
+abstract: "Answering questions before learning (prequestions) improves memory for the information they address, but how it does so is unclear. A common proposal is that prequestions direct attention to that information. We tested this account by recording eye movements while participants read a text about polio and tuberculosis after answering prequestions about one topic or none, so that every target sentence was read both with and without prequestions. Prequestions improved memory only for the prequestioned information, and eye movements showed the same specificity. Ex-Gaussian models, which separate typical reading time from occasional unusually long readings, showed that prequestions did not change typical reading of the answer sentences. Instead, these sentences received more unusually long readings, were looked back to more often, and were re-read for longer; other sentences were unaffected. Prequestions thus guide attention selectively rather than heightening it, consistent with additional processing when readers recognize an answer."
 keywords: [prequestions, pretesting, eye tracking, reading, attention, learning]
 floatsintext: true
 numbered-lines: true
 mask: false
+# Blinded version for review: MS_MASKED=true quarto render ... -M mask:true (see README);
+# hides the author block and note, these citations, and identifying links in the text
+masked-citations: [geller2017]
 draft-date: false
 lang: en
 # APA citation style, in the project folder (Typst rejects the extension's escaped path)
@@ -70,6 +75,9 @@ knitr:
 #   5. this file (reads the results, then writes the paper)
 params <- list(measures = "derived")
 source(here::here("R", "setup.R"), local = knitr::knit_global())
+# Blinded version for review (MS_MASKED=true): identifying details in the text are replaced
+masked <- Sys.getenv("MS_MASKED") == "true"
+msk <- \(x) if (masked) "[masked for review]" else x
 # Everything below is read from files written by earlier targets; nothing is refitted or
 # recomputed here. Sample, exclusions, calibration, materials and fixation-processing
 # numbers: scripts/manuscript_inputs.R -> data/derived/manuscript_inputs.rds
@@ -77,6 +85,24 @@ list2env(readRDS(here::here("data", "derived", "manuscript_inputs.rds")), envir 
 # Agreement between the automated scoring and the second rater: scripts/rater_agreement.R
 rater <- readRDS(here::here("data", "derived", "rater_agreement.rds"))
 img2 <- png::readPNG(here::here("stimuli", "pages", "page2_full.png"))
+# Every figure is also saved to manuscript/figures/ at full size, as a 600-dpi PNG and a
+# vector PDF, numbered in order (figure1_aois.png, ...): after each fig- chunk, its code is
+# evaluated again and the resulting plot saved
+fig_dir <- here::here("manuscript", "figures")
+dir.create(fig_dir, showWarnings = FALSE)
+fig_count <- 0
+knitr::knit_hooks$set(save_figure = function(before, options, envir) {
+  if (before || !startsWith(options$label, "fig-")) return(invisible())
+  fig_count <<- fig_count + 1
+  p <- eval(parse(text = options$code), envir = envir)
+  name <- file.path(fig_dir, sprintf("figure%d_%s", fig_count, sub("^fig-", "", options$label)))
+  ggsave(paste0(name, ".png"), p, width = options$fig.width, height = options$fig.height,
+         dpi = 600, bg = "white")
+  ggsave(paste0(name, ".pdf"), p, width = options$fig.width, height = options$fig.height,
+         device = cairo_pdf, bg = "white")
+  invisible()
+})
+knitr::opts_chunk$set(save_figure = TRUE)
 # Functions: text helpers, page figures, path diagram
 source(here::here("R", "manuscript_helpers.R"), local = knitr::knit_global())
 
@@ -85,7 +111,7 @@ source(here::here("R", "manuscript_helpers.R"), local = knitr::knit_global())
 pipeline_packages <- c("tidyverse", "janitor", "png", "modelbased", "marginaleffects",
                        "insight", "brms", "cmdstanr", "cogmod", "bayestestR",
                        "priorsense", "ggdist", "quanteda", "quanteda.textstats", "udpipe",
-                       "patchwork", "scales", "knitr", "xfun")
+                       "irr", "patchwork", "scales", "knitr", "xfun")
 pkg_versions <- paste0(pipeline_packages, " ",
                        map_chr(pipeline_packages, \(p) as.character(packageVersion(p))))
 
@@ -105,7 +131,7 @@ cite_key <- c(tidyverse = "tidyverse2019", janitor = "R-janitor", png = "R-png",
               bayestestR = "bayestestR2019",
               priorsense = "priorsense2023", ggdist = "ggdist2024",
               quanteda = "quanteda2018", quanteda.textstats = "R-quanteda.textstats",
-              udpipe = "R-udpipe",
+              udpipe = "R-udpipe", irr = "R-irr",
               patchwork = "R-patchwork", scales = "R-scales", knitr = "knitr2015",
               xfun = "R-xfun")
 bib_keys <- str_match(readLines(here::here("manuscript", "packages.bib")), "^@[A-Za-z]+\\{([^,]+),")[, 2]
@@ -151,32 +177,6 @@ bayes <- local({
   }
   out
 })
-```
-
-```{r}
-#| label: bf-sensitivity
-#| include: false
-# Bayes factor sensitivity to the prior width on the effects (scripts/bf_sensitivity.R):
-# every effect prior at half and twice its width; width 1 = the main analysis
-sens_bf <- local({
-  s <- readRDS(here::here("analysis", "results_bf_sensitivity.rds")) |>
-    select(model, parameter, comparison, design, width, BF10)
-  main <- bind_rows(mutate(bayes$bf, design = "status"), mutate(bayes$bf_topic, design = "topic")) |>
-    filter(model %in% unique(s$model)) |>
-    select(model, parameter, comparison, design, BF10) |>
-    mutate(width = 1)
-  bind_rows(s, main) |>
-    filter(design == "status" | grepl("^Interaction", comparison)) |>
-    mutate(effect = case_when(grepl("^Prequestioned", comparison) ~ "Specific",
-                              grepl("^Non-prequestioned", comparison) ~ "General",
-                              TRUE ~ "Interaction")) |>
-    select(model, parameter, effect, width, BF10) |>
-    pivot_wider(names_from = width, values_from = BF10, names_prefix = "w")
-})
-# conclusions robust: Bayes factors beyond 3 or 1/3 at the original width stay on the same
-# side of 1 at both other widths
-sens_ok <- with(sens_bf, all((w1 <= 3 | (w0.5 > 1 & w2 > 1)) & (w1 >= 1/3 | (w0.5 < 1 & w2 < 1))))
-sens_cross <- with(sens_bf, sum(pmin(w0.5, w1, w2) < 1 & pmax(w0.5, w1, w2) > 1))
 ```
 
 ```{r}
@@ -399,13 +399,13 @@ For eye movements, we predicted a specific effect: prequestioned information wou
 
 # Method
 
-We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. The study was preregistered (https://osf.io/8env4). All data, materials, and analysis scripts and code are available at https://github.com/jgeller112/Prequestions_EyeTracking; every number, table, and figure in this article is computed from the raw data by the code in that repository.
+We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. The study was preregistered (`r if (masked) 'https://osf.io/8env4/overview?view_only=5073f3b1114944c1a6c63339132a5ad5' else 'https://osf.io/8env4'`). All data, materials, and analysis scripts and code are available at `r if (masked) 'https://anonymous.4open.science/r/Prequestions_EyeTracking-B118/' else 'https://github.com/jgeller112/Prequestions_EyeTracking'`; every number, table, and figure in this article is computed from the raw data by the code in that repository. The author used generative AI (Claude Opus 5.5, Anthropic) to draft and edit text and to check references; the author verified all content and citations and takes full responsibility for the article.
 
 ## Participants
 
 The target sample size was based on the specific benefit of prequestions. A recent meta-analysis reported a medium-sized specific benefit (*g* = 0.54; @sthilaire2023), corresponding to an odds ratio of 2.66. A simulation-based power analysis with mixedpower [@kumle2021] for the preregistered binomial mixed model, based on pilot data, indicated that 45 participants per group would provide 90% power to detect an effect of this size. We therefore planned to test 45 participants in each of the three conditions (135 in total). 
 
-Participants were recruited from the Boston College SONA subject pool and received course credit. Eye-tracking data were recorded from `r n_recordings` participants. `r excl_n(excluded_incomplete, "had eye-tracking data for fewer than all four pages of the text")` `r excl_n(excluded_calibration, "did not meet the preregistered calibration criterion (accuracy and precision of 0.5° or better) or could not be calibrated")` `r excl_n(excluded_no_pretest, "were in a prequestion condition but had no prequestion responses")` `r excl_n(excluded_no_test, "had no final test data")` The final sample comprised `r n_total` participants (no prequestions: `r n_by_cond$n[1]`; Polio prequestions: `r n_by_cond$n[2]`; TB prequestions: `r n_by_cond$n[3]`). `r if (calib_n == n_total) 'Calibration validation data were available for all included participants.' else sprintf('Calibration validation data were available for %d of the %d included participants.', calib_n, n_total)` Mean accuracy was `r num(calib_summary$accuracy_M, 2)`° (*SD* = `r num(calib_summary$accuracy_SD, 2)`, range `r num(calib_summary$accuracy_min, 2)`–`r num(calib_summary$accuracy_max, 2)`), and mean precision (*SD* of gaze samples) was `r num(calib_summary$precision_M, 2)`° (*SD* = `r num(calib_summary$precision_SD, 2)`, range `r num(calib_summary$precision_min, 2)`–`r num(calib_summary$precision_max, 2)`). `r if (nrow(calib_over) == 0) 'All included participants with calibration data met the criterion.' else sprintf('%d participants exceeded the preregistered criterion of 0.5° (%s) and were retained.', nrow(calib_over), paste(sprintf('accuracy %s°, precision %s°', num(calib_over$accuracy, 2), num(calib_over$precision, 2)), collapse = '; '))` The preregistered exclusion of participants with high prior knowledge was not applied.
+Participants were recruited from the `r if (masked) 'university' else 'Boston College'` SONA subject pool and received course credit. Eye-tracking data were recorded from `r n_recordings` participants. `r excl_n(excluded_incomplete, "had eye-tracking data for fewer than all four pages of the text")` `r excl_n(excluded_calibration, "did not meet the preregistered calibration criterion (accuracy and precision of 0.5° or better) or could not be calibrated")` `r excl_n(excluded_no_pretest, "were in a prequestion condition but had no prequestion responses")` `r excl_n(excluded_no_test, "had no final test data")` The final sample comprised `r n_total` participants (no prequestions: `r n_by_cond$n[1]`; Polio prequestions: `r n_by_cond$n[2]`; TB prequestions: `r n_by_cond$n[3]`). `r if (calib_n == n_total) 'Calibration validation data were available for all included participants.' else sprintf('Calibration validation data were available for %d of the %d included participants.', calib_n, n_total)` Mean accuracy was `r num(calib_summary$accuracy_M, 2)`° (*SD* = `r num(calib_summary$accuracy_SD, 2)`, range `r num(calib_summary$accuracy_min, 2)`–`r num(calib_summary$accuracy_max, 2)`), and mean precision (*SD* of gaze samples) was `r num(calib_summary$precision_M, 2)`° (*SD* = `r num(calib_summary$precision_SD, 2)`, range `r num(calib_summary$precision_min, 2)`–`r num(calib_summary$precision_max, 2)`). `r if (nrow(calib_over) == 0) 'All included participants with calibration data met the criterion.' else sprintf('%d participants exceeded the preregistered criterion of 0.5° (%s) and were retained.', nrow(calib_over), paste(sprintf('accuracy %s°, precision %s°', num(calib_over$accuracy, 2), num(calib_over$precision, 2)), collapse = '; '))` The preregistered exclusion of participants with high prior knowledge was not applied.
 
 ## Materials
 
@@ -425,7 +425,7 @@ At the start of the session, each participant was randomly assigned to one of th
 
 ### Prequestions
 
-Participants in the two prequestion conditions answered the five short-answer questions on their topic (Polio or TB), in a random order (https://run.pavlovia.org/Jgeller112/preq). They were told that they might not know the correct answers but should give their best guess. Each question was shown on the screen with a box below it, into which participants typed their response. They had unlimited time and pressed a triangle at the bottom of the screen when they were finished. No feedback was given.
+Participants in the two prequestion conditions answered the five short-answer questions on their topic (Polio or TB), in a random order (`r msk('https://run.pavlovia.org/Jgeller112/preq')`). They were told that they might not know the correct answers but should give their best guess. Each question was shown on the screen with a box below it, into which participants typed their response. They had unlimited time and pressed a triangle at the bottom of the screen when they were finished. No feedback was given.
 
 ### Reading
 
@@ -433,15 +433,15 @@ Before reading, the eye tracker was calibrated with Tobii Pro Lab's 9-point cali
 
 ### Distractor Task
 
-After reading, all participants completed the president recognition task (https://run.pavlovia.org/Jgeller112/preq_president), a distractor task lasting approximately 3 minutes.
+After reading, all participants completed the president recognition task (`r msk('https://run.pavlovia.org/Jgeller112/preq_president')`), a distractor task lasting approximately 3 minutes.
 
 ### Final Test
 
-Participants then answered all ten final-test questions—five on Polio and five on TB—in a random order (https://run.pavlovia.org/Jgeller112/preQ_test), in the same format as the prequestions, with unlimited time and no feedback. For participants in the prequestion conditions, five of the questions were the prequestions they had answered before reading, and five were new. Finally, participants were thanked and debriefed.
+Participants then answered all ten final-test questions—five on Polio and five on TB—in a random order (`r msk('https://run.pavlovia.org/Jgeller112/preQ_test')`), in the same format as the prequestions, with unlimited time and no feedback. For participants in the prequestion conditions, five of the questions were the prequestions they had answered before reading, and five were new. Finally, participants were thanked and debriefed.
 
 ## Scoring
 
-Prequestion and final test responses were scored by Claude Opus 5.5 (Anthropic; model ID `claude-opus-5-5`). Rather than judging responses one at a time, Claude wrote a deterministic, rule-based scoring script (`scoring_rubric.R`, with `grade_prequestions.R` and `grade_test.R`) that awarded one point for each element of the correct answer present in a response, and applied it identically to every response. The scoring rules for each question are given in @apx-a. To check the automated scoring, a research assistant who was blind to condition, test phase, and the automated scores independently scored all `r format(rater$overall$n, big.mark = ',')` responses that were not blank. The two scorings agreed exactly on `r pct(rater$overall$exact)` of responses, and agreement was excellent, ICC(2,1) = `r sub('^0', '', fmt_num(rater$overall$icc, 2))`, 95% CI [`r sub('^0', '', fmt_num(rater$overall$icc_lo, 2))`, `r sub('^0', '', fmt_num(rater$overall$icc_hi, 2))`], using a two-way random-effects, absolute-agreement, single-rater ICC [@shrout1979; @koo2016]. For participants' final test totals, ICC(2,1) = `r sub('^0', '', fmt_num(rater$totals$icc, 2))`. Agreement for each question is given in @tbl-scoring. All analyses used the automated scores.
+Prequestion and final test responses were scored by Claude Opus 5.5 (Anthropic; model ID `claude-opus-5-5`). Rather than judging responses one at a time, Claude wrote a deterministic, rule-based scoring script (`scoring_rubric.R`, with `grade_prequestions.R` and `grade_test.R`) that awarded one point for each element of the correct answer present in a response, and applied it identically to every response. The scoring rules for each question are given in @apx-a. To check the automated scoring, a research assistant who was blind to condition, test phase, and the automated scores independently scored all `r format(rater$overall$n, big.mark = ',')` responses that were not blank. The two scorings agreed exactly on `r pct(rater$overall$exact)` of responses, and agreement was excellent, ICC(2,1) = `r sub('^0', '', fmt_num(rater$overall$icc, 2))`, 95% CI [`r sub('^0', '', fmt_num(rater$overall$icc_lo, 2))`, `r sub('^0', '', fmt_num(rater$overall$icc_hi, 2))`], using a two-way random-effects, absolute-agreement, single-rater ICC [@shrout1979; @koo2016], computed with the irr package [@R-irr]. For participants' final test totals, ICC(2,1) = `r sub('^0', '', fmt_num(rater$totals$icc, 2))`. Agreement for each question is given in @tbl-scoring. All analyses used the automated scores.
 
 ## Eye-Movement Data Processing
 
@@ -505,36 +505,22 @@ wrap_plots(map(1:4, \(p) page_panel(p, label_size = 3.4)), ncol = 2, guides = "c
 
 ## Eye-Movement Measures
 
-All measures were computed for each participant and target sentence. Durations were divided by the number of words in the sentence (ms per word), because target sentences differed in length. Only sentences that were fixated were analysed: a target sentence that received no fixation has no reading time, so its measures were treated as missing (`r n_not_fixated` of `r n_dat` target sentences, `r pct(n_not_fixated / n_dat)`). Following the eye-movement literature, we distinguish *global* measures, which reflect all processing of a sentence including later returns to it, from *local* measures, which reflect processing when the sentence is first encountered (@tbl-measures).
+All measures were computed for each participant and target sentence. Durations were divided by the number of words in the sentence (ms per word), because target sentences differed in length. Only sentences that were fixated were analysed: a target sentence that received no fixation has no reading time, so its measures were treated as missing (`r n_not_fixated` of `r n_dat` target sentences, `r pct(n_not_fixated / n_dat)`). Following the eye-movement literature, we distinguish *global* measures, which reflect all processing of a sentence including later returns to it, from *local* measures, which reflect processing when the sentence is first encountered (@fig-measures).
 
 ```{r}
-#| label: tbl-measures
-#| tbl-cap: "Eye-Movement Measures"
-#| tbl-colwidths: [20, 9, 45, 26]
-#| apa-note: "Definitions follow @schotter2025. All measures were computed for each participant and target sentence; durations were divided by the number of words in the sentence and are reported in milliseconds per word. The preregistered first-pass duration (fixations until the sentence is first exited) was replaced by selective regression-path duration (see Statistical Analysis). Selective regression-path duration is defined only for sentences fixated before any later sentence (not skipped). The duration measures do not overlap: for these sentences, total gaze duration is the sum of selective regression-path duration, re-reading time, and any fixations made before reading started on the page. Global measures include later returns to the sentence; the local measure reflects processing when the sentence is first encountered."
-tribble(
-  ~Measure, ~Type, ~Definition, ~`Analysed as`,
-  "Selective regression-path duration (first-pass reading)", "Local",
-  "Summed duration of fixations on the sentence from first entering it until the eyes first move past it to later text; also called right-bounded reading time or selective go-past time. Fixations on earlier text during this period are not counted.",
-  "Ex-Gaussian: μ and τ, as for total gaze duration",
-  "Total gaze duration", "Global",
-  "Summed duration of all fixations on the sentence (total time).",
-  "Ex-Gaussian: μ (typical reading time) and τ (tail of unusually long readings)",
-  "Regression-in (look-back)", "Global",
-  "Whether the eyes returned to the sentence from later text after the reader had first moved on to later text (0/1).",
-  "Logistic",
-  "Re-reading time", "Global",
-  "Summed duration of fixations on the sentence after the reader had first moved on to later text, that is, on returns to it. Operationalizes the preregistered \"re-reading durations back to the prequestioned information.\"",
-  "Gamma (log link), for sentences that were re-read"
-) |>
-  knitr::kable(format = "pipe")
+#| label: fig-measures
+#| fig-cap: "Eye-Movement Measures, Illustrated With a Schematic Reading Example"
+#| apa-note: "Definitions follow @schotter2025. The circles are fixations, numbered in time order (arrows: saccades; dashed arrows: regressions; dotted arrows: moves to the next line); the shaded sentence is the target, and each fixation is coloured by the measure it counts towards for the target. *Selective regression-path duration* (first-pass reading; also called right-bounded reading time or selective go-past time) sums the fixations on the sentence from first entering it until the eyes first move past it to later text; fixations on earlier text during this period (here, 6) are not counted and do not end it. *Total gaze duration* sums all fixations on the sentence. *Regression-in* records whether the eyes returned to the sentence from later text (0/1). *Re-reading time* sums the fixations on the sentence after the reader had first moved on to later text (operationalizing the preregistered \"re-reading durations back to the prequestioned information\"). Selective regression-path duration is defined only for sentences fixated before any later sentence (not skipped). The duration measures do not overlap: total gaze duration is the sum of selective regression-path duration, re-reading time, and any fixations made before reading started on the page. Global measures include later returns to the sentence; the local measure reflects processing when the sentence is first encountered. The preregistered first-pass duration (fixations until the sentence is first exited) would here be 3 + 4 + 5 only, cut short by the brief return at 6; it was replaced by selective regression-path duration (see Statistical Analysis). All durations were divided by the number of words in the sentence (ms per word)."
+#| fig-width: 6.5
+#| fig-height: 4.1
+measures_schematic()
 ```
 
 ## Statistical Analysis
 
 All analyses were conducted in R version `r paste(R.version$major, R.version$minor, sep = '.')` [@R-base].^[`r software_footnote`] The effects of prequestions on test performance and eye movements were estimated with Bayesian mixed models in brms [@brms2017], which fits models in Stan [@stan2017], run through cmdstanr [@R-cmdstanr] with CmdStan `r as.character(cmdstanr::cmdstan_version())`. Each target sentence, and each final-test question, was coded by its status for the reader: *prequestioned* (Polio sentences and questions for readers in the Polio condition, TB sentences and questions for readers in the TB condition), *non-prequestioned* (the other topic for those readers), or *no-prequestion* (both topics for readers in the no-prequestion condition). The main models pooled the two prequestion conditions, with Status and Topic (Polio, TB) as fixed effects. The *specific effect* of prequestions was the difference prequestioned − no-prequestion: the same sentences or questions for readers whose prequestions they answered and for readers who saw no prequestions. The *general effect* was non-prequestioned − no-prequestion. Because each topic contributes equally to the prequestioned, non-prequestioned, and no-prequestion cells, differences between the Polio and TB materials cancel in these comparisons. Both the specific and general effects and their breakdown by topic were preregistered. To break the effects down by topic, we fitted the preregistered Group (Polio prequestions, TB prequestions, or no prequestions) × Topic (Polio, TB) models with the same families and priors. Following the preregistered hypotheses, we estimated the Polio − TB difference within each group—predicted to be positive in the Polio group, negative in the TB group, and absent in the no-prequestion group—and the Group × Topic interaction contrast, the Polio group's Polio − TB difference minus the TB group's, predicted to be positive. Because the Polio and TB sentences (and questions) are different items, each within-group Polio − TB difference combines any effect of prequestions with differences between the items, and with five items per topic, the population-level topic difference is estimated imprecisely. Each within-group difference was therefore interpreted together with the interaction contrast, in which the item differences cancel because both groups read the same items.
 
-Reading times are strongly right-skewed, so no duration was analysed with a Gaussian model. As preregistered for heavily skewed durations, total gaze duration was analysed with an ex-Gaussian distributional model (cogmod; @R-cogmod), which describes a duration as the sum of a Gaussian component, whose mean μ reflects typical reading time, and an exponential component, whose mean τ reflects the tail of unusually long readings. The fixed and random effects applied to both μ and τ, and σ had by-participant random intercepts. The preregistered first-pass duration, from first entering a sentence until first leaving it, could not be described by any of the distributions we considered (ex-Gaussian, Gamma, lognormal), because it mixes two kinds of first pass. About half of first passes, in all three conditions, were cut short after a few fixations by a brief return to the preceding line, so the distribution had two modes: interrupted first passes of a few hundred milliseconds and complete first readings of several seconds. First-pass reading was therefore measured as selective regression-path duration [also called right-bounded reading time; @schotter2025]: the time spent on the sentence from first entering it until the eyes first moved past it to later text, so that brief returns to earlier text did not end it and time spent on earlier text was not counted (@tbl-measures). Its distribution was unimodal and right-skewed and closely described by the ex-Gaussian, so it was analysed with the same ex-Gaussian model as total gaze duration (μ and τ). Re-reading time was the time spent on a sentence after the reader had first moved on to later text, so that the two measures do not overlap [cf. rereading time in @schotter2025]. Whether readers returned to a sentence from later text is captured by regressions-in (0/1), which were analysed with logistic models; re-reading time was analysed for the `r pct(1 - share_not_reread)` of sentences that were re-read, with a Gamma model with a log link, which models positive, right-skewed durations without transforming them [@lo2015]; the ex-Gaussian was not suitable, because re-reading times were close to exponentially distributed, so that its Gaussian component collapsed (σ near zero). The model therefore describes how long readers re-read a sentence once they had returned to it. Because the questions were worth different numbers of points (1–4), final test performance was analysed as the points earned on each question out of its maximum, with a beta-binomial model: a binomial model of the points earned with an additional parameter for overdispersion, because a participant tends to know all or none of a question's elements. Effects are reported on the scale of the expected proportion of a question's points, which puts all questions on the same 0–1 scale. Because each question has at most four points, scores can take only a few values (0, .25, .33, .50, .67, .75, and 1). In posterior predictive checks, the beta-binomial model reproduced how often each score occurred (predicted and observed shares within `r fmt_num(100 * max(abs(filter(bayes$score_fit, model == 'Beta-binomial')$predicted - filter(bayes$score_fit, model == 'Beta-binomial')$observed)), 1)` percentage points), better than a binomial model without overdispersion. Prequestion performance was analysed in the same way, comparing the two prequestion conditions.
+Reading times are strongly right-skewed, so no duration was analysed with a Gaussian model. As preregistered for heavily skewed durations, total gaze duration was analysed with an ex-Gaussian distributional model (cogmod; @R-cogmod), which describes a duration as the sum of a Gaussian component, whose mean μ reflects typical reading time, and an exponential component, whose mean τ reflects the tail of unusually long readings. The fixed and random effects applied to both μ and τ, and σ had by-participant random intercepts. The preregistered first-pass duration, from first entering a sentence until first leaving it, could not be described by any of the distributions we considered (ex-Gaussian, Gamma, lognormal), because it mixes two kinds of first pass. About half of first passes, in all three conditions, were cut short after a few fixations by a brief return to the preceding line, so the distribution had two modes: interrupted first passes of a few hundred milliseconds and complete first readings of several seconds. First-pass reading was therefore measured as selective regression-path duration [also called right-bounded reading time; @schotter2025]: the time spent on the sentence from first entering it until the eyes first moved past it to later text, so that brief returns to earlier text did not end it and time spent on earlier text was not counted (@fig-measures). Its distribution was unimodal and right-skewed and closely described by the ex-Gaussian, so it was analysed with the same ex-Gaussian model as total gaze duration (μ and τ). Re-reading time was the time spent on a sentence after the reader had first moved on to later text, so that the two measures do not overlap [cf. rereading time in @schotter2025]. Whether readers returned to a sentence from later text is captured by regressions-in (0/1), which were analysed with logistic models; re-reading time was analysed for the `r pct(1 - share_not_reread)` of sentences that were re-read, with a Gamma model with a log link, which models positive, right-skewed durations without transforming them [@lo2015]; the ex-Gaussian was not suitable, because re-reading times were close to exponentially distributed, so that its Gaussian component collapsed (σ near zero). The model therefore describes how long readers re-read a sentence once they had returned to it. Because the questions were worth different numbers of points (1–4), final test performance was analysed as the points earned on each question out of its maximum, with a beta-binomial model: a binomial model of the points earned with an additional parameter for overdispersion, because a participant tends to know all or none of a question's elements. Effects are reported on the scale of the expected proportion of a question's points, which puts all questions on the same 0–1 scale. Because each question has at most four points, scores can take only a few values (0, .25, .33, .50, .67, .75, and 1). In posterior predictive checks, the beta-binomial model reproduced how often each score occurred (predicted and observed shares within `r fmt_num(100 * max(abs(filter(bayes$score_fit, model == 'Beta-binomial')$predicted - filter(bayes$score_fit, model == 'Beta-binomial')$observed)), 1)` percentage points), better than a binomial model without overdispersion. Prequestion performance was analysed in the same way, comparing the two prequestion conditions.
 
 All models included the maximal random-effects structure warranted by the design [@barr2013]. Topic varied within participants, so the models included by-participant random intercepts and Topic slopes (the preregistered structure). Every target sentence and every final-test question was prequestioned for one group, non-prequestioned for another, and read or answered by the no-prequestion group, so Status (and Group) varied within items, and the models also included by-sentence (eye movements) or by-question (final test) random intercepts and Status (or Group) slopes. Within a participant, Status is determined by Topic, so no by-participant Status slope was possible. In the prequestion model, condition varied between participants and between questions, so it included random intercepts for participants and questions only. Status, Condition, and Topic were coded with equal-prior contrasts [`contr.equalprior_pairs`; bayestestR, @bayestestR2019]. With this coding, a normal(0, *s*) prior on the coefficients implies the same normal(0, *s*) prior on every pairwise difference between conditions, so that no condition serves as a reference with a different prior, and every comparison is tested against the same prior. *s* was set on each model's link scale: `r bayes$settings$s_logit` on the log-odds scale (regressions-in, final test, and prequestions; an odds ratio of `r fmt_num(exp(bayes$settings$s_logit), 1)` for one *SD*), `r bayes$settings$s_log` on the log scale of the Gamma models and on the scale of τ (a factor of about `r fmt_num(exp(bayes$settings$s_log), 2)` for one *SD*), and `r num(1000 * bayes$settings$s_mu)` ms per word for μ. Intercepts, random-effect standard deviations, and correlations had weakly informative priors (@apx-b). Each model was sampled with `r n_word(bayes$settings$chains)` chains of `r num(bayes$settings$iter - bayes$settings$warmup)` post-warm-up iterations (`r num(bayes$n_draws)` posterior draws, enough for stable Bayes factors). `r if (diag_ok) sprintf("All models converged: there were no divergent transitions, all R-hat values were below %s, and all bulk effective sample sizes exceeded %s.", fmt_num(max(bayes$diag$max_rhat) + 0.0005, 3), num(floor(min(bayes$diag$min_ess_bulk) / 100) * 100)) else stop("Revise: convergence sentence")`
 
@@ -718,7 +704,7 @@ The results also add to evidence that attention is not the whole story. If prequ
 
 These findings agree with the two previous eye-tracking studies in showing that prequestions shift attention toward the information they address. Because our TB group read the same text as Experiment 2 of @lewis2012 after prequestions on the same topic, comparing it with the no-prequestion group on the TB material is close to a replication of that experiment (descriptive comparisons from the Group × Topic models). As in @lewis2012, TB prequestions improved memory for the TB information (`r tb_txt("final_test", "TB")`) and increased looking back to the TB sentences from later text (`r tb_txt("regressed_in", "TB")`) and the time spent re-reading them (`r tb_txt("reread_time", "TB")`). Unlike @lewis2012, who found more re-inspection of the targeted sentences during first-pass reading, we found no reliable difference in first-pass reading of the TB sentences (μ: `r tb_txt("first_pass", "TB")`; τ: `r tb_txt("first_pass", "TB", "tau")`). Pooled over both prequestion groups, however, selective regression-path duration showed a longer tail but no shift in typical reading time, although with weak evidence.`r claim(tb_row("final_test", "TB")$lo > 0 && tb_row("regressed_in", "TB")$lo > 0 && tb_row("reread_time", "TB")$lo > 0 && tb_row("first_pass", "TB")$lo < 0 && tb_row("first_pass", "TB", "tau")$lo < 0, "Discussion: comparison of the TB group with Lewis and Mensink (2012)")` Separating μ from τ was important here: an analysis of means, as in previous studies, would dilute effects confined to a subset of readings and could not distinguish them from slower reading overall. The studies also differ in design and measures: the present study compared every target sentence with and without prequestions in a larger sample, measured re-reading as time on the sentence itself after the reader had moved on, and measured first-pass reading as selective regression-path duration [@schotter2025], because about half of first passes were cut short by a brief return to the preceding line. @bostan2026 likewise found more fixations on prequestioned sentences and more transitions between them, paralleling our look-backs, but unlike most prequestion research they also found a general benefit. Their integrative prequestions required combining information across the text and may have directed attention to non-prequestioned information as well [@pan2023], whereas our prequestions about single facts did neither. With 12 participants per group, however, their estimates are imprecise.
 
-Several limitations should be noted. Each topic was represented by only five target sentences and five test questions, and the Polio and TB sentences differed in length, content, reading level, and position on the page, so the within-group Polio − TB differences combine effects of prequestions with differences between the materials. We therefore based our conclusions on the pooled comparisons, which compare the same sentences and questions with and without prequestions, and treated the Group × Topic contrasts as converging evidence. The topics also differed in how strongly prequestions affected them: the increase in look-backs and re-reading came mainly from the TB group, whose target sentences were already looked back to more often without prequestions. Future studies should control target sentences more closely—matching them across topics in length, reading level, position on the page, and wording overlap with the questions [@lewis2012], or varying which sentences serve as targets across versions of the text—and use more of them. The comparisons with the no-prequestion condition are between participants and so less precise than within-reader comparisons. The Bayes factors depend on the priors: they show that the data are better described without a general effect than with one of the size the priors allow, not that a small general effect is impossible. Halving or doubling the width of every prior on the effects changed the strength of the evidence but not the conclusions (@apx-e): every Bayes factor that provided at least moderate evidence for or against a difference stayed on the same side of 1, and only `r n_word(sens_cross)` Bayes factors that were anecdotal at the original width crossed 1.`r claim(sens_ok, "Discussion: Bayes factors robust to halving or doubling the prior width")` Finally, eye movements were recorded without head stabilization, and vertical drift was corrected only within the calibration accuracy criterion.
+Several limitations should be noted. Each topic was represented by only five target sentences and five test questions, and the Polio and TB sentences differed in length, content, reading level, and position on the page, so the within-group Polio − TB differences combine effects of prequestions with differences between the materials. We therefore based our conclusions on the pooled comparisons, which compare the same sentences and questions with and without prequestions, and treated the Group × Topic contrasts as converging evidence. The topics also differed in how strongly prequestions affected them: the increase in look-backs and re-reading came mainly from the TB group, whose target sentences were already looked back to more often without prequestions. Future studies should control target sentences more closely—matching them across topics in length, reading level, position on the page, and wording overlap with the questions [@lewis2012], or varying which sentences serve as targets across versions of the text—and use more of them. The comparisons with the no-prequestion condition are between participants and so less precise than within-reader comparisons. The Bayes factors depend on the priors: they show that the data are better described without a general effect than with one of the size the priors allow, not that a small general effect is impossible. Finally, eye movements were recorded without head stabilization, and vertical drift was corrected only within the calibration accuracy criterion.
 
 In sum, prequestions guide where readers look, and only toward the information they target: rather than reading the relevant material more slowly, readers pause on some of the answers and return to them later, while reading the rest of the text as they would without prequestions. Prequestions therefore do not simply heighten attention to the material they address. Such recognition-triggered processing is a plausible route by which prequestions strengthen memory for their answers, but whether it accounts for the memory benefit remains to be tested.
 
@@ -857,25 +843,3 @@ tribble(
 # Drift Correction {#apx-d}
 
 Each fixation was assigned to a text line after correcting for vertical drift, separately for each reader and page. The correction combines two approaches used in automated drift-correction algorithms [@carr2022]: assigning sequences of fixations to a line together, and modelling drift as a function of position on the page. First, a single vertical offset was estimated: candidate shifts of the recorded positions were tried in steps of 0.05 line spacings, and the shift that minimized the summed squared distance between each fixation and its nearest text line was kept (distances were capped at one line spacing, so that stray fixations in the margins had little influence). Second, consecutive fixations moving along a line were grouped into chains; a chain ended at a horizontal jump larger than 10% of the screen width (e.g., a return sweep to the next line) or a vertical jump larger than 0.6 line spacings. Each chain was assigned as a whole to the text line nearest its median position, so that a single fixation drifting toward a neighbouring line stayed on the line being read. Third, because drift often grew down the page or across it, a linear model of the recorded vertical position as a function of the assigned line's position and the fixation's horizontal position (recorded *y* = *a* + *b* × line *y* + *c* × *x*) was fitted to fixations whose chain lay within half a line spacing of its line; gaze positions were corrected by inverting this model and the chains were reassigned, and this was repeated five times. The linear model was used only if it was plausible (a vertical stretch within 20% and a tilt of less than one line across the screen); otherwise the single offset was kept. Throughout, the correction was limited everywhere on the page to the calibration accuracy criterion of 0.5° (`r num(max_shift_cm, 2)` cm, about 0.45 of a line spacing), so it could not move a reader's gaze by a whole line. Chains more than half a line spacing from every text line were treated as off the text.
-
-# Bayes Factor Sensitivity to the Prior Width {#apx-e}
-
-```{r}
-#| label: tbl-bf-sensitivity
-#| tbl-cap: "Bayes Factors (BF~10~) With the Priors on the Effects Halved, as in the Main Analysis, and Doubled"
-#| tbl-colwidths: [34, 18, 16, 16, 16]
-#| apa-note: "Each model was refitted with the standard deviation of every prior on the effects (all comparisons between conditions, including the τ parts of the ex-Gaussian models) multiplied by 0.5 or 2; all other priors and settings were as in the main analysis. Specific = prequestioned − no-prequestion; general = non-prequestioned − no-prequestion (pooled models); interaction = the Group × Topic interaction contrast. BF~10~ > 1 favours a difference and BF~10~ < 1 no difference (BF~01~ = 1/BF~10~). Narrower priors favour a difference more, and wider priors less, when the estimate is close to 0."
-meas_lab <- c(final_test = "Final test", first_pass_mu = "Selective regression path: μ",
-              first_pass_tau = "Selective regression path: τ", total_fix_mu = "Total gaze: μ",
-              total_fix_tau = "Total gaze: τ", regressed_in_mu = "Regression-in",
-              reread_time_mu = "Re-reading time")
-sens_bf |>
-  mutate(key = if_else(model == "final_test", "final_test", paste(model, parameter, sep = "_")),
-         Measure = factor(meas_lab[key], levels = meas_lab),
-         Effect = factor(effect, levels = c("Specific", "General", "Interaction"))) |>
-  arrange(Measure, Effect) |>
-  transmute(Measure = as.character(Measure), Effect = as.character(Effect),
-            `× 0.5` = map_chr(w0.5, fmt_BF), `× 1 (main)` = map_chr(w1, fmt_BF),
-            `× 2` = map_chr(w2, fmt_BF)) |>
-  knitr::kable(format = "pipe")
-```

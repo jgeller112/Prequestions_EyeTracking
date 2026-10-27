@@ -13,3 +13,6 @@ _targets/
 # optional export as split .qs2 parts (scripts/export_brms_cache.R).
 analysis/brms_cache/
 models/
+# Submission files (blinded manuscript and title page; see README)
+manuscript/manuscript_blinded.*
+manuscript/title_page.docx

@@ -26,9 +26,9 @@ fits <- c(
   "bayes_status_go_past_exg",
   "bayes_cond_topic_total_fix", "bayes_cond_topic_reread_after",
   "bayes_cond_topic_regressed_in", "bayes_cond_topic_go_past_exg",
-  # final test (beta-binomial), and the binomial and ordered beta models it was compared with
+  # final test (beta-binomial), and the binomial model it was compared with
   "bayes_status_final_test_bb", "bayes_cond_topic_final_test_bb",
-  "bayes_status_final_test_binomial", "bayes_status_final_test_ordbeta",
+  "bayes_status_final_test_binomial",
   # prequestions (beta-binomial)
   "bayes_preq_betabin"
 )

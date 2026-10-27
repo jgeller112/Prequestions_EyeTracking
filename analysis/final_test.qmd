@@ -118,11 +118,8 @@ diag_tab
 ### Choice of model: posterior predictive checks
 
 Questions are worth 1–4 points, so a score can only take a few values (0, .25, .33, .5,
-.67, .75, 1). The beta-binomial is compared with a binomial model (no overdispersion) and an
-ordered beta model of the proportion of points, all with the same predictors and random
-effects, by how well each reproduces how often each score occurred. (LOO cannot compare
-them, because a model of counts and a model of proportions put their likelihoods on
-different scales.)
+.67, .75, 1). The beta-binomial is compared with a binomial model (no overdispersion), with the same
+predictors and random effects, by how well each reproduces how often each score occurred.
 
 ```{r}
 #| label: model-choice
@@ -133,8 +130,6 @@ m_bin <- fit_brm(as.formula(paste("points | trials(max_points) ~ status + topic 
                    prior(normal(0, 1.5), class = "Intercept"), prior(student_t(3, 0, 1), class = "sd"),
                    prior(lkj(2), class = "cor")),
                  "bayes_status_final_test_binomial")
-m_ob <- fit_ordbeta("status + topic", "bayes_status_final_test_ordbeta",
-                    mutate(test_items, prop = points / max_points))
 ```
 
 ```{r}
@@ -144,16 +139,12 @@ nd <- 1000
 obs_prop <- test_items$points / test_items$max_points
 max_mat <- matrix(test_items$max_points, nd, nrow(test_items), byrow = TRUE)
 yrep <- list(`Beta-binomial` = posterior_predict(m_test$final_test, ndraws = nd) / max_mat,
-             Binomial = posterior_predict(m_bin, ndraws = nd) / max_mat,
-             `Ordered beta` = posterior_predict(m_ob, ndraws = nd))
+             Binomial = posterior_predict(m_bin, ndraws = nd) / max_mat)
 score_fit <- imap(yrep, \(y, nm) score_freq(y, obs_prop) |> mutate(model = nm)) |> bind_rows()
-# share of predicted responses that are not possible scores (between the possible values)
-impossible <- map_dbl(yrep, \(y) mean(!(round(y, 2) %in% round(unique(obs_prop), 2))))
 score_fit |>
   select(score, observed, model, predicted) |>
   pivot_wider(names_from = model, values_from = predicted) |>
   kable(digits = 3, caption = "Share of responses at each score: observed and predicted (posterior mean)")
-impossible
 ```
 
 ```{r}
@@ -205,7 +196,7 @@ sens_tab
 save_results(list(diag = diag_tab, bf = bf_tab, est = est_tab, means = means_tab,
                   means_draws = means_draws, bf_topic = bf_topic_tab, est_topic = est_topic_tab,
                   means_topic = means_topic_tab, means_topic_draws = means_topic_draws,
-                  score_fit = score_fit, score_impossible = impossible,
+                  score_fit = score_fit,
                   sens = sens_tab),
              here("analysis", "results_final_test.rds"))
 ```

@@ -9,7 +9,6 @@
 library(here)
 library(brms)
 library(cogmod)       # cogmod_exgaussian()
-library(ordbetareg)   # ordered beta regression
 library(bayestestR)
 library(modelbased)
 
@@ -101,26 +100,6 @@ fit_brm <- function(formula, data, family, prior, name, ...) {
       cores = fit_settings$chains, threads = threading(2),   # within-chain parallelisation
       init = 0, seed = 2026, save_pars = save_pars(all = TRUE),
       file = file.path(cache_dir, name), file_refit = refit_mode, ...)
-}
-
-# Ordered beta regression (ordbetareg; Kubinec, 2023) for the proportion of a question's
-# points earned (points / max_points, 0-1 inclusive). The mean (logit link) depends on the
-# predictors; precision and the cutpoints for 0 and 1 are constant. Same equal-prior
-# normal(0, s_logit) on the coefficients as the binary models; ordbetareg's own proper
-# priors for precision (exponential) and cutpoints (induced Dirichlet).
-# `cor = FALSE` for random intercepts only (no correlations to give a prior)
-fit_ordbeta <- function(rhs, name, data, re = re_test, cor = TRUE) {
-  ordbetareg(as.formula(paste("prop ~", rhs, "+", re)), data = data,
-             coef_prior_mean = 0, coef_prior_SD = s_logit,
-             intercept_prior_mean = 0, intercept_prior_SD = 1.5,
-             extra_prior = if (cor) c(prior(student_t(3, 0, 1), class = "sd"),
-                                      prior(lkj(2), class = "cor"))
-                           else prior(student_t(3, 0, 1), class = "sd"),
-             chains = fit_settings$chains, iter = fit_settings$iter, warmup = fit_settings$warmup,
-             control = list(adapt_delta = fit_settings$adapt_delta),
-             cores = fit_settings$chains, threads = threading(2),
-             seed = 2026, save_pars = save_pars(all = TRUE), backend = "cmdstanr",
-             file = file.path(cache_dir, name), file_refit = refit_mode)
 }
 
 # Points earned on a question out of its maximum (1-4 points): beta-binomial (logit link
