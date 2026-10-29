@@ -1,6 +1,6 @@
 # Eye-tracker calibration (run sheet)
 
-`et_run_sheet.tsv` is the lab's run sheet for the eye-tracking sessions at Boston College
+`et_run_sheet.tsv` is the lab's run sheet for the eye-tracking sessions at Anonymous University
 (Tobii Pro Spectrum), one row per session. **Participant names have been removed**; the
 original sheet (with names) is not part of this repository.
 

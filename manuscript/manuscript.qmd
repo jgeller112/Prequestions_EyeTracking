@@ -2,35 +2,34 @@
 title: "I Remember That Question: Using Eye Tracking to See How Prequestions Shape Reading"
 shorttitle: "Prequestions and Eye-Tracking"
 author:
-  - name: Jason Geller
-    orcid: 0000-0002-7459-4505
+  - name: Anonymous Author
     corresponding: true
-    email: drjasongeller@gmail.com
+    email: masked@example.org
     roles: [conceptualization, methodology, software, validation, formal analysis, investigation,
             data curation, writing – original draft, writing – review & editing, visualization,
             project administration]
     affiliations:
       - id: 1
-        name: "Boston College"
+        name: "Anonymous University"
         department: Department of Psychology and Neuroscience
-        address: Mcguinn Hall 405
-        city: Chestnut Hill
+        address: Masked
+        city: Masked
         region: MA
         country: USA
         postal-code: "02467-9991"
 author-note:
   disclosures:
-    data-sharing: "All data (raw and processed), materials, analysis scripts and code, and the source of this manuscript are available at https://github.com/jgeller112/Prequestions_EyeTracking."
+    data-sharing: "All data (raw and processed), materials, analysis scripts and code, and the source of this manuscript are available at https://anonymous.4open.science/r/Prequestions_EyeTracking-B118."
     conflict-of-interest: The author has no conflicts of interest to disclose.
-    gratitude: "I thank Shana Carpenter for help with the materials and with conceptualizing the study."
+    gratitude: "I thank [masked] for help with the materials and with conceptualizing the study."
 abstract: "Answering questions before learning (prequestions) improves memory for the information they address, but how it does so is unclear. A common proposal is that prequestions direct attention to that information. We tested this account by recording eye movements while participants read a text about polio and tuberculosis after answering prequestions about one topic or none, so that every target sentence was read both with and without prequestions. Prequestions improved memory only for the prequestioned information, and eye movements showed the same specificity. Ex-Gaussian models, which separate typical reading time from occasional unusually long readings, showed that prequestions did not change typical reading of the answer sentences. Instead, these sentences received more unusually long readings, were looked back to more often, and were re-read for longer; other sentences were unaffected. Prequestions thus guide attention selectively rather than heightening it, consistent with additional processing when readers recognize an answer."
 keywords: [prequestions, pretesting, eye tracking, reading, attention, learning]
 floatsintext: true
 numbered-lines: true
-mask: false
+mask: true
 # Blinded version for review (set to false for the unmasked version); hides the author
 # block and note, these citations, and identifying links in the text
-masked-citations: [geller2017]
+masked-citations: [masked2017]
 draft-date: false
 lang: en
 # APA citation style, in the project folder (Typst rejects the extension's escaped path)
@@ -78,7 +77,7 @@ params <- list(measures = "derived")
 source(here::here("R", "setup.R"), local = knitr::knit_global())
 # Blinded version for review (mask: true above, or MS_MASKED=true): identifying details in
 # the text are replaced
-masked <- isTRUE(rmarkdown::metadata$mask) || Sys.getenv("MS_MASKED") == "true"
+masked <- TRUE  # review branch: always blinded
 msk <- \(x) if (masked) "[masked for review]" else x
 # Everything below is read from files written by earlier targets; nothing is refitted or
 # recomputed here. Sample, exclusions, calibration, materials and fixation-processing
@@ -371,7 +370,7 @@ stopifnot(text_metrics$fk_M[text_metrics$type == "PO"] > text_metrics$fk_M[text_
 
 A common study strategy involves retrieving information from memory by answering questions after a learning event [@hartwig2012]. This technique, known as *retrieval practice*, has been shown to improve long-term retention across a wide range of materials and learning contexts, a phenomenon known as the *testing effect* [@carpenter2012; @dunlosky2013; @kornell2016; @roediger2006; @rowland2014]. Surprisingly, answering questions *before* a learning event can also improve subsequent memory, even when learners have little prior knowledge of the material and most of their initial answers are incorrect. This phenomenon, known as the *prequestion effect*, is particularly intriguing because, unlike traditional retrieval practice, it does not require learners to retrieve previously studied information. Although this finding is consistent with the broader literature suggesting that effortful and even error-prone learning experiences can benefit long-term retention [@bjork1994], why prequestions improve learning remains unclear.
 
-The benefits of prequestions are typically demonstrated in experiments in which learners are assigned to a prequestion group or a control group [@carpenter2023]. Before encountering the learning material, the prequestion group attempts to answer questions about the upcoming content, often guessing when they do not know the answers, whereas the control group encounters the material without answering any questions. After learning, both groups complete a final memory test assessing information that was targeted by the prequestions as well as information that was not. The typical finding is that learners who received prequestions remember the targeted information better than those who did not, a phenomenon known as the specific benefit of prequestions [@pan2023]. In some cases, prequestions also improve memory for information that was not directly targeted, known as a general benefit of prequestions. However, whereas the specific benefit is robust, the general benefit is less consistent. Two recent meta-analyses found substantial specific benefits [g = 0.54, @sthilaire2023; g = 0.66, @kingshepard2025], but no reliable general benefit [g = 0.04, @sthilaire2023; g = 0.01, @kingshepard2025]. Nevertheless, some studies have reported general benefits depending on the learning materials [@carpenter2017], the types of questions used [@bostan2026; @sthilaire2019], and the placement of non-prequestioned information relative to prequestioned content [@sana2023]. The specific benefit, by contrast, has been demonstrated acorss a wide variety of study materials and settings [@richland2009; @carpenter2017; @sthilaire2020; @carpenter2018; @geller2017; @soderstrom2023; see @pan2023 for a review].
+The benefits of prequestions are typically demonstrated in experiments in which learners are assigned to a prequestion group or a control group [@carpenter2023]. Before encountering the learning material, the prequestion group attempts to answer questions about the upcoming content, often guessing when they do not know the answers, whereas the control group encounters the material without answering any questions. After learning, both groups complete a final memory test assessing information that was targeted by the prequestions as well as information that was not. The typical finding is that learners who received prequestions remember the targeted information better than those who did not, a phenomenon known as the specific benefit of prequestions [@pan2023]. In some cases, prequestions also improve memory for information that was not directly targeted, known as a general benefit of prequestions. However, whereas the specific benefit is robust, the general benefit is less consistent. Two recent meta-analyses found substantial specific benefits [g = 0.54, @sthilaire2023; g = 0.66, @kingshepard2025], but no reliable general benefit [g = 0.04, @sthilaire2023; g = 0.01, @kingshepard2025]. Nevertheless, some studies have reported general benefits depending on the learning materials [@carpenter2017], the types of questions used [@bostan2026; @sthilaire2019], and the placement of non-prequestioned information relative to prequestioned content [@sana2023]. The specific benefit, by contrast, has been demonstrated acorss a wide variety of study materials and settings [@richland2009; @carpenter2017; @sthilaire2020; @carpenter2018; @masked2017; @soderstrom2023; see @pan2023 for a review].
 
 Why do preqeustions improve learning? Several non-mutually exclusive mechanisms have been proposed [@kingshepard2025; @pan2023]. Prequestions may stimulate curiosity about the answers [@berlyne1954; @berlyne1962], encourage elaboration by activating related prior knowledge [@kornell2009], or provide a metacognitive "reality check" that makes learners aware of gaps in their knowledge [@bjork2013]. Although these explanations differ, they share the possibility that prequestions direct learners' attention toward information relevant to the questions [@kingshepard2025]. According to an *attention-based account*, prequestions signal which information is important, encouraging learners to attend to and process that information more thoroughly when they encounter it [@pan2023]. Consistent with this account, researchers looking at eye movements during a learning episode have found that learners spend more time looking at [@bostan2026; @yang2021], re-inspecting, and returning to prequestioned information after reading subsequent material [@lewis2012].
 
@@ -417,13 +416,13 @@ For eye movements, we predicted that prequestioned sentences would receive longe
 
 # Method
 
-We report how we determined our sample size, all data exclusions, all manipulations, and all measures included in the study. The study was preregistered (`r if (masked) 'https://osf.io/8env4/overview?view_only=5073f3b1114944c1a6c63339132a5ad5' else 'https://osf.io/8env4'`). All data, materials, and analysis scripts are available at `r if (masked) 'https://anonymous.4open.science/r/Prequestions_EyeTracking-B118/' else 'https://github.com/jgeller112/Prequestions_EyeTracking'`. All reported statistics, tables, and figures were generated from the raw data using the code in that repository. Generative AI (Claude Opus 5.5, Anthropic) was used to assist with editing the manuscript and code as well as help organzie all the data and code on the repository. The author verified the content and citations and takes full responsibility for the manuscript.
+We report how we determined our sample size, all data exclusions, all manipulations, and all measures included in the study. The study was preregistered (`r if (masked) 'https://osf.io/8env4/overview?view_only=5073f3b1114944c1a6c63339132a5ad5' else 'https://osf.io/8env4'`). All data, materials, and analysis scripts are available at `r if (masked) 'https://anonymous.4open.science/r/Prequestions_EyeTracking-B118/' else 'https://anonymous.4open.science/r/Prequestions_EyeTracking-B118/'`. All reported statistics, tables, and figures were generated from the raw data using the code in that repository. Generative AI (Claude Opus 5.5, Anthropic) was used to assist with editing the manuscript and code as well as help organzie all the data and code on the repository. The author verified the content and citations and takes full responsibility for the manuscript.
 
 ## Participants
 
 The target sample size was determined based on the specific benefit of prequestions. A recent meta-analysis reported a medium-sized effect (*g* = 0.54; @sthilaire2023), which we converted to an odds ratio of 2.66 for the preregistered binomial mixed-effects model. A simulation-based power analysis using mixedpower [@kumle2021], informed by pilot data, indicated that 45 participants per condition would provide 90% power to detect an effect of this magnitude. We therefore planned to recruit 135 participants, with 45 assigned to each of the three conditions.
 
-Participants were recruited from the `r if (masked) 'university' else 'Boston College'` SONA participant pool and received course credit. Eye-tracking data were recorded from `r n_recordings` participants. `r excl_n(excluded_incomplete, "had eye-tracking data for fewer than all four pages of the text")` `r excl_n(excluded_calibration, "did not meet the preregistered calibration criterion (accuracy and precision of 0.5° or better) or could not be calibrated")` `r excl_n(excluded_no_pretest, "were in a prequestion condition but had no prequestion responses")` `r excl_n(excluded_no_test, "had no final test data")` The final sample comprised `r n_total` participants (no prequestions: `r n_by_cond$n[1]`; Polio prequestions: `r n_by_cond$n[2]`; TB prequestions: `r n_by_cond$n[3]`).
+Participants were recruited from the `r if (masked) 'university' else 'Anonymous University'` SONA participant pool and received course credit. Eye-tracking data were recorded from `r n_recordings` participants. `r excl_n(excluded_incomplete, "had eye-tracking data for fewer than all four pages of the text")` `r excl_n(excluded_calibration, "did not meet the preregistered calibration criterion (accuracy and precision of 0.5° or better) or could not be calibrated")` `r excl_n(excluded_no_pretest, "were in a prequestion condition but had no prequestion responses")` `r excl_n(excluded_no_test, "had no final test data")` The final sample comprised `r n_total` participants (no prequestions: `r n_by_cond$n[1]`; Polio prequestions: `r n_by_cond$n[2]`; TB prequestions: `r n_by_cond$n[3]`).
 
 `r if (calib_n == n_total) 'Calibration validation data were available for all included participants.' else sprintf('Calibration validation data were available for %d of the %d included participants.', calib_n, n_total)` Mean calibration accuracy was `r num(calib_summary$accuracy_M, 2)`° (*SD* = `r num(calib_summary$accuracy_SD, 2)`, range `r num(calib_summary$accuracy_min, 2)`–`r num(calib_summary$accuracy_max, 2)`), and mean precision, defined as the standard deviation of gaze samples, was `r num(calib_summary$precision_M, 2)`° (*SD* = `r num(calib_summary$precision_SD, 2)`, range `r num(calib_summary$precision_min, 2)`–`r num(calib_summary$precision_max, 2)`). All included participants with available calibration data met the preregistered criterion of 0.5° or better for both accuracy and precision. The preregistered exclusion criterion for high prior knowledge was not applied.
 
@@ -449,7 +448,7 @@ At the beginning of the session, participants were randomly assigned to one of t
 
 ### Prequestions
 
-Participants in the two prequestion conditions answered five short-answer questions about their assigned topic (polio or TB), presented in random order (`r msk('https://run.pavlovia.org/Jgeller112/preq')`). They were informed that they might not know the correct answers and were encouraged to provide their best guesses. Each question appeared individually on the screen, with a text box below it for entering a response. Participants had unlimited time to respond and clicked a triangle at the bottom of the screen to advance to the next question. No feedback was provided.
+Participants in the two prequestion conditions answered five short-answer questions about their assigned topic (polio or TB), presented in random order (`r msk('https://run.pavlovia.org/masked/preq')`). They were informed that they might not know the correct answers and were encouraged to provide their best guesses. Each question appeared individually on the screen, with a text box below it for entering a response. Participants had unlimited time to respond and clicked a triangle at the bottom of the screen to advance to the next question. No feedback was provided.
 
 ### Reading
 
@@ -457,11 +456,11 @@ Before reading, participants completed Tobii Pro Lab's nine-point calibration pr
 
 ### Distractor Task
 
-After reading, all participants completed a president recognition task (`r msk('https://run.pavlovia.org/Jgeller112/preq_president')`) that served as a distractor and lasted approximately 3 minutes.
+After reading, all participants completed a president recognition task (`r msk('https://run.pavlovia.org/masked/preq_president')`) that served as a distractor and lasted approximately 3 minutes.
 
 ### Final Test
 
-Participants completed a final test consisting of all ten short-answer questions (five about polio and five about TB), presented in random order (`r msk('https://run.pavlovia.org/Jgeller112/preQ_test')`). The response format was identical to that used during the prequestion phase, with unlimited response time and no feedback. For participants in the prequestion conditions, five questions were repeated from the prequestion phase, whereas the remaining five were new. Participants were then thanked and debriefed.
+Participants completed a final test consisting of all ten short-answer questions (five about polio and five about TB), presented in random order (`r msk('https://run.pavlovia.org/masked/preQ_test')`). The response format was identical to that used during the prequestion phase, with unlimited response time and no feedback. For participants in the prequestion conditions, five questions were repeated from the prequestion phase, whereas the remaining five were new. Participants were then thanked and debriefed.
 
 ## Scoring
 
