@@ -1,7 +1,7 @@
 ---
 title: "Eye Movements"
 subtitle: "Bayesian models of reading prequestioned, non-prequestioned and no-prequestion sentences"
-author: "Anonymous Author"
+author: "Jason Geller"
 date: today
 format:
   html:
