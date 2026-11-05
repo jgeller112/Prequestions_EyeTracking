@@ -58,8 +58,11 @@ content: after a change, only the affected steps rerun. Its bookkeeping is store
 **Fitted models.** The Bayesian models take several hours to fit from scratch (40,000
 posterior draws each). Fits are cached in `analysis/brms_cache/` (not tracked by git) and
 reused unless a model's data, formula or priors change. The fitted models are not in the
-repository (about 3 GB): after cloning, `tar_make()` fits them, together with the prior-only
-models used for the Bayes factors. The results files the manuscript reads
+repository (about 3 GB); they are archived on Zenodo (<https://doi.org/10.5281/zenodo.23985342>).
+After cloning, run `Rscript scripts/download_models.R` to download them into `models/`
+(checked against Zenodo's checksums); `tar_make()` then restores them instead of refitting
+and only samples the prior-only models used for the Bayes factors (a few minutes each).
+Without the download, `tar_make()` fits every model from scratch. The results files the manuscript reads
 (`analysis/results_*.rds`) are included, so the manuscript can be rendered without fitting
 anything. A supplementary prior-width sensitivity analysis (not reported in the manuscript) is not part of `tar_make()`
 because it refits every model twice (about 2.5 hours): run `Rscript scripts/bf_sensitivity.R`
@@ -144,6 +147,7 @@ scripts/
   bf_sensitivity.R             supplementary: Bayes factors with the effect priors halved and doubled (not in the manuscript;
                                run separately, about 2.5 hours)
   export_brms_cache.R          optional: exports the fitted models to models/ as split .qs2 parts
+  download_models.R            downloads the fitted models (split .qs2 parts) from Zenodo into models/
   split_qs2.R                  splits .qs2 files into < 90 MB parts and recombines them
 R/
   setup.R                      shared: packages, colours, text helpers
