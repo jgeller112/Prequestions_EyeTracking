@@ -76,7 +76,7 @@ Steps and outputs:
 | 2. Score final test | `scripts/grade_test.R` (+ `scripts/scoring_rubric.R`) | `data/raw/psychopy/final_test/*.csv`, `stimuli/answer_key.csv`, `data/raw/tobii/fixations.tsv` (eye-tracking IDs) | `data/derived/test_scored_items.csv`, `data/derived/test_scored_topics.csv` |
 | 3. Eye-movement measures | `scripts/derive_et_measures.R` | `data/raw/tobii/fixations.tsv`, `stimuli/sentences.tsv`, `stimuli/pages/page*_full.png` | `data/derived/et_measures.tsv`, `data/derived/fixations.tsv`, `data/derived/sentence_regions.tsv`, `data/derived/et_checks/*.png` |
 | 4. Bayesian analysis reports | `R/setup.R`, `R/data.R`, `R/bayes_helpers.R` (shared), then `analysis/prequestions.qmd`, `analysis/final_test.qmd`, `analysis/eye_tracking.qmd` | outputs of 1–3, `data/raw/calibration/et_run_sheet.tsv` | `analysis/*.html` and the results files `analysis/results_prequestions.rds`, `analysis/results_final_test.rds`, `analysis/results_eye_tracking.rds` |
-| 5. Manuscript inputs | `scripts/manuscript_inputs.R` | outputs of 1–3, raw fixations, calibration sheet, `stimuli/sentences.tsv`, `stimuli/udpipe/` | `data/derived/manuscript_inputs.rds` (sample, exclusions, calibration, materials, fixation processing) |
+| 5. Manuscript inputs | `scripts/manuscript_inputs.R` | outputs of 1–3, raw fixations, calibration sheet, topic familiarity, `stimuli/sentences.tsv`, `stimuli/udpipe/` | `data/derived/manuscript_inputs.rds` (sample, exclusions, calibration, materials, fixation processing) |
 | 6. Second-rater agreement | `scripts/rater_agreement.R` | `data/raw/rater/ra_scoring_sheet_scored.xlsx`, `scoring/ra_scoring_key.csv` | `data/derived/rater_agreement.rds`, `data/derived/rater_disagreements.csv` |
 | 7. Manuscript | `manuscript/manuscript.qmd` (+ `R/manuscript_helpers.R`; APA style via `manuscript/_extensions/wjschne/apaquarto`, `apa.csl`, `references.bib`) | the results files of 4–6 | `manuscript/manuscript.pdf`, `manuscript/manuscript.docx`, `manuscript/packages.bib` |
 
@@ -112,6 +112,7 @@ data/
     psychopy/prequestions/       PsychoPy prequestion sessions (.csv + .log.gz)
     psychopy/final_test/         PsychoPy final-test sessions (.csv + .log.gz)
     calibration/                 et_run_sheet.tsv: lab run sheet with calibration results (names removed) + README
+    qualtrics/                   familiarity.csv: self-rated topic familiarity before reading (IDs only)
     rater/                       ra_scoring_sheet_scored.xlsx: second rater's scores on the blind sheet, as returned + README
   derived/                     DERIVED: written by the pipeline (safe to delete; tar_make() rebuilds it)
     preq_scored_items.csv, preq_scored_participants.csv   step 1
@@ -193,6 +194,7 @@ Every data file has a codebook (data dictionary) in `codebooks/` describing each
 | `data/raw/tobii/fixations.tsv` | `codebooks/raw_tobii_fixations.md` |
 | `data/raw/psychopy/prequestions/*.csv`, `data/raw/psychopy/final_test/*.csv` | `codebooks/raw_psychopy.md` |
 | `data/raw/calibration/et_run_sheet.tsv` | `codebooks/calibration_run_sheet.md` |
+| `data/raw/qualtrics/familiarity.csv` | `codebooks/familiarity.md` |
 | `data/raw/rater/ra_scoring_sheet_scored.xlsx`, `scoring/ra_scoring_sheet.xlsx`, `scoring/ra_scoring_key.csv`, `data/derived/rater_disagreements.csv`, `data/derived/rater_agreement.rds` | `codebooks/rater_scoring.md` |
 | `stimuli/sentences.tsv` | `codebooks/sentences.md` |
 | `stimuli/answer_key.csv` | `codebooks/answer_key.md` |

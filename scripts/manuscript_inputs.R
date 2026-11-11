@@ -141,6 +141,29 @@ drift_stats <- read_tsv(here::here("data", "derived", "fixations.tsv"), show_col
 drift_ex <- filter(drift_stats, participant == drift_id, page == 2)
 
 
+# ---- Topic familiarity (self-rated before reading, 0-100) --------------------------------
+# data/raw/qualtrics/familiarity.csv: one row per participant who completed the survey
+# (not everyone did). Blank ratings are sliders left at 0 and are scored 0. Only the two passage topics are reported; the Gates Foundation item
+# is in the file but not used. Descriptive only (prior-knowledge exclusion in the prereg).
+familiarity <- read_csv(here("data", "raw", "qualtrics", "familiarity.csv"), show_col_types = FALSE) |>
+  filter(participant %in% levels(dat$participant)) |>
+  left_join(distinct(dat, participant, condition) |> mutate(participant = as.character(participant)),
+            by = "participant") |>
+  select(participant, condition, polio = familiarity_polio, tb = familiarity_tb) |>
+  # A Qualtrics slider left at its starting point (0) is saved as blank, so blank = 0
+  mutate(across(c(polio, tb), \(x) replace_na(x, 0)))
+fam_n <- nrow(familiarity)                       # analysed participants who completed the survey
+fam_summary <- familiarity |>
+  pivot_longer(c(polio, tb), names_to = "topic", values_to = "rating") |>
+  filter(!is.na(rating)) |>
+  group_by(topic) |>
+  summarise(n = n(), M = mean(rating), SD = sd(rating), .groups = "drop")
+fam_by_cond <- familiarity |>
+  pivot_longer(c(polio, tb), names_to = "topic", values_to = "rating") |>
+  filter(!is.na(rating)) |>
+  group_by(condition, topic) |>
+  summarise(n = n(), M = mean(rating), SD = sd(rating), .groups = "drop")
+
 inputs <- list(
   # sample, exclusions, calibration (R/data.R)
   n_total = n_total, n_by_cond = n_by_cond,
@@ -150,6 +173,8 @@ inputs <- list(
   # prequestion descriptives, regions
   preq_by_cond = preq_by_cond, regions = regions, region_labels = region_labels,
   targets2 = targets2,
+  # topic familiarity
+  fam_n = fam_n, fam_summary = fam_summary, fam_by_cond = fam_by_cond,
   # materials
   answer_key = answer_key, points_by_topic = points_by_topic, n_sentences = n_sentences,
   n_words_passage = n_words_passage, words_by_topic = words_by_topic,

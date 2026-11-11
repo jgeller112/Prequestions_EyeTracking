@@ -74,6 +74,8 @@ list(
              format = "file"),
   # Lab run sheet with calibration accuracy and precision (participant names removed)
   tar_target(raw_calibration, "data/raw/calibration/et_run_sheet.tsv", format = "file"),
+  # Topic familiarity (Qualtrics, before reading; names replaced by participant IDs)
+  tar_target(raw_familiarity, "data/raw/qualtrics/familiarity.csv", format = "file"),
   # Second rater: blind scoring sheet as returned, and its key (scripts/make_ra_scoring_sheet.R)
   tar_target(raw_rater, c(list.files("data/raw/rater", "_scored[.]xlsx$", full.names = TRUE),
                           list.files("scoring", "^ra_scoring_key.*[.]csv$", full.names = TRUE)),
@@ -154,7 +156,7 @@ list(
              run_script(code_manuscript_inputs, "data/derived/manuscript_inputs.rds",
                         code_analysis_shared, preq_scored, test_scored, et_derived,
                         raw_tobii_fixations, raw_calibration, raw_answer_key, raw_sentences,
-                        raw_udpipe_model),
+                        raw_udpipe_model, raw_familiarity),
              format = "file"),
 
   # Agreement between the automated scoring and the second rater

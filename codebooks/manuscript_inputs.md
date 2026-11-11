@@ -11,6 +11,7 @@ recompute them. Durations in ms; proportions 0–1.
 | `n_recordings`, `n_excluded` | Participants with eye-tracking recordings; participants excluded other than for calibration. |
 | `excluded_incomplete`, `excluded_calibration`, `excluded_no_pretest`, `excluded_no_test` | Participants excluded at each step (with `condition`/`group`, and pages or calibration `accuracy`/`precision` in degrees). |
 | `calib_n`, `calib_summary`, `calib_over` | Calibration of the analysed participants: N, mean/SD/min/max of accuracy and precision (°), and anyone over the 0.5° criterion. |
+| `fam_n`, `fam_summary`, `fam_by_cond` | Self-rated topic familiarity before reading (0–100; `data/raw/qualtrics/familiarity.csv`): number of analysed participants who completed the survey (blank = 0), and n/M/SD by topic (`polio`, `tb`) overall and by condition. |
 | `preq_by_cond` | Prequestion scores by condition (`n`, `pre_m`, `pre_sd`: mean and SD proportion of points; `att_m`: proportion of questions attempted). |
 | `answer_key`, `points_by_topic` | `stimuli/answer_key.csv` and the points per topic. |
 | `n_sentences`, `n_words_passage`, `words_by_topic`, `text_metrics` | Text statistics: sentences, words; words per target sentence by topic; Flesch–Kincaid grade (`fk`), mean dependency distance (`mdd`) and clauses per target sentence by topic (M, SD). |
