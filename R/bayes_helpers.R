@@ -182,15 +182,21 @@ bf_table <- function(models, draws_fun = contrast_draws, response_scale = charac
     mutate(BF10 = exp(log_BF), BF01 = 1 / BF10)
 }
 
-# Response-scale comparisons with Control, averaged over the sample, with pd
+# Response-scale comparisons with Control, averaged over the sample, with pd. Both the
+# 95% CrI (CI_low, CI_high; for nondirectional comparisons) and the 90% CrI (CI90_low,
+# CI90_high; matching a one-sided test at .05, for directional comparisons) are kept.
 contrasts_by <- function(models) {
-  imap(models, \(m, nm) imap(par_spec(nm), \(sp, lab)
-    estimate_contrasts(m, contrast = "status", comparison = "revpairwise",
-                       backend = "marginaleffects", estimate = "average", centrality = "mean",
-                       predict = pp(sp[["est"]])) |>
+  imap(models, \(m, nm) imap(par_spec(nm), \(sp, lab) {
+    one <- \(ci) estimate_contrasts(m, contrast = "status", comparison = "revpairwise",
+                                    backend = "marginaleffects", estimate = "average",
+                                    centrality = "mean", predict = pp(sp[["est"]]), ci = ci) |>
       as.data.frame() |>
-      filter(Level2 == "Control") |>
-      mutate(model = nm, parameter = lab)) |>
+      filter(Level2 == "Control")
+    ci90 <- one(0.90) |> select(Level1, Level2, CI90_low = CI_low, CI90_high = CI_high)
+    one(0.95) |>
+      left_join(ci90, by = c("Level1", "Level2")) |>
+      mutate(model = nm, parameter = lab)
+  }) |>
       bind_rows()) |>
     bind_rows()
 }
@@ -208,13 +214,18 @@ topic_draws <- function(m, predict = NULL, ...) {
   d[["Interaction (Polio group - TB group)"]] <- d[["Polio - TB (Polio group)"]] - d[["Polio - TB (TB group)"]]
   d
 }
-# Response-scale estimates with 95% CrI and pd, from the same comparisons
+# Response-scale estimates with 95% and 90% CrIs and pd, from the same comparisons (the
+# 90% CrI for the directional interaction contrast)
 topic_estimates <- function(models) {
-  imap(models, \(m, nm) imap(par_spec(nm), \(sp, lab)
-    describe_posterior(topic_draws(m, pp(sp[["est"]])), centrality = "mean", ci = 0.95,
-                       test = "pd") |>
+  imap(models, \(m, nm) imap(par_spec(nm), \(sp, lab) {
+    d <- topic_draws(m, pp(sp[["est"]]))
+    ci90 <- as.data.frame(eti(d, ci = 0.90)) |>
+      select(comparison = Parameter, CI90_low = CI_low, CI90_high = CI_high)
+    describe_posterior(d, centrality = "mean", ci = 0.95, test = "pd") |>
       as.data.frame() |>
-      transmute(comparison = Parameter, Mean, CI_low, CI_high, pd, model = nm, parameter = lab)) |>
+      transmute(comparison = Parameter, Mean, CI_low, CI_high, pd, model = nm, parameter = lab) |>
+      left_join(ci90, by = "comparison")
+  }) |>
       bind_rows()) |>
     bind_rows()
 }
