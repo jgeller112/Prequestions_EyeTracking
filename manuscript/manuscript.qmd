@@ -20,6 +20,7 @@ author:
         postal-code: "02467-9991"
 author-note:
   disclosures:
+    study-registration: "This study was preregistered on the Open Science Framework (https://osf.io/8env4) and was approved by the Boston College Institutional Review Board (Protocol 25.089)."
     data-sharing: "All data (raw and processed), materials, analysis scripts and code, and the source of this manuscript are available at https://github.com/jgeller112/Prequestions_EyeTracking."
     conflict-of-interest: The author has no conflicts of interest to disclose.
     gratitude: "I thank Shana Carpenter for help with the materials and with conceptualizing the study."
